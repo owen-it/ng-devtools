@@ -1,0 +1,45 @@
+{
+  "name": "ng-devtools",
+  "version": "1.0.1",
+  "description": "Devtools for angularjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd shells/dev && webpack-dev-server --inline --hot --no-info",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/owen-it/ng-devtools.git"
+  },
+  "keywords": [],
+  "author": "Antério Vieira",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/owen-it/ng-devtools/issues"
+  },
+  "homepage": "https://github.com/owen-it/ng-devtools#readme",
+  "devDependencies": {
+    "buble": "^0.15.2",
+    "buble-loader": "^0.4.1",
+    "chromedriver": "^2.28.0",
+    "cross-env": "^4.0.0",
+    "css-loader": "^0.28.0",
+    "eslint": "^3.19.0",
+    "file-loader": "^0.11.1",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "nightwatch": "^0.9.14",
+    "nightwatch-helpers": "^1.2.0",
+    "selenium-server": "2.52.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "url-loader": "^0.5.8",
+    "ng-loader": "^2.0.1",
+    "webpack": "^2.3.2",
+    "webpack-dev-server": "^2.4.2" 
+  },
+  "dependencies": {
+    "circular-json-es6": "^2.0.0",
+    "lodash": "^4.17.4",
+    "angular": "^1.6.4"
+  }
+}
