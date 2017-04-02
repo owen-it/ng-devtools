@@ -17,12 +17,12 @@ module.exports = {
     },
     output: {
         path: __dirname + '/build',
-        publicPatch: '/build/',
+        publicPath: '/build/',
         filename: '[name].js'
     },
     resolve: {
         alias: Object.assign({}, alias, {
-            /* new alias */
+            /* other alias */
         })
     },
     module: {
@@ -50,7 +50,7 @@ module.exports = {
         hints: false
     },
     devtool: '#cheap-module-eval-source-map',
-    devserver: {
+    devServer: {
         quiet: true
     },
     plugins: [

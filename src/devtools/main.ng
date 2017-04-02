@@ -1,0 +1,86 @@
+<template>
+    <div ng-class="{app: true}">
+        <div class="header">
+            <img class="logo" src="./assets/logo.png" alt="Ng">
+            <span class="message-container">
+                <span class="message">{{ $ctrl.message }}</span>
+            </span>
+            <a class="button components"
+               ng-class="{ active: $ctrl.tab === 'components' }"
+               ng-click="switchTab('components')"
+               title="Switch to Components">
+               <i class="material-icons">device_hub</i>
+               <span class="pane-name">Components</span>
+            </a>
+        </div>
+    </div>
+</template>
+
+<script>
+    import { version } from 'angular'
+
+    export default {
+        name: 'main',
+        controller: class MainCtrl {
+            constructor() 
+            {
+                this.message = 'Ready. Detected angular ' + version.full 
+            }
+
+            $onInit()
+            {
+                
+            }
+        }
+    }
+</script>
+
+<style lang="stylus" scoped>
+    @import './global'
+    @import './common'
+
+    .app
+        width 100%
+        height 100%
+        user-select none
+        background-color $background-color
+        display flex
+        flex-direction column
+        h1
+            color #42b983
+        &.dark
+            background-color $dark-background-color
+
+    .header
+        display flex
+        align-items center
+        border-bottom 1px solid $border-color
+        box-shadow 0 0 8px rgba(0, 0, 0, 0.15)
+        position relative
+        .app.dark & 
+            border-bottom 1px solid $dark-border-color
+
+    .logo
+        width 30px
+        height 30px
+        margin 0 15px
+
+    .message-container
+        height 1em
+        cursor default
+
+    .message 
+        color $active-color
+        transition all .3s ease
+        position absolute
+
+    .button
+        padding 10px
+        display flex
+        align-items center
+        cursor pointer
+        border-bottom-color transition
+        background-color $background-color
+        color #888
+        transition color .35s ease
+</style>
