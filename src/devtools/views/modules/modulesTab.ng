@@ -1,3 +1,15 @@
 <template>
-    <div>Modules Tab</div>
+    <div>
+        {{ 'modules ok' }}
+        <split-pane>
+        </split-pane>
+    </div>
 </template>
+
+<script>
+    import splitPane from 'components/SplitPane.ng'
+
+    export default {
+        components: { splitPane }
+    }
+</script>

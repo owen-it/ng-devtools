@@ -10,9 +10,13 @@
         controller: ['$scope', '$element', '$compile', function($scope, $element, $compile){
 
             $scope.$watch('$ctrl.is', component => {
-                $element.html(
-                    $compile(`<${component}></${component}>`)($scope).html()
-                )
+                setTimeout(function(){
+                    $scope.$apply(function(){
+                        $element.html(
+                            $compile(`<${component}></${component}>`)($scope).html()
+                        )
+                    })
+                }, 100)
             })
 
         }]
