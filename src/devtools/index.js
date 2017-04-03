@@ -1,6 +1,9 @@
 import * as angular from 'angular'
 import main from './main.ng'
 
+window.jQuery = require('jquery')
+window.$ = jQuery
+
 angular.errorHandle = (h, e) => {
     return h('pre', {
         style: {

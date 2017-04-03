@@ -1,0 +1,20 @@
+<template>
+    <div></div>
+</template>
+
+<script>
+    export default {
+        bindings: {
+            is: '='
+        },
+        controller: ['$scope', '$element', '$compile', function($scope, $element, $compile){
+
+            $scope.$watch('$ctrl.is', component => {
+                $element.html(
+                    $compile(`<${component}></${component}>`)($scope).html()
+                )
+            })
+
+        }]
+    }
+</script>

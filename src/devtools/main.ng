@@ -5,39 +5,90 @@
             <span class="message-container">
                 <span class="message">{{ $ctrl.message }}</span>
             </span>
+            <a class="button modules"
+               ng-class="{ active: $ctrl.tab === 'modules' }"
+               ng-click="$ctrl.switchTab('modules')"
+               title="Switch to Modules">
+               <i class="material-icons">extension</i>
+               <span class="pane-name">Modules</span>
+            </a>
             <a class="button components"
                ng-class="{ active: $ctrl.tab === 'components' }"
-               ng-click="switchTab('components')"
+               ng-click="$ctrl.switchTab('components')"
                title="Switch to Components">
                <i class="material-icons">device_hub</i>
                <span class="pane-name">Components</span>
             </a>
+            <a class="button refresh"
+               ng-click="refresh()"
+               title="Force refresh">
+               <i class="material-icons">cached</i>
+               <span class="pane-name">Refresh</span>
+            </a>
+            <span class="active-bar"></span>
         </div>
+        <component is="$ctrl.tab" class="container"></div>
     </div>
 </template>
 
 <script>
     import { version } from 'angular'
 
+    import component from './components/component.ng'
+    import modulesTab from './views/modules/modulesTab.ng'
+    import componentsTab from './views/components/componentsTab.ng'
+    
     export default {
         name: 'main',
+        components: { 
+            component,
+            modules: modulesTab,
+            components: componentsTab
+        },
         controller: class MainCtrl {
-            constructor() 
+            
+            constructor($element) 
             {
+                this.$el = $element
+                this.$inject = ['$element']
                 this.message = 'Ready. Detected angular ' + version.full 
             }
 
             $onInit()
             {
+                this.tab = 'components'
+
+                //this.updateActiveBar()
+
+                //window.addEventListener('resize', this.updateActiveBar)
+            }
+
+            switchTab(tab)
+            {
+                bridge.send('switch-tab', tab)
                 
+                this.tab = tab
+            }
+
+            refresh()
+            {
+                bridge.send('refresh')
+            }
+
+            updateActiveBar()
+            {
+                //const activeButton = this.$el.find('.button.active')
+                //const activeBar = this.$el.find('.active-bar')
+
+                //activeBar.style.left = activeButton.offsetLeft + 'px'
+                //activeBar.style.width = activeButton.offsetWidth + 'px'
             }
         }
     }
 </script>
 
 <style lang="stylus" scoped>
-    @import './global'
-    @import './common'
+    @import './global.styl'
 
     .app
         width 100%
@@ -83,4 +134,67 @@
         background-color $background-color
         color #888
         transition color .35s ease
+        .app.dark &
+            background-color $dark-background-color
+
+        &:hover 
+            color: #555
+
+        &.active
+            color: $active-color
+
+        &.modules
+            margin-left auto
+
+        .material-icons
+            font-size 20px
+            margin-right 5px
+            color inherit
+
+        .pane-name
+            display none
+
+        @media (min-width: $wide)
+            padding-right 20px
+            padding-left 20px
+            .pane-name
+                display block
+
+        @media (min-height: $tall)
+            padding-top 20px
+            padding-bottom 20px
+
+    .container 
+        overflow hidden
+        flex 1
+
+    $event-count-bubble-size = 18px
+
+    .event-count
+        background-color $active-color
+        color #fff
+        border-radius 50%
+        width $event-count-bubble-size
+        height $event-count-bubble-size
+        text-align center
+        padding-top 4px
+        font-size $event-count-bubble-size * 0.5
+        position absolute
+        top 12px
+        .app.dark & 
+            background-color $dark-background-color
+    
+    .active-bar 
+        position absolute
+        bottom 0
+        width 0
+        height 3px
+        background-color $active-color
+        transition all .32s cubic-bezier(0,.9,.6,1)
+
+    /* Remove this */
+    .button 
+        border-bottom 3px solid transparent
+    .button.active 
+        border-bottom 3px solid $active-color
 </style>
