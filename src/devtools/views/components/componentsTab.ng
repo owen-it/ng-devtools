@@ -1,5 +1,15 @@
 <template>
     <div>
-        Components Tab
+        {{ $ctrl.name }}
     </div>
 </template>
+
+<script>
+    export default {
+        controller: function(){
+            this.$onInit = function(){
+                this.name = 'component'
+            }
+        }
+    }
+</script>

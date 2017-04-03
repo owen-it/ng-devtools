@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{ 'modules ok' }}
         <split-pane>
         </split-pane>
     </div>
