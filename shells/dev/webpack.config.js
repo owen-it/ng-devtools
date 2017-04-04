@@ -37,7 +37,8 @@ module.exports = {
                 test: /\.ng$/,
                 loader: 'ng-loader',
                 options: {
-                    preserveWhitespace: false
+                    preserveWhitespace: false,
+                    replace: true
                 }
             },
             {

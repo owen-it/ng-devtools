@@ -5,21 +5,21 @@
          ng-mouseleave="$ctrl.dragEnd($event)"
          ng-class="{ dragging: $ctrl.dragging }">
          <div class="left" style="width: {{ $ctrl.split + '%' }}">
-            <div style="margin: 10px; padding: 20px">
-                test left {{ $ctrl.split + '%' }}
-            </div>
+            <div ng-transclude="left"></div>
             <div class="dragger" ng-mousedown="$ctrl.dragStart($event)"></div>
          </div>
          <div class="right" style="width: {{ (100 - $ctrl.split) + '%' }}">
-            <div style="margin: 10px; padding: 20px">
-                test right {{ (100 - $ctrl.split) + '%' }}
-            </div>
+            <div ng-transclude="right"></div>
          </div>
     </div>
 </template>
 
 <script>
     export default {
+        transclude: {
+            left:  'splitLeft',
+            right: 'splitRigth'
+        },
         controller: class Split {
             constructor($element){
                 this.$inject = ['$element']
@@ -46,6 +46,8 @@
                    //console.log('total: ' + totalWidth)
                    
                    this.split = this.startSplit + ~~(dx / totalWidth * 100)
+
+                   console.log(totalWidth)
                }
             }
 

@@ -1,5 +1,5 @@
 <template>
-    <div ng-class="{app: true}">
+    <div id="app" ng-class="{app: true}">
         <div class="header">
             <img class="logo" src="./assets/logo.png" alt="Ng">
             <span class="message-container">
@@ -27,7 +27,7 @@
             </a>
             <span class="active-bar"></span>
         </div>
-        <component is="$ctrl.tab" class="container"></div>
+        <component is="$ctrl.tab"></component>
     </div>
 </template>
 
@@ -39,7 +39,8 @@
     import componentsTab from './views/components/ComponentsTab.ng'
     
     export default {
-        name: 'main',
+        name: 'app',
+        replace: true,
         components: { 
             component,
             modules: modulesTab,

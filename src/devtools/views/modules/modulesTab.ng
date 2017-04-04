@@ -1,6 +1,12 @@
 <template>
-    <div>
+    <div class="modules-pane">
         <split-pane>
+            <split-left>
+                <div>left</div>
+            </split-left>
+            <split-rigth>
+                <div>rigth</div>
+            </split-rigth>
         </split-pane>
     </div>
 </template>
@@ -12,3 +18,13 @@
         components: { splitPane }
     }
 </script>
+
+<style lang="stylus" scoped>
+
+    .modules-pane
+        display flex
+        height 100%
+        width 100%
+        flex-direction column
+
+</style>

@@ -1,5 +1,5 @@
 import * as angular from 'angular'
-import main from './main.ng'
+import App from './App.ng'
 
 window.jQuery = require('jquery')
 window.$ = jQuery
@@ -46,10 +46,10 @@ function initApp(shell)
             // ...
         })
 
-        app = angular.module(name, []).components({ main })
+        app = angular.module(name, []).component('app', App)
 
         angular.bootstrap(
-            document.getElementById(name), [name]
+            document.getElementById('container'), [name]
         )
     })
 }

@@ -1,5 +1,5 @@
 <template>
-    <div></div>
+    <div class="container"></div>
 </template>
 
 <script>
@@ -8,13 +8,11 @@
             is: '='
         },
         controller: ['$scope', '$element', '$compile', function($scope, $element, $compile){
-
             $scope.$watch('$ctrl.is', component => {
                 $element.html('').append(
                     $compile(`<${component}></${component}>`)($scope)
                 )
             })
-
         }]
     }
 </script>
