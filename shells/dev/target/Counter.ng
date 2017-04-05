@@ -1,0 +1,27 @@
+<template>
+
+    <div id="counter">
+        <span>{{ $ctrl.count }}</span>
+    </div>
+
+</template>
+
+<script>
+    export default {
+        controller: class CounterCtrl {
+            $onInit () {
+                this.count = 100;
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    #counter span {
+        padding: 5px;
+        border: 1px solid #e8e8e8;
+        color: #777;
+        font-weight: bold;
+        margin: 15px;
+    }
+</style>

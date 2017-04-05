@@ -40,7 +40,7 @@ function initApp(shell)
     shell.connect(bridge => {
         window.bridge = bridge
 
-        var name = 'app'
+        var name = 'devtools'
 
         bridge.once('ready', version => {
             // ...
