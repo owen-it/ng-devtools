@@ -1,5 +1,6 @@
 // This is the backend that is injected into the page that a Angular 
 // app lives in when the Angular Devtools panel is activated.
+import { stringify } from '../util'
 import path from 'path'
 
 // Use a custom basename functions instead of the shimed version
@@ -20,6 +21,8 @@ const instanceMap = window.__NG__DEVTOOLS_INSTANCE_MAP__ = new Map()
 
 let bridge
 let isLegacy = false
+let filter = ''
+let captureCount = 0
 
 export function initBackend (_bridge) {
     bridge = _bridge
@@ -39,11 +42,32 @@ function connect() {
     bridge.on('switch-tab', tab => {
         hook.currentTab = tab
         if(tab === 'components'){
-            //flush()
+            flush()
         }
     })
 
     bridge.log('backend ready.')
     bridge.send('ready', hook.Angular.version.full)
     console.log('[ng-devtools] Ready. Detected Angular v' + hook.Angular.version.full)
+}
+
+function flush () {
+    let start
+    let isProduction = process.env.NODE_ENV === 'production'
+
+    if (!isProduction) {
+        captureCount = 0
+        start = window.performance.now()
+    }
+
+    const payload = stringify({
+        inspectIntance: '',
+        instaces: []
+    })
+
+    if (!isProduction) {
+        console.log(`[flush] serialized ${captureCount} instances, took ${window.performance.now() - start}ms`)
+    }
+
+    bridge.send('flush', payload)
 }

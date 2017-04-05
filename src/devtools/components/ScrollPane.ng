@@ -1,0 +1,56 @@
+<template>
+    <div class="scroll-pane">
+        <div ng-transclude="header" class="header"></div>
+        <div ng-transclude="scroll" class="scroll" ref="scrollContainer"></div>
+    </div>
+</template>
+
+<script>
+    export default {
+        transclude: {
+            header: 'scrollHeader',
+            scroll: 'scrollContent'
+        },
+        bindings: {
+            scrollEvent: '@'
+        },
+        controller: class ScrollCtrl 
+        {
+            $onInit () {
+                if (this.scrollEvent) {
+                    bridge.on(this.scrollEvent, this.scroll)
+                }
+            }
+
+            $onDestroy () {
+                if (this.scrollEvent) {
+                    bridge.removeListener(this.scrollEvent, this.scroll)
+                }
+            }
+
+            scroll () {
+                // @TODO Implements scroll envets
+            }
+        }
+    }
+
+</script>
+
+<style lang="stylus" scoped>
+    @import '../common'
+
+    .scroll-pane
+        display flex
+        flex-direction column
+        height 100%
+
+    .scroll
+        flex 1
+        overflow overlay
+        .app.dark &::-webkit-scrollbar
+            background: $dark-background-color
+            border-left: 1px solid $dark-border-color
+        .app.dark &::-webkit-scrollbar-thumb
+            background: lighten($dark-background-color, 7%);
+            border: 1px solid lighten($dark-border-color, 7%)
+</style>

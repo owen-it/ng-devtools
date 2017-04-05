@@ -19,6 +19,13 @@
                <i class="material-icons">device_hub</i>
                <span class="pane-name">Components</span>
             </a>
+            <a class="button events"
+               ng-class="{ active: $ctrl.tab === 'events' }"
+               ng-click="$ctrl.switchTab('events')"
+               title="Switch to Events">
+               <i class="material-icons">grain</i>
+               <span class="pane-name">Events</span>
+            </a>
             <a class="button refresh"
                ng-click="refresh()"
                title="Force refresh">
@@ -37,6 +44,7 @@
     import component from './components/Component.ng'
     import modulesTab from './views/modules/ModulesTab.ng'
     import componentsTab from './views/components/ComponentsTab.ng'
+    import eventsTab from './views/events/eventsTab.ng'
     
     export default {
         name: 'app',
@@ -44,7 +52,8 @@
         components: { 
             component,
             modules: modulesTab,
-            components: componentsTab
+            components: componentsTab,
+            events: eventsTab
         },
         controller: class MainCtrl {
             

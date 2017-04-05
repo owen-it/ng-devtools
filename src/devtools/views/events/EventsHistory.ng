@@ -1,0 +1,30 @@
+<template>
+    <div class="events-history-pane">
+        <scroll-pane>
+            <scroll-header>
+                Header
+            </scroll-header>
+            <scroll-content>
+                Content            
+            </scroll-content>
+        </scroll-pane>
+    </div>
+</template>
+
+<script>
+    import scrollPane from 'components/ScrollPane.ng'
+
+    export default {
+        components: { scrollPane }
+    }
+</script>
+
+<style lang="stylus" scoped>
+
+    .events-history-pane 
+        display flex
+        flex-direction column
+        height 100%
+        width 100%
+
+</style>

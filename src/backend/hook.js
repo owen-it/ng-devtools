@@ -70,7 +70,6 @@ export function installHook(window) {
     }
 
     hook.once('init', Angular => {
-        console.log(Angular)
         hook.Angular = Angular
     })
 

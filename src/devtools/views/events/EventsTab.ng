@@ -1,0 +1,33 @@
+<template>
+    <div class="events-pane">
+        <split-pane>
+            <split-left>
+                
+                <events-history></events-history>
+
+            </split-left>
+            <split-rigth>
+                inspector
+            </split-rigth>
+        </split-pane>
+    </div>
+</template>
+
+<script>
+    import splitPane from 'components/SplitPane.ng'
+    import eventsHistory from './EventsHistory.ng'
+
+    export default {
+        components: { splitPane, eventsHistory }
+    }
+</script>
+
+<style lang="stylus" scoped>
+    
+    .events-pane
+        display flex
+        height 100%
+        width 100%
+        flex-direction column
+
+</style>

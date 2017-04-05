@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="components-pane">
         {{ $ctrl.name }}
     </div>
 </template>
@@ -13,3 +13,13 @@
         }
     }
 </script>
+
+<style lang="stylus" scoped>
+    
+    .components-pane
+        display flex
+        height 100%
+        width 100%
+        flex-direction column
+
+</style>
