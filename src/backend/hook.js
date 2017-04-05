@@ -52,7 +52,7 @@ export function installHook(window) {
         },
 
         emit (event) {
-            event = '$' + envent
+            event = '$' + event
             let cbs = listeners[event]
 
             if (cbs) {
@@ -70,10 +70,11 @@ export function installHook(window) {
     }
 
     hook.once('init', Angular => {
+        console.log(Angular)
         hook.Angular = Angular
     })
 
-    Object.defineProperty(window, '__NG__DEVTOOLS_GLOBAL_HOOK__', {
+    Object.defineProperty(window, '__NG_DEVTOOLS_GLOBAL_HOOK__', {
         get () {
             return hook
         }
