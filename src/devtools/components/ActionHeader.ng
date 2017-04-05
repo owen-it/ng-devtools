@@ -1,0 +1,50 @@
+<template>
+    <div ng-transclude class="action-header"></div>
+</template>
+
+<script>
+    export default {
+        transclude: true
+    }
+</script>
+
+<style lang="stylus">
+    @import "../common"
+
+    .action-header
+        display flex
+        align-items stretch
+        padding 0 10px
+        font-size 12px
+        border-bottom 1px solid $border-color
+        color #666
+        height 35px
+        @media (min-height: $tall)
+            height 50px
+        .app.dark &
+            border-bottom 1px solid $dark-border-color
+
+        .material-icons
+            font-size 18px
+            margin-right 0
+            color inherit
+            @media (min-width: $wide)
+                margin-right 35px
+
+        .search 
+            display flex
+            align-items center
+            flex 1
+            input
+                flex 1
+                height 100%
+                background-color transparent
+                border 0
+                margin-left 5px
+                font-size inherit
+                color inherit
+                outline 0
+                transition color 0.25s
+                &:focus
+                    color $active-color
+</style>

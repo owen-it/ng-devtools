@@ -1,3 +1,5 @@
+
+
 <template>
     <div id="app" ng-class="{app: true}">
         <div class="header">
@@ -98,7 +100,7 @@
 </script>
 
 <style lang="stylus" scoped>
-    @import './global.styl'
+    @import './common'
 
     .app
         width 100%

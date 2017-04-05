@@ -2,7 +2,14 @@
     <div class="events-history-pane">
         <scroll-pane>
             <scroll-header>
-                Header
+                <action-header>
+                    <div class="search">
+                        <i class="search-icon material-icons">search</i>
+                        <input placeholder="Filter events" ng-model="$ctrl.filter" type="text">
+                    </div>    
+
+
+                </action-header>
             </scroll-header>
             <scroll-content>
                 Content            
@@ -13,9 +20,16 @@
 
 <script>
     import scrollPane from 'components/ScrollPane.ng'
+    import actionHeader from 'components/ActionHeader.ng'
 
     export default {
-        components: { scrollPane }
+        components: { scrollPane, actionHeader },
+        controller: class EventsHistoryCtrl 
+        {
+            $onInit () {
+                this.filter = ''
+            }
+        }
     }
 </script>
 

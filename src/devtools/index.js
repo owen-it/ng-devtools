@@ -4,6 +4,9 @@ import App from './App.ng'
 window.jQuery = require('jquery')
 window.$ = jQuery
 
+// @TODO resolve this
+import 'stylus-loader!./global.styl'
+
 angular.errorHandle = (h, e) => {
     return h('pre', {
         style: {
