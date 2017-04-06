@@ -7,8 +7,14 @@
                         <i class="search-icon material-icons">search</i>
                         <input placeholder="Filter events" ng-model="$ctrl.filter" type="text">
                     </div>    
-
-
+                    <a class="button reset" ng-class="{ disabled: !$ctrl.events.length }" ng-click="$ctrl.reset()" title="Clear log">
+                        <i class="material-icons small">do_not_disturb</i>
+                        <span>Clear</span>
+                    </a>
+                    <a class="button toggle-recording" ng-click="$ctrl.toggleRecording()" title="{{ $ctrl.enabled ? 'Stop Recording' : 'Start Recording' }}">
+                        <i class="material-icons small" ng-class="{ enabled: $ctrl.enabled }">lens</i>
+                        <span>{{ $ctrl.enabled ? 'Recording' : 'Paused' }}</span>
+                    </a>
                 </action-header>
             </scroll-header>
             <scroll-content>
@@ -34,6 +40,7 @@
 </script>
 
 <style lang="stylus" scoped>
+    @import '../../common'
 
     .events-history-pane 
         display flex
@@ -41,4 +48,6 @@
         height 100%
         width 100%
 
+    .no-events
+        color: #ccc
 </style>
