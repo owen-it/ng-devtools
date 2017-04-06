@@ -1,4 +1,4 @@
-
+<style lang="stylus" src="./global.styl"></style>
 
 <template>
     <div id="app" ng-class="{app: true}">

@@ -29,7 +29,7 @@
     "eslint": "^3.19.0",
     "file-loader": "^0.11.1",
     "friendly-errors-webpack-plugin": "^1.6.1",
-    "ng-loader": "^2.0.1",
+    "ng-loader": "^2.0.7",
     "nightwatch": "^0.9.14",
     "nightwatch-helpers": "^1.2.0",
     "selenium-server": "2.52.0",
