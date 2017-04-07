@@ -18,7 +18,14 @@
                 </action-header>
             </scroll-header>
             <scroll-content>
-                Content            
+                <div class"history">
+                    <div ng-if="$ctrl.filteredEvents.length === 0" class="no-events">
+                        No events found <span ng-if="!$ctrl.enabled"><br>(Recording is paused)</span>
+                    </div>
+                    <div ng-if="$ctrl.filteredEvents.length > 0" class="entry">
+                        {{ $ctrl.filteredEvents | json }}
+                    </div>
+                </div>            
             </scroll-content>
         </scroll-pane>
     </div>
@@ -32,6 +39,12 @@
         components: { scrollPane, actionHeader },
         controller: class EventsHistoryCtrl 
         {
+            constructor()
+            {
+                this.enabled = true
+                this.filteredEvents = []
+            }
+
             $onInit () {
                 this.filter = ''
             }
