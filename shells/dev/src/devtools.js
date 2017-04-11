@@ -33,7 +33,7 @@ target.onload = () =>
 
 function inject (src, load) 
 {
-    if(!src || src === false){
+    if(!src || src === 'false'){
         return load()
     }
 
