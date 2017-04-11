@@ -1,7 +1,10 @@
 <template>
 
     <div id="counter">
-        <span>{{ $ctrl.count }}</span>
+        <button ng-click="$ctrl.add()">+1</button>
+        <button style="width: 80px">{{ $ctrl.count }}</button>
+        <button ng-click="$ctrl.sub()">-1</button>
+        <button ng-click="$ctrl.trigger('clear')">Clear</button>
     </div>
 
 </template>
@@ -9,19 +12,42 @@
 <script>
     export default {
         controller: class CounterCtrl {
+            constructor($scope)
+            {
+                this.$scope = $scope
+                $scope.$on('count:show', () => {
+                    console.log('count: ' + this.count)
+                })
+
+                $scope.$on('count:clear', () => {
+                    this.count = 0
+                })
+            }
+
             $onInit () {
-                this.count = 100;
+                this.count = 1
+            }
+
+            add(){
+                this.count++
+            }
+
+            sub(){
+                this.count--
+            }
+
+            trigger(event){
+                this.$scope.$emit('count:'+event)
             }
         }
     }
 </script>
 
 <style scoped>
-    #counter span {
+    #counter button {
         padding: 5px;
         border: 1px solid #e8e8e8;
         color: #777;
         font-weight: bold;
-        margin: 15px;
     }
 </style>

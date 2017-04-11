@@ -17,7 +17,7 @@ const hook = window.__NG_DEVTOOLS_GLOBAL_HOOK__
 const rootInstances = []
 const propModes = ['default', 'sync', 'once']
 
-const instanceMap = window.__NG__DEVTOOLS_INSTANCE_MAP__ = new Map()
+const instanceMap = window.__NG_DEVTOOLS_INSTANCE_MAP__ = new Map()
 
 let bridge
 let isLegacy = false
@@ -70,4 +70,16 @@ function flush () {
     }
 
     bridge.send('flush', payload)
+}
+
+/**
+ * Get the appropriate display name for an instance.
+ *
+ * @param {Angular} instance
+ * @return {String}
+ */
+
+export function getInscanceName (instance) 
+{
+    
 }
