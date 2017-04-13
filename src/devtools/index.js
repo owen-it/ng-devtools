@@ -1,5 +1,6 @@
 import * as angular from 'angular'
 import App from './App.ng'
+import { parse } from '../util'
 
 window.jQuery = require('jquery')
 window.$ = jQuery
@@ -44,6 +45,10 @@ function initApp(shell)
 
         bridge.once('ready', version => {
             // ...
+        })
+
+        bridge.on('event:triggered', payload => {
+            console.log(parse(payload))
         })
 
         app = angular.module(name, []).component('app', App)

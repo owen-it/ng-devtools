@@ -10,11 +10,7 @@ export function initEventsBackend (Angular, bridge)
     bridge.on('events:toggle-recording', enabled => {
         recording = enabled
     })
-
-    bridge.on('event:triggered', function(){
-        console.log(arguments)
-    })
-
+    
     function logEvent ($scope, type, eventName, payload) 
     {
         if(typeof eventName === 'string' && !internalRE.test(eventName)) {
