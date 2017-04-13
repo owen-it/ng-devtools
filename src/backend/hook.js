@@ -69,10 +69,8 @@ export function installHook(window) {
         }
     }
 
-    hook.once('init', Angular => {
+    hook.once('init', (Angular) => {
         hook.Angular = Angular
-
-        console.log(hook.Angular.injector())
     })
 
     Object.defineProperty(window, '__NG_DEVTOOLS_GLOBAL_HOOK__', {

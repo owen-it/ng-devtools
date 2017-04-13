@@ -1,5 +1,6 @@
 // This is the backend that is injected into the page that a Angular 
 // app lives in when the Angular Devtools panel is activated.
+import { initEventsBackend } from './events'
 import { stringify } from '../util'
 import path from 'path'
 
@@ -46,6 +47,9 @@ function connect() {
         }
     })
 
+    // events
+    initEventsBackend(hook.Angular, bridge)
+
     bridge.log('backend ready.')
     bridge.send('ready', hook.Angular.version.full)
     console.log('[ng-devtools] Ready. Detected Angular v' + hook.Angular.version.full)
@@ -82,4 +86,9 @@ function flush () {
 export function getInscanceName (instance) 
 {
     
+}
+
+export function getRootScope (instance) 
+{
+    return instance.injector(['ng']).get('$rootScope')
 }

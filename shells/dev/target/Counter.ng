@@ -5,6 +5,7 @@
         <button style="width: 80px">{{ $ctrl.count }}</button>
         <button ng-click="$ctrl.sub()">-1</button>
         <button ng-click="$ctrl.trigger('clear')">Clear</button>
+        <button ng-click="$ctrl.trigger('show')">Show</button>
     </div>
 
 </template>
@@ -25,7 +26,7 @@
             }
 
             $onInit () {
-                this.count = 1
+                this.count = 59
             }
 
             add(){
