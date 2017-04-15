@@ -39,14 +39,28 @@
         components: { scrollPane, actionHeader },
         controller: class EventsHistoryCtrl 
         {
-            constructor()
+            constructor($scope, store, flux)
             {
                 this.enabled = true
                 this.filteredEvents = []
+                this.$scope = $scope
+                this.store = store
+                this.flux = flux
+                this.$inject = ['$scope', 'store']
             }
 
-            $onInit () {
+            $onInit () 
+            {
                 this.filter = ''
+
+                this.$scope.$listenTo(this.store, ['events', 'enabled'], () => {
+                    this.enabled = this.store.events.enabled
+                })
+            }
+
+            toggleRecording ()
+            {
+                this.flux.dispatch('events/TOGGLE')
             }
         }
     }

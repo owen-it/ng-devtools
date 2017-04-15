@@ -1,5 +1,6 @@
 import * as angular from 'angular'
 import App from './App.ng'
+import store from './store'
 import { parse } from '../util'
 
 window.jQuery = require('jquery')
@@ -47,11 +48,32 @@ function initApp(shell)
             // ...
         })
 
-        bridge.on('event:triggered', payload => {
-            console.log(parse(payload))
-        })
 
-        app = angular.module(name, []).component('app', App)
+
+        app = angular.module(name, [store])
+        
+        app.component('app', App)
+
+        app.run(['flux', 'store', function(flux, store){
+
+            bridge.once('ready', version => {
+                flux.dispatch('SHOW_MESSAGE', { 
+                    message: `Ready. Detected Angular ${version}.` 
+                })
+
+                bridge.send('events:toggle-recording', store.events.enabled)
+            })
+
+            bridge.on('event:triggered', payload => {
+                flux.dispatch('events/RECEIVE_EVENT', parse(payload))
+
+                if(store.tag !== 'events') {
+                    flux.dispatch('events/INCREASE_NEW_EVENT_COUNT')
+                }
+            })
+
+
+        }])
 
         angular.bootstrap(
             document.getElementById('container'), [name]

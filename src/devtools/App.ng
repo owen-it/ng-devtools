@@ -27,9 +27,12 @@
                title="Switch to Events">
                <i class="material-icons">grain</i>
                <span class="pane-name">Events</span>
+               <span class="event-count" ng-if="$ctrl.newEventCount > 0">
+                    {{ $ctrl.newEventCount }}
+               </span>
             </a>
             <a class="button refresh"
-               ng-click="refresh()"
+               ng-click="$ctrl.refresh()"
                title="Force refresh">
                <i class="material-icons">cached</i>
                <span class="pane-name">Refresh</span>
@@ -41,8 +44,6 @@
 </template>
 
 <script>
-    import { version } from 'angular'
-
     import component from './components/Component.ng'
     import modulesTab from './views/modules/ModulesTab.ng'
     import componentsTab from './views/components/ComponentsTab.ng'
@@ -59,11 +60,19 @@
         },
         controller: class MainCtrl {
             
-            constructor($element) 
+            constructor($element, $scope, store) 
             {
                 this.$el = $element
-                this.$inject = ['$element']
-                this.message = 'Ready. Detected angular ' + version.full 
+                this.$inject = ['$element', '$scope', 'store']
+                this.newEventCount = 0
+
+                $scope.$listenTo(store, ['message'], () => {
+                    this.message = store.message
+                })
+
+                $scope.$listenTo(store, ['events', 'newEventCount'], () => {
+                    this.newEventCount = store.events.newEventCount
+                })
             }
 
             $onInit()
@@ -84,6 +93,8 @@
 
             refresh()
             {
+                console.clear()
+
                 bridge.send('refresh')
             }
 
@@ -145,6 +156,7 @@
         border-bottom-color transition
         background-color $background-color
         color #888
+        position relative
         transition color .35s ease
         .app.dark &
             background-color $dark-background-color
@@ -183,15 +195,20 @@
     $event-count-bubble-size = 18px
 
     .event-count
-        background-color $active-color
-        color #fff
+        box-shadow -2px 4px 2px -2px rgba(0,0,0,0.1)
+        -webkit-box-shadow: -2px 4px 2px -2px rgba(0,0,0,0.1)
+        background-color #f9edbe
+        color #8a6d3b
         border-radius 50%
+        border 1px solid #f0c36d !important
+        font-weight bold
         width $event-count-bubble-size
         height $event-count-bubble-size
         text-align center
-        padding-top 4px
+        padding-top 2px
         font-size $event-count-bubble-size * 0.5
         position absolute
+        right 0
         top 12px
         .app.dark & 
             background-color $dark-background-color

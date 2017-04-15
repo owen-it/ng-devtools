@@ -22,7 +22,7 @@ module.exports = {
     },
     resolve: {
         alias: Object.assign({}, alias, {
-            /* other alias */
+            flux: 'flux-angular/release/flux-angular.js'
         })
     },
     module: {

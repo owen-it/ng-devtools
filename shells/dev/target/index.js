@@ -25,8 +25,6 @@ angular.module('ng').config(['$provide', function($provide) {
     });
 }]);
 
-console.log(angular)
-
 devtools.emit('init', angular)
 
 import counter from './Counter.ng'

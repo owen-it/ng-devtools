@@ -36,12 +36,13 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "url-loader": "^0.5.8",
-    "webpack": "^2.3.2",
+    "webpack": "^2.3.3",
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
     "angular": "^1.6.4",
     "circular-json-es6": "^2.0.0",
+    "flux-angular": "^3.1.4",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "ng-plugin": "0.0.2"
