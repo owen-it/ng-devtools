@@ -48,8 +48,6 @@ function initApp(shell)
             // ...
         })
 
-
-
         app = angular.module(name, [store])
         
         app.component('app', App)
@@ -67,13 +65,19 @@ function initApp(shell)
             bridge.on('event:triggered', payload => {
                 flux.dispatch('events/RECEIVE_EVENT', parse(payload))
 
-                if(store.tag !== 'events') {
+                if(store.tab !== 'events') {
                     flux.dispatch('events/INCREASE_NEW_EVENT_COUNT')
                 }
             })
 
 
         }])
+
+        .filter('formatTime', function(){
+            return (timestamp) => {
+                return (new Date(timestamp)).toString().match(/\d\d:\d\d:\d\d/)[0] 
+            }
+        })
 
         angular.bootstrap(
             document.getElementById('container'), [name]

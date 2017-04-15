@@ -14,12 +14,16 @@ export function initEventsBackend (Angular, bridge)
     function logEvent ($scope, type, eventName, payload) 
     {
         if(typeof eventName === 'string' && !internalRE.test(eventName)) {
-            bridge.send('event:triggered', stringify({
-                eventName,
-                type,
-                payload,
-                timestamp: Date.now()
-            }))
+            if (recording) {
+                console.log($scope)
+                bridge.send('event:triggered', stringify({
+                    eventName,
+                    type,
+                    payload,
+                    componentName: ($scope.$ctrl || $scope).constructor.name || null,
+                    timestamp: Date.now()
+                }))
+            }
         }
     }
 

@@ -48,7 +48,9 @@ function sanitize (data) {
         !Array.isArray(data) &&
         !isPlainObject(data) 
     ) {
-
+        return Object.prototype.toString.call(data)
+    } else {
+        return data
     }
 }
 

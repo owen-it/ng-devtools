@@ -1,29 +1,68 @@
 import storage from '@/storage'
 
+const ENABLED_KEY = 'EVENTS_ENABLED'
+let enabled = storage.get(ENABLED_KEY)
+
 export default {
     module: 'events',
     state: {
-        enabled: false,
+        enabled: enabled,
         newEventCount: 0,
-
+        inspectedIndex: -1,
+        filter: '',
+        list: []
     },
     handlers: {
-        'TOGGLE': 'eventsToggle',
-        'INCREASE_NEW_EVENT_COUNT': 'eventsIncreaseCount'
+        'TOGGLE': 'toggle',
+        'INSPECT': 'inspect',
+        'RECEIVE_EVENT': 'receive',
+        'UPDATE_FILTER': 'filter',
+        'INCREASE_NEW_EVENT_COUNT': 'increaseCount',
+        'RESET_NEW_EVENT_COUNT': 'resetCount'
     },
     actions: {
-        eventsToggle () 
+        toggle () 
         {
-            storage.set(ENABLED_KEY, this.state.events = !this.state.events)
+            storage.set(
+                ENABLED_KEY, 
+                enabled = !enabled
+            )
 
-            this.state.set(['events', 'enabled'], this.state.events)
+            this.state.set(['events', 'enabled'], enabled)
+
+            bridge.send('events:toggle-recording', enabled)
         },
 
-        eventsIncreaseCount ()
+        filter (payload) 
+        {
+            this.state.set(['events', 'filter'], payload)
+        },
+
+        inspect (payload) 
+        {
+            this.state.set(['events', 'inspectedIndex'], payload)
+        },
+
+        receive (payload) 
+        {
+            this.state.push(['events', 'list'], payload)
+
+            var events = this.state.get('events')
+            if (!events.filter) {
+                this.state.set(['events', 'inspectedIndex'], events.list.length -1)
+            }
+        },
+
+        increaseCount ()
         {
             var newEventCount = this.state.get('events').newEventCount
 
             this.state.set(['events', 'newEventCount'], ++newEventCount )
+        },
+
+        resetCount () 
+        {
+            this.state.set(['events', 'newEventCount'], 0 )
         }
     },
     getters: {
@@ -31,7 +70,14 @@ export default {
             return this.state.get('events')
         },
         get filteredEvents () {
-            return []
+            var events = this.state.get('events')
+
+            // filter events
+            return events.list.filter(
+                e => e.eventName.indexOf(
+                    events.filter
+                ) > -1
+            )
         }
     }
 }

@@ -22,8 +22,20 @@
                     <div ng-if="$ctrl.filteredEvents.length === 0" class="no-events">
                         No events found <span ng-if="!$ctrl.enabled"><br>(Recording is paused)</span>
                     </div>
-                    <div ng-if="$ctrl.filteredEvents.length > 0" class="entry">
-                        {{ $ctrl.filteredEvents | json }}
+                    <div ng-if="$ctrl.filteredEvents.length > 0" class="entry"
+                         ng-repeat="event in $ctrl.filteredEvents track by event.timestamp"
+                         ng-class="{ active: $ctrl.inspectedIndex === $ctrl.events.indexOf(event) }"
+                         ng-click="$ctrl.inspect(event)">
+                        
+                        <span class="event-name">{{ ::event.eventName }}</span>
+                        <span class="event-type">{{ ::event.type }}</span>
+                        <span class="event-souce">
+                            by <span>&lt;</span><span class="target-name">{{ ::event.componentName }}</span><span>&gt;</span>
+                        </span>
+                        <span class="time">
+                            {{ event.timestamp | formatTime }}
+                        </span>
+
                     </div>
                 </div>            
             </scroll-content>
@@ -43,6 +55,8 @@
             {
                 this.enabled = true
                 this.filteredEvents = []
+                this.inspectedIndex = null
+                this.events = []
                 this.$scope = $scope
                 this.store = store
                 this.flux = flux
@@ -51,16 +65,45 @@
 
             $onInit () 
             {
-                this.filter = ''
+                this.filter = this.store.events.filter
+                this.events = this.store.events.list
+                this.inspectedIndex = this.store.events.inspectedIndex
+
+                this.$scope.$watch('$ctrl.filter', val => {
+                    this.flux.dispatch('events/UPDATE_FILTER', val)
+                })
+
+                this.$scope.$listenTo(this.store, ['events', 'inspectedIndex'], () => {
+                    this.inspectedIndex = this.store.events.inspectedIndex
+                })
 
                 this.$scope.$listenTo(this.store, ['events', 'enabled'], () => {
                     this.enabled = this.store.events.enabled
                 })
+
+                this.$scope.$listenTo(this.store, ['events', 'filter'], () => {
+                   this.updateEvents()
+                })
+
+                this.$scope.$listenTo(this.store, ['events', 'list'], () => {
+                    this.updateEvents()
+                })
+            }
+
+            updateEvents () {
+                this.filteredEvents = this.store.filteredEvents
+                this.events = this.store.events.list
             }
 
             toggleRecording ()
             {
                 this.flux.dispatch('events/TOGGLE')
+            }
+
+            inspect (event) 
+            {
+                console.log(this.events, this.events.indexOf(event))
+                this.flux.dispatch('events/INSPECT', this.events.indexOf(event))
             }
         }
     }
@@ -76,5 +119,44 @@
         width 100%
 
     .no-events
-        color: #ccc
+        color #ccc
+        text-align center
+        margin-top 50px
+        line-height 30px
+
+    .entry 
+        position relative
+        font-family Menlo, Consolas, monospace
+        color #881391
+        cursor pointer
+        padding 10px 25px 10px 15px
+        background-color $background-color
+        box-shadow 0 1px 5px rgba(0,0,0,.12)
+        .event-name
+            font-weight 600
+        .event-source
+            color #999
+        .target-name 
+            color $component-color
+        .event-type
+            color #999
+            margin-left 8px
+        &.active
+            color #fff
+            background-color $active-color
+            .time, .event-type, .target-name
+                color lighten($active-color, 75%)
+            .event-name
+                color #fff
+            .event-source
+                color #ddd
+        .app-dark &
+            background-color $dark-background-color
+
+    .time
+        font-size 11px
+        color #999
+        float right
+        margin-top 3px
+
 </style>

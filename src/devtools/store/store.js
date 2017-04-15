@@ -1,32 +1,47 @@
-import { mapState, mapHandlers , mapActions, mapGetters } from '@/helpers'
+import { mapState, mapHandlers , mapActions, mergeGetters } from '@/helpers'
 
 import events from 'views/events/store'
 
 export default {
     state: {
         message: '',
-        tab: 'modules',
+        tab: 'events',
         events: events.state
     },
     handlers: {
         'SHOW_MESSAGE': 'showMessage',
+        'SWITCH_TAB': 'swithTab',
 
-        ...mapHandlers(events)
+        ...mapHandlers('events', events.handlers)
     },
     actions: {
-        showMessage (payload) {
+        showMessage (payload) 
+        {
             this.state.set(['message'], payload.message)
         },
 
-        ...mapActions(events)
-    },
-    getters: Object.assign({}, {
-        get message() {
-            return this.state.get('message')
+        swithTab (payload) 
+        {
+            this.state.set(['tab'], payload)
         },
-        get events () {
-            return this.state.get('events')
-        }
-    })
+
+        ...mapActions(events.actions)
+    },
+    getters: mergeGetters(
+        {
+            get message() {
+                return this.state.get('message')
+            },
+
+            get tab() {
+                return this.state.get('tab')
+            },
+
+            get state () {
+                return this.state.get()
+            }
+        }, 
+        events.getters 
+    )
         
 }

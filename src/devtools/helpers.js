@@ -4,30 +4,24 @@ export const mapState = function (store) {
     return store.states
 }
 
-export const mapHandlers = function (store) 
+export const mapHandlers = function (namespace, handlers) 
 {
-    var handlers = {}
-    Object.keys(store.handlers).forEach(
+    var _handlers = {}
+    Object.keys(handlers).forEach(
         (handler) => {
-            handlers[`${store.module}/${handler}`] = store.handlers[handler]
+            _handlers[`${namespace}/${handler}`] = handlers[handler]
         }
     )
 
-    return handlers
+    return _handlers
 }
 
-export const mapActions =  function (store) {
-    return store.actions
-}
-
-export const mapExports = function (store) {
-    return store.exports
+export const mapActions =  function (actions) {
+    return actions
 }
 
 export const mapGetters = function(store){
     var getters = {}
-
-    console.log(store)
 
     Object.keys(store.getters).forEach(
         (key) => {
@@ -38,8 +32,26 @@ export const mapGetters = function(store){
         }
     )
 
-    console.log('getters => ', getters)
-
     return getters
+
+}
+
+export const mergeGetters = function (...args) {
+    // get destination
+    var dest = args[0]
+
+    // get getters
+    var getters = [].slice.call(args, 1)
+
+    getters.forEach(function(getter)
+    {
+        Object.getOwnPropertyNames(getter).forEach( key =>  {
+            // Copy descriptor
+            var descriptor = Object.getOwnPropertyDescriptor(getter, key)
+            Object.defineProperty(dest, key, descriptor)
+        })
+    })
+
+    return dest
 
 }

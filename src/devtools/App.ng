@@ -60,24 +60,32 @@
         },
         controller: class MainCtrl {
             
-            constructor($element, $scope, store) 
+            constructor($element, $scope, store, flux) 
             {
                 this.$el = $element
-                this.$inject = ['$element', '$scope', 'store']
+                this.flux = flux
+                this.store = store
+                this.$scope = $scope
+                this.$inject = ['$element', '$scope', 'store', 'flux']
                 this.newEventCount = 0
-
-                $scope.$listenTo(store, ['message'], () => {
-                    this.message = store.message
-                })
-
-                $scope.$listenTo(store, ['events', 'newEventCount'], () => {
-                    this.newEventCount = store.events.newEventCount
-                })
             }
 
             $onInit()
             {
-                this.tab = 'modules'
+                console.log(this.store)
+                this.tab = this.store.tab
+
+                this.$scope.$listenTo(this.store, ['message'], () => {
+                    this.message = this.store.message
+                })
+
+                this.$scope.$listenTo(this.store, ['tab'], () => {
+                    this.tab = this.store.tab
+                })
+
+                this.$scope.$listenTo(this.store, ['events', 'newEventCount'], () => {
+                    this.newEventCount = this.store.events.newEventCount
+                })
 
                 //this.updateActiveBar()
 
@@ -87,8 +95,12 @@
             switchTab(tab)
             {
                 bridge.send('switch-tab', tab)
-                
-                this.tab = tab
+
+                this.flux.dispatch('SWITCH_TAB', tab)
+
+                if(tab === 'events'){
+                    this.flux.dispatch('events/RESET_NEW_EVENT_COUNT')
+                }
             }
 
             refresh()

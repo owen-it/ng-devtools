@@ -10,14 +10,14 @@ angular.module('ng').config(['$provide', function($provide) {
         var origEmit = $scope.prototype.$emit;
 
         $scope.prototype.$broadcast = function(...args) {
-            angular.$logEvent($scope, '$broadcast', args[0], args.slice(1))
+            angular.$logEvent(this, '$broadcast', args[0], args.slice(1))
 
             return origBroadcast.apply(this, arguments);
         };
 
         $scope.prototype.$emit = function(...args) {
-            angular.$logEvent($scope, '$emit', args[0], args.slice(1))
-            
+            angular.$logEvent(this, '$emit', args[0], args.slice(1))
+
             return origEmit.apply(this, arguments);
         };
 
