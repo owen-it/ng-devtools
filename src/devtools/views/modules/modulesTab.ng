@@ -2,7 +2,15 @@
     <div class="modules-pane">
         <split-pane>
             <split-left>
-                <div>left</div>
+                <div style="padding: 20px">
+
+                    <inspect-field
+                        ng-repeat="(key, value) in $ctrl.data track by key"
+                        field="{ key, value }"
+                        depth="0">
+                    </inspect-field>
+
+                </div>
             </split-left>
             <split-rigth>
                 <div>rigth</div>
@@ -13,9 +21,27 @@
 
 <script>
     import splitPane from 'components/SplitPane.ng'
+    import inspectField from 'components/DataField.ng'
+
+    const data = {
+        name: 'count:show',
+        type: '$broadcast',
+        source: '<CountCtrl>',
+        payload: {},
+        list: ['first', 'second'],
+        reg: /^\[object (w+)\]$/
+    }
+
 
     export default {
-        components: { splitPane }
+        components: { splitPane, inspectField },
+        controller: class ModuleCtrl 
+        {
+            $onInit () 
+            {
+                this.data = data;
+            }
+        }
     }
 </script>
 

@@ -72,7 +72,6 @@
 
             $onInit()
             {
-                console.log(this.store)
                 this.tab = this.store.tab
 
                 this.$scope.$listenTo(this.store, ['message'], () => {

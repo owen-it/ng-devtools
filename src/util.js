@@ -4,8 +4,8 @@ export function stringify (data) {
     return CircularJSON.stringify(data, replacer)
 }
 
-const UNDEFINED = '__ng_devtools_undefined__'
-const INFINITY = '__ng_devtools_infinity__'
+export const UNDEFINED = '__ng_devtools_undefined__'
+export const INFINITY = '__ng_devtools_infinity__'
 
 function replacer (key, val) {
     if (val === undefined) {
@@ -69,6 +69,6 @@ function isPrimitive (data) {
     )
 }
 
-function isPlainObject (obg) {
-    return Object.prototype.toString.call(obj) === '[Object Object]'
+export function isPlainObject (obj) {
+    return Object.prototype.toString.call(obj) === '[object Object]'
 }

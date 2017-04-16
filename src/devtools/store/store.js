@@ -5,7 +5,7 @@ import events from 'views/events/store'
 export default {
     state: {
         message: '',
-        tab: 'events',
+        tab: 'modules',
         events: events.state
     },
     handlers: {

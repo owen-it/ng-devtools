@@ -15,6 +15,7 @@ export default {
     handlers: {
         'TOGGLE': 'toggle',
         'INSPECT': 'inspect',
+        'RESET': 'reset',
         'RECEIVE_EVENT': 'receive',
         'UPDATE_FILTER': 'filter',
         'INCREASE_NEW_EVENT_COUNT': 'increaseCount',
@@ -36,6 +37,12 @@ export default {
         filter (payload) 
         {
             this.state.set(['events', 'filter'], payload)
+        },
+
+        reset ()
+        {
+            this.state.set(['events', 'list'], [])
+            this.state.set(['events', 'inspectedIndex'], -1)
         },
 
         inspect (payload) 

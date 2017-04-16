@@ -7,7 +7,9 @@
 
             </split-left>
             <split-rigth>
-                inspector
+                
+                <event-inspector></event-inspector>
+
             </split-rigth>
         </split-pane>
     </div>
@@ -16,9 +18,10 @@
 <script>
     import splitPane from 'components/SplitPane.ng'
     import eventsHistory from './EventsHistory.ng'
+    import eventInspector from './EventInspector.ng'
 
     export default {
-        components: { splitPane, eventsHistory }
+        components: { splitPane, eventsHistory, eventInspector }
     }
 </script>
 

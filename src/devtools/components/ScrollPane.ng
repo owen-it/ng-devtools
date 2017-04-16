@@ -8,7 +8,7 @@
 <script>
     export default {
         transclude: {
-            header: 'scrollHeader',
+            header: '?scrollHeader',
             scroll: 'scrollContent'
         },
         bindings: {

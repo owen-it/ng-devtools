@@ -1,11 +1,16 @@
 <template>
 
-    <div id="counter">
-        <button ng-click="$ctrl.add()">+1</button>
-        <button style="width: 80px">{{ $ctrl.count }}</button>
-        <button ng-click="$ctrl.sub()">-1</button>
-        <button ng-click="$ctrl.trigger('clear')">Clear</button>
-        <button ng-click="$ctrl.trigger('show')">Show</button>
+    <div>
+        <div id="counter">
+            <button ng-click="$ctrl.add()">+1</button>
+            <button style="width: 80px">{{ $ctrl.count }}</button>
+            <button ng-click="$ctrl.sub()">-1</button>
+            <button ng-click="$ctrl.trigger('clear')">Clear</button>
+            <button ng-click="$ctrl.trigger('show')">Show</button>
+        </div>
+        <div>
+            
+        </div>
     </div>
 
 </template>

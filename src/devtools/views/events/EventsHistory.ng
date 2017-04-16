@@ -102,8 +102,12 @@
 
             inspect (event) 
             {
-                console.log(this.events, this.events.indexOf(event))
                 this.flux.dispatch('events/INSPECT', this.events.indexOf(event))
+            }
+
+            reset () 
+            {
+                this.flux.dispatch('events/RESET')
             }
         }
     }

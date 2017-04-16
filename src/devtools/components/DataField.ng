@@ -1,0 +1,178 @@
+<template>
+    <div class="data-field">
+        <div class="self" 
+             ng-click="$ctrl.toggle()"
+             style="margin-left: {{ $ctrl.depth * 14 }}px">
+             <span class="arrow right"
+                   ng-class="{ rotated: expanded }"
+                   ng-show="$ctrl.isExpandableType()">
+            </span>
+            <span class="key">{{ $ctrl.field.key }}</span>
+            <span class="colon">:<div class="meta" ng-if="$ctrl.field.meta">
+                <div class="meta-field" ng-repeat="(val, key) in $ctrl.field.meta">
+                    <span class="key">{{ key }}</span>
+                    <span class="value">{{ val }}</span>
+                </div>
+            </div></span>
+            <span class="value" ng-class="[$ctrl.valueType()]">{{ $ctrl.formattedValue() }}</span>
+        </div>
+        <div class="children" ng-if="$ctrl.expanded && $ctrl.isExpandableType()">
+            <inspect-field
+                ng-repeat="subField in $ctrl.limitedSubFields track by subfild.key"
+                field="subField"
+                depth="$ctrl.depth + 1">
+            <inspect-field>
+            <span class="more"
+                  ng-if="$ctrl.formattedSubFields().length > $ctrl.limit"
+                  style="margin-left: {{ ($ctrl.depth + 1) * 14 + 10 }}px">
+                  ...
+            </span>
+        </div>
+    </div>
+</template>
+
+<script>
+    import { UNDEFINED, INFINITY, isPlainObject } from 'src/util'
+
+    const rawTypeRE = /^\[object (\w+)\]$/
+
+    export default {
+        bindings: {
+            field: '='
+        },
+        controller: class DataFieldCtrl 
+        {
+            $onInit () 
+            {
+                console.log(this.field)
+                this.field = this.field
+                this.depth = this.depth || 0;
+                this.limit = Array.isArray(this.field) ? 10 : Infinity
+                this.expanded = this.depth == 0
+            }
+
+            formattedValue() 
+            {
+                const value = this.field.value
+                
+                if (value == null) {
+                    return null
+                } else if (value === UNDEFINED) {
+                    return 'undefiend'
+                } else if (value === INFINITY) {
+                    return 'Infinity'
+                } else if (Array.isArray(value)) {
+                    return 'Array[' + value.length + ']'
+                } else if (isPlainObject(value)) {
+                    return 'Object' + (Object.keys(value).length ? '' : '(empty)')
+                } else if (typeof value === 'string') {
+                    var typeMatch = value.match(rawTypeRE)
+                    if (typeMatch) {
+                        return typeMatch[1]
+                    } else {
+                        return JSON.stringify(value)
+                    }
+                } else if (value instanceof RegExp) {
+                    return value.toString()
+                } else {
+                    return value
+                }
+            }
+
+            isExpandableType ()
+            {
+                const value = this.field.value
+                return Array.isArray(value) || isPlainObject(value)
+            }
+
+            formattedSubFields ()
+            {
+                let value = this.field.value 
+                if (Array.isArray(value)) {
+                    value = value.map((item, i) => ({
+                        key: i, value: item
+                    }))
+                } else if (typeof value === 'object') {
+                    value = Object.keys(value).map(key => ({
+                        key, value: value[key]
+                    }))
+                    value = value.slice().sort((a, b) => a.key > b.key)
+                }
+
+                return value
+            }
+
+            limitedSubFields () 
+            {
+                return this.formattedSubFields().slice(0, this.limit)
+            }
+
+            valueType () 
+            {
+                const value = this.field.value
+                const type = typeof value
+
+                if (value == null || value === UNDEFINED) {
+                    return 'null'
+                } else if (type === 'boolean' || type === 'number' || value === 'INFINITY') {
+                    return 'literal'
+                } else if (
+                    value instanceof RegExp ||
+                    (type === 'string' && !rawTypeRE.test(value)) 
+                ) {
+                    return 'string'
+                }
+            }
+
+            toggle ()
+            {
+                if(this.isExpandableType()) {
+                    this.expanded = !this.expanded
+                }
+            }
+        }
+    }
+</script>
+
+<style lang="stylus" scoped>
+    @import '../common'
+
+    .data-field
+        user-select text
+        font-size 12px
+        font-family Menlo, Consolas, monospace
+        cursor default
+
+    .self 
+        height 20px
+        line-height 20px
+        position relative
+        white-space nowrap
+        padding-left 14px
+        span, div
+            display inline-block
+            vertical-align middle
+        .arrow
+            position absolute
+            top 7px
+            left 0px
+            &.rotated
+                transform rotate(90deg)
+        .key 
+            color #881391
+        .colon
+            margin-right .5em
+            position relative
+        .value 
+            color #444
+            &.string
+                color #c41a16
+            &.null
+                color #999
+            &.literal
+                color #0033cc
+
+        .type
+            color $background-color
+            padding 3px 6px
+</style>
