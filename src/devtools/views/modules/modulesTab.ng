@@ -21,15 +21,22 @@
 
 <script>
     import splitPane from 'components/SplitPane.ng'
-    import inspectField from 'components/DataField.ng'
+    import inspectField from 'components/InspectField.ng'
 
     const data = {
         name: 'count:show',
         type: '$broadcast',
         source: '<CountCtrl>',
-        payload: {},
+        payload: { name: 'nayara', eage: 28 },
         list: ['first', 'second'],
-        reg: /^\[object (w+)\]$/
+        reg: /^\[object (w+)\]$/,
+        object: {
+            second: { 
+                list: [
+                    'item 0', 'item 1', 'item 3'
+                ]
+            }
+        }
     }
 
 

@@ -28,9 +28,8 @@ angular.module('ng').config(['$provide', function($provide) {
 devtools.emit('init', angular)
 
 import counter from './Counter.ng'
-import inspectField from 'components/DataField.ng'
 
-angular.module('app.count', []).components({ counter, inspectField });
+angular.module('app.count', []).components({ counter });
 angular.module('app', ['app.count'])
 angular.bootstrap(document.body, ['app'])
 

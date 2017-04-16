@@ -3,7 +3,9 @@
         <scroll-pane>
             <scroll-content>
                 <div ng-if="$ctrl.activeEvent">
-                    inspector event
+                    <state-inspector
+                        state="{ 'event info': $ctrl.sortedEventData() }">
+                    </state-inspector>
                 </div>
                 <div ng-if="!$ctrl.activeEvent" class="no-event-data">
                     No event selected
@@ -15,9 +17,42 @@
 
 <script>
     import scrollPane from 'components/ScrollPane.ng'
+    import stateInspector from 'components/StateInspector.ng'
 
     export default {
-        components: { scrollPane }
+        components: { scrollPane, stateInspector },
+        controller: class EventInspectorCtrl 
+        {
+            constructor ($scope, store)
+            {
+                this.$scope = $scope
+                this.store = store
+                this.$inject = ['$scope', 'store']
+            }
+
+            $onInit ()
+            {
+                this.activeEvent = {}
+
+                this.$scope.$listenTo(this.store, ['events', 'inspectedIndex'], () => {
+                    this.activeEvent = this.store.inspectEvent
+                })
+            }
+
+            sortedEventData ()
+            {
+                if (!this.activeEvent){
+                    return {}
+                } 
+                
+                return {
+                    name: this.activeEvent.eventName,
+                    type: this.activeEvent.type,
+                    source: `<${this.activeEvent.componentName}>`,
+                    payload: this.activeEvent.payload
+                }
+            }
+        }
     }
 </script>
 

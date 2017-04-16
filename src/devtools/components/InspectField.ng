@@ -4,7 +4,7 @@
              ng-click="$ctrl.toggle()"
              style="margin-left: {{ $ctrl.depth * 14 }}px">
              <span class="arrow right"
-                   ng-class="{ rotated: expanded }"
+                   ng-class="{ rotated: $ctrl.expanded }"
                    ng-show="$ctrl.isExpandableType()">
             </span>
             <span class="key">{{ $ctrl.field.key }}</span>
@@ -18,12 +18,12 @@
         </div>
         <div class="children" ng-if="$ctrl.expanded && $ctrl.isExpandableType()">
             <inspect-field
-                ng-repeat="subField in $ctrl.limitedSubFields track by subfild.key"
+                ng-repeat="subField in $ctrl.limitedSubFields track by subField.key"
                 field="subField"
                 depth="$ctrl.depth + 1">
             <inspect-field>
             <span class="more"
-                  ng-if="$ctrl.formattedSubFields().length > $ctrl.limit"
+                  ng-if="$ctrl.formattedSubFields.length > $ctrl.limit"
                   style="margin-left: {{ ($ctrl.depth + 1) * 14 + 10 }}px">
                   ...
             </span>
@@ -44,11 +44,16 @@
         {
             $onInit () 
             {
-                console.log(this.field)
                 this.field = this.field
                 this.depth = this.depth || 0;
                 this.limit = Array.isArray(this.field) ? 10 : Infinity
                 this.expanded = this.depth == 0
+
+                if (this.isExpandableType()) {
+                    this.limitedSubFields = this._limitedSubFields()
+                    this.formattedSubFields = this._formattedSubFields()
+                }
+
             }
 
             formattedValue() 
@@ -85,7 +90,7 @@
                 return Array.isArray(value) || isPlainObject(value)
             }
 
-            formattedSubFields ()
+            _formattedSubFields ()
             {
                 let value = this.field.value 
                 if (Array.isArray(value)) {
@@ -99,12 +104,14 @@
                     value = value.slice().sort((a, b) => a.key > b.key)
                 }
 
+                console.log(value)
+
                 return value
             }
 
-            limitedSubFields () 
+            _limitedSubFields () 
             {
-                return this.formattedSubFields().slice(0, this.limit)
+                return this._formattedSubFields().slice(0, this.limit)
             }
 
             valueType () 
@@ -142,6 +149,9 @@
         font-size 12px
         font-family Menlo, Consolas, monospace
         cursor default
+
+    .children
+        margin-left 15px
 
     .self 
         height 20px

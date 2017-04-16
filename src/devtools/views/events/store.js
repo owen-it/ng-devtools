@@ -73,7 +73,7 @@ export default {
         }
     },
     getters: {
-        get events() {
+        get events () {
             return this.state.get('events')
         },
         get filteredEvents () {
@@ -85,6 +85,11 @@ export default {
                     events.filter
                 ) > -1
             )
+        },
+        get inspectEvent () {
+            var index = this.state.get('events').inspectedIndex
+
+            return this.state.get('events').list[index]
         }
     }
 }
