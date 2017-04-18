@@ -22,9 +22,10 @@
                 field="subField"
                 depth="$ctrl.depth + 1">
             <inspect-field>
-            <span class="more"
-                  ng-if="$ctrl.formattedSubFields.length > $ctrl.limit"
-                  style="margin-left: {{ ($ctrl.depth + 1) * 14 + 10 }}px">
+            <span 
+                class="more"
+                ng-if="$ctrl.formattedSubFields.length > 0"
+                ng-click="$ctrl.limit += 10">
                   ...
             </span>
         </div>
@@ -38,22 +39,35 @@
 
     export default {
         bindings: {
-            field: '='
+            field: '=',
+            depth: '='
         },
         controller: class DataFieldCtrl 
         {
+            constructor ($scope)
+            {
+                this.$inject = ['$scope']
+
+                $scope.$watch('$ctrl.field', () => {
+                    this._updateSubFields()
+                })
+            }
+
             $onInit () 
             {
                 this.field = this.field
-                this.depth = this.depth || 0;
-                this.limit = Array.isArray(this.field) ? 10 : Infinity
-                this.expanded = this.depth == 0
+                this.limit = Array.isArray(this.field.value) ? 10 : Infinity
+                this.expanded = this.depth === 0
+                
+                this._updateSubFields()
+            }
 
+            _updateSubFields ()
+            {
                 if (this.isExpandableType()) {
                     this.limitedSubFields = this._limitedSubFields()
                     this.formattedSubFields = this._formattedSubFields()
                 }
-
             }
 
             formattedValue() 
@@ -103,8 +117,6 @@
                     }))
                     value = value.slice().sort((a, b) => a.key > b.key)
                 }
-
-                console.log(value)
 
                 return value
             }
@@ -185,4 +197,12 @@
         .type
             color $background-color
             padding 3px 6px
+
+    .more 
+        cursor pointer
+        display inline-block
+        border-radius 4px
+        padding 0 4px 4px
+        &:hover
+            background-color #eee
 </style>

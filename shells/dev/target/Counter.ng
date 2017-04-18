@@ -1,15 +1,12 @@
 <template>
-
     <div>
+        <h1>Counter</h1>
         <div id="counter">
             <button ng-click="$ctrl.add()">+1</button>
             <button style="width: 80px">{{ $ctrl.count }}</button>
             <button ng-click="$ctrl.sub()">-1</button>
             <button ng-click="$ctrl.trigger('clear')">Clear</button>
             <button ng-click="$ctrl.trigger('show')">Show</button>
-        </div>
-        <div>
-            
         </div>
     </div>
 
@@ -49,12 +46,3 @@
         }
     }
 </script>
-
-<style scoped>
-    #counter button {
-        padding: 5px;
-        border: 1px solid #e8e8e8;
-        color: #777;
-        font-weight: bold;
-    }
-</style>

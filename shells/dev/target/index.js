@@ -28,8 +28,9 @@ angular.module('ng').config(['$provide', function($provide) {
 devtools.emit('init', angular)
 
 import counter from './Counter.ng'
+import events from './Events.ng'
 
-angular.module('app.count', []).components({ counter });
+angular.module('app.count', []).components({ counter, events });
 angular.module('app', ['app.count'])
 angular.bootstrap(document.body, ['app'])
 

@@ -1,0 +1,17 @@
+<template>
+    <div id="events">
+        <h1>Events</h1>
+        <event-child></event-child>
+    </div>
+</template>
+
+<script>
+    import eventChild from './EventChild.ng'
+
+    export default {
+        components: { eventChild },
+        controller: class EventsCtrl {
+
+        }
+    }
+</script>

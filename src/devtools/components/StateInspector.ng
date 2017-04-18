@@ -1,21 +1,23 @@
 <template>
-    <div class="data-wrapper">
-        <div ng-repeat="type in $ctrl.getKeys($ctrl.state)" 
-             ng-class="['data-el', $ctrl.toDisplayType(type, true)]">
-            <div class="data-type">{{ $ctrl.toDisplayType(type) }}</div>
-            <div class="data-fields">
-                <inspect-field
-                    ng-if="!Array.isArray($ctrl.state[type])"
-                    ng-repeat="(key, value) in $ctrl.state[type]"
-                    field="{ key, value }"
-                    depth="0">
-                </inspect-field>
-                <inspect-field
-                    ng-if="Array.isArray($ctrl.state[type])"
-                    ng-repeat="field in $ctrl.state[type]"
-                    field="field"
-                    depth="0">
-                </inspect-field>
+    <div class="state-inspect-pane">
+        <div class="data-wrapper ">
+            <div ng-repeat="type in $ctrl.getKeys($ctrl.state)" 
+                ng-class="['data-el', $ctrl.toDisplayType(type, true)]">
+                <div class="data-type">{{ $ctrl.toDisplayType(type) }}</div>
+                <div class="data-fields">
+                    <inspect-field
+                        ng-if="!Array.isArray($ctrl.state[type])"
+                        ng-repeat="(key, value) in $ctrl.state[type]"
+                        field="{ key, value }"
+                        depth="0">
+                    </inspect-field>
+                    <inspect-field
+                        ng-if="Array.isArray($ctrl.state[type])"
+                        ng-repeat="field in $ctrl.state[type]"
+                        field="field"
+                        depth="0">
+                    </inspect-field>
+                </div>
             </div>
         </div>
     </div>
@@ -63,6 +65,12 @@
 </script>
 
 <style lang="stylus">
+    .state-inspect-pane
+        display flex
+        flex-direction column
+        height 100%
+        width 100%
+
     .data-wrapper
         display flex
         flex-wrap wrap

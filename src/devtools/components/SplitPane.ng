@@ -9,7 +9,7 @@
             <div class="dragger" ng-mousedown="$ctrl.dragStart($event)"></div>
          </div>
          <div class="right" style="width: {{ (100 - $ctrl.split) + '%' }}">
-            <div ng-transclude="right"></div>
+            <div ng-transclude="right" style="height: 100%"></div>
          </div>
     </div>
 </template>
