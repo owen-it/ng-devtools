@@ -20,6 +20,7 @@ const propModes = ['default', 'sync', 'once']
 
 const instanceMap = window.__NG_DEVTOOLS_INSTANCE_MAP__ = new Map()
 
+let currentInspectedId
 let bridge
 let isLegacy = false
 let filter = ''
@@ -53,6 +54,8 @@ function connect() {
     bridge.log('backend ready.')
     bridge.send('ready', hook.Angular.version.full)
     console.log('[ng-devtools] Ready. Detected Angular v' + hook.Angular.version.full)
+    
+    scan()
 }
 
 function flush () {
@@ -65,9 +68,11 @@ function flush () {
     }
 
     const payload = stringify({
-        inspectIntance: '',
-        instaces: []
+        inspectIntance: getInstanceDetails(currentInspectedId),
+        instances: []
     })
+
+    console.log(payload)
 
     if (!isProduction) {
         console.log(`[flush] serialized ${captureCount} instances, took ${window.performance.now() - start}ms`)
@@ -76,19 +81,112 @@ function flush () {
     bridge.send('flush', payload)
 }
 
-/**
- * Get the appropriate display name for an instance.
- *
- * @param {Angular} instance
- * @return {String}
- */
-
-export function getInscanceName (instance) 
+function walk (node, fn) 
 {
-    
+    if (node.childNodes) {
+        for (let i = 0, l = node.childNodes.length; i < l; i++) {
+            const child = node.childNodes[i]
+            const stop = fn(child)
+
+            if (!stop) {
+                walk(child, fn)
+            }
+        }
+    }
+
+    if (node.shadowRoot) {
+        walk(node.shadowRoot, fn)
+    }
 }
 
-export function getRootScope (instance) 
+function scan ()
 {
-    return instance.injector(['ng']).get('$rootScope')
+    rootInstances.length = 0
+
+    walk(document, function (node) {
+        const $el = angular.element(node)
+        const $scope = $el.data('$scope')
+
+        if ($scope) {
+            let baseAngular = $scope
+            while (baseAngular.$parent) {
+                baseAngular = baseAngular.$parent
+            }
+
+            rootInstances.push($scope)
+
+            return true
+        }
+    })
+
+    flush()
+}
+
+/**
+ * Get the detailed information of an inspected instance
+ * 
+ * @param {Number} id
+ */
+function getInstanceDetails (id)
+{
+    const instance = instanceMap.get(id)
+
+    if (!instance) {
+        return {}
+    } else {
+        return {
+            id: id,
+            name: getInstanceName(instance)
+        }
+    }
+}
+
+/**
+ * Get the apropriate display name for an instance
+ */
+export function getInstanceName (instance) 
+{
+    const name = (instance.$ctrl || instance).constructor.name
+
+    if (name) {
+        return name
+    }
+
+    return !instance.$root ? 'Root' : 'Anonymous Module'
+}
+
+/**
+ * Interate through an array of instances an flatten it into
+ * an array of qualified instances. This is a depth-first
+ * traversal - e.g if an instance is not matched, we will
+ * recursively go deeper until a qualified child is found.
+ * 
+ * @param {Array} instances
+ * @return {Array}
+ */
+function findQualifiedChildrenFromList (instances) 
+{
+    instances = instances.filter(
+        child => !child.$$destroyed
+    )
+
+    return !filter 
+        ? instances.map(capture)
+        : [] // not implemented
+}
+
+
+/**
+ * Capture the meta information of an instance (recursive)
+ * 
+ * @param {$scope} instance 
+ * @return {Object}
+ */
+function capture (instance, _, list)
+{
+    if (process.env.NODE_ENV !== 'production') {
+        captureCount++
+    }
+
+
 }
