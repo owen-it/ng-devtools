@@ -15,7 +15,6 @@ export function initEventsBackend (Angular, bridge)
     {
         if(typeof eventName === 'string' && !internalRE.test(eventName)) {
             if (recording) {
-                console.log($scope)
                 bridge.send('event:triggered', stringify({
                     eventName,
                     type,

@@ -51,6 +51,9 @@ function connect() {
     // events
     initEventsBackend(hook.Angular, bridge)
 
+    // models
+    // initModelsBackend(hook.Angular, bridge)
+
     bridge.log('backend ready.')
     bridge.send('ready', hook.Angular.version.full)
     console.log('[ng-devtools] Ready. Detected Angular v' + hook.Angular.version.full)
@@ -71,8 +74,6 @@ function flush () {
         inspectIntance: getInstanceDetails(currentInspectedId),
         instances: []
     })
-
-    console.log(payload)
 
     if (!isProduction) {
         console.log(`[flush] serialized ${captureCount} instances, took ${window.performance.now() - start}ms`)
@@ -188,5 +189,28 @@ function capture (instance, _, list)
         captureCount++
     }
 
+    mark(instance)
 
+    const ret = {
+        id: instance.$id,
+        name: getInstanceName(instance),
+        children: {}
+    }
+
+}
+
+/**
+ * Mark an instance as captured an store it in the instace map
+ * 
+ * @param {Object} instance 
+ */
+function mark (instance) 
+{
+    if (!instanceMap.has(instance.$id)) {
+        instanceMap.set(instance.$id, instance)
+
+        instance.$on('hook:beforeDestroy', function () {
+            instanceMap.delete(instance.$id)
+        })
+    }
 }
