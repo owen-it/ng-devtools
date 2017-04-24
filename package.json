@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cd shells/dev && webpack-dev-server --inline --hot --no-info",
+    "dev:chrome": "cd shells/chrome && webpack --watch --hide-modules",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

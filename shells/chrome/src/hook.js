@@ -5,4 +5,4 @@ import { installHook } from 'src/backend/hook'
 const script = document.createElement('script')
 script.textContent = `;(${installHook.toString()})(window)`
 document.documentElement.appendChild(script)
-scritp.parentNode.removeChild(script) 
+script.parentNode.removeChild(script) 
