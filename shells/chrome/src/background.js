@@ -4,6 +4,7 @@
 const ports = {}
 
 chrome.runtime.onConnect.addListener(port => {
+    return
     let tab
     let name
 
@@ -12,18 +13,39 @@ chrome.runtime.onConnect.addListener(port => {
         name = 'devtools'
 
         installProxy(+port.name)
+    } else {
+        tab = port.sender.tab.id 
+        name = 'backend'
     }
 
-    console.log('[backend][port]', port)
+    if (!ports[tab]) {
+        ports[tab] = {
+            devtools: null,
+            backend: null
+        }
+    }
+
+    ports[tab][name] = port
+
+    if (ports[tab].devtools && ports[tab].backend) {
+        doublePipe(tab, ports[tab].devtools, ports[tab].backend)
+    }
 })
 
 chrome.runtime.onMessage.addListener((req, sender) => {
-    console.log('[backend][message]', req, sender)
+    
+    if (sender.tab && req.angularDetected) {
+        // update icon
+        chrome.browserAction.setIcon({
+            tabId: sender.tab.id,
+            path: {
+                16:  'icons/16.png',
+                48:  'icons/48.png',
+                128: 'icons/128.png'
+            }
+        })
+    }
 
-
-    // if (sender.tab && req.angularDetected) {
-
-    // }
 })
 
 function isNumeric (str) {
@@ -31,15 +53,52 @@ function isNumeric (str) {
 }
 
 function installProxy (tabId) {
-    console.log('[backend]', tabId)
-return
     chrome.tabs.executeScript(tabId, {
         file: '/build/proxy.js'
     }, function (res) {
         if (!res) {
             ports[tabId].devtools.postMessage('proxy-fail')
         } else {
-            console.log('injected proxy to tab' + tabId)
+            console.log('injected proxy to tab ' + tabId)
         }
     })
+}
+
+function doublePipe (id, one, two) {
+    on.onMessage.addListener(lOne)
+
+    function lOne (message) {
+        if (message.event === 'log') {
+            return console.log('tab ' + id, message.payload)
+        }
+
+        console.log('devtools -> backend', message)
+        two.postMessage(message)
+    }
+
+    two.onMessage.addListener(lTwo)
+
+    function lTwo (message) {
+        if (message.event === 'log') {
+            return console.log('tab ' + id, message.payload)
+        }
+        console.log('backend -> devtools', message)
+        on.postMessage(message)
+    }
+
+    function shutdown () {
+        console.log('tab '+id+' disconnected.')
+        one.onMessage.removeListener(lOne)
+        two.onMessage.removeListener(lTwo)
+
+        one.disconnect()
+        two.disconnect()
+
+        ports[id] = null
+    }
+
+    one.onDisconnect.addListener(shutdown)
+    two.onDisconnect.addListener(shutdown)
+
+    console.log('tab '+id+' connected.')
 }

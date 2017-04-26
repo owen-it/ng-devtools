@@ -9,7 +9,9 @@ window.addEventListener('message', e => {
 function detect (win) {
     setTimeout(() => {
         const root = document.querySelector('.ng-scope')
-        let $scope = angular.element(root).data('$scope')
+        let $scope = root && angular.element(root).data('$scope')
+
+        console.log(root, $scope, window)
 
         if ($scope) {
             
