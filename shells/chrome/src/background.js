@@ -4,7 +4,9 @@
 const ports = {}
 
 chrome.runtime.onConnect.addListener(port => {
-    return
+
+    console.log('connected'); return
+
     let tab
     let name
 
@@ -35,6 +37,7 @@ chrome.runtime.onConnect.addListener(port => {
 chrome.runtime.onMessage.addListener((req, sender) => {
     
     if (sender.tab && req.angularDetected) {
+       
         // update icon
         chrome.browserAction.setIcon({
             tabId: sender.tab.id,
@@ -43,6 +46,14 @@ chrome.runtime.onMessage.addListener((req, sender) => {
                 48:  'icons/48.png',
                 128: 'icons/128.png'
             }
+        })
+
+        console.log(req)
+
+        // updatePopup
+        chrome.browserAction.setPopup({
+            tabId: sender.tab.id,
+            popup: req.devtoolsEnabled ? 'popups/enabled.html' : 'popups/disabled.html'
         })
     }
 

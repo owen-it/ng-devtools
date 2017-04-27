@@ -1,6 +1,8 @@
 var devtools = window.__NG_DEVTOOLS_GLOBAL_HOOK__
 
-angular.$logEvent = function(){}
+// wrap envent
+angular.$wrapEvent = angular.noop
+
 angular.module('ng').config(['$provide', function($provide) {
     $provide.decorator("$rootScope", function($delegate) {
         var $scope = $delegate.constructor;
@@ -8,13 +10,13 @@ angular.module('ng').config(['$provide', function($provide) {
         var origEmit = $scope.prototype.$emit;
 
         $scope.prototype.$broadcast = function(...args) {
-            angular.$logEvent(this, '$broadcast', args[0], args.slice(1))
+            angular.$wrapEvent(this, '$broadcast', args[0], args.slice(1))
 
             return origBroadcast.apply(this, arguments);
         };
 
         $scope.prototype.$emit = function(...args) {
-            angular.$logEvent(this, '$emit', args[0], args.slice(1))
+            angular.$wrapEvent(this, '$emit', args[0], args.slice(1))
 
             return origEmit.apply(this, arguments);
         };

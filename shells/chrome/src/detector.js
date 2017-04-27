@@ -1,29 +1,30 @@
 window.addEventListener('message', e => {
     if (e.source === window && e.data.angularDetected) {
-        chrome.runtime.sendMessage({
-            angularDetected: e.data.angularDetected
-        })
+        chrome.runtime.sendMessage(e.data)
     }
 })
 
 function detect (win) {
 
+    // verify if has angular
+    if (!win.angular) return
+
     setTimeout(() => {
         const root = document.querySelector('.ng-scope')
-        let $scope = root && angular.element(root).data('$scope')
+        let rooScope = win.angular.element(root).data('$scope')
 
-        if ($scope) {
+        if (rooScope) {
             
-            while ($scope.$parent) {
-                $scope = $scope.parent
+            while (rooScope.$parent) {
+                rooScope = rooScope.$parent
             }
 
-            // win.postMessage({
-            //     devtoolsEnabled: angular.config.devtools,
-            //     angularDetected: true
-            // }, '*')
+            win.postMessage({
+                devtoolsEnabled: true,
+                angularDetected: true
+            }, '*')
         }
-    }, 200)
+    }, 100)
 
 }
 

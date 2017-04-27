@@ -11,7 +11,8 @@ export function initEventsBackend (Angular, bridge)
         recording = enabled
     })
     
-    function logEvent ($scope, type, eventName, payload) 
+    // wrap event
+    function wrapEvent ($scope, type, eventName, payload) 
     {
         if(typeof eventName === 'string' && !internalRE.test(eventName)) {
             if (recording) {
@@ -26,6 +27,6 @@ export function initEventsBackend (Angular, bridge)
         }
     }
 
-    Angular.$logEvent = logEvent
+    Angular.$wrapEvent = wrapEvent
 
 }
