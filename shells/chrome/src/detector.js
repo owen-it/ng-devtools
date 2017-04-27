@@ -7,11 +7,10 @@ window.addEventListener('message', e => {
 })
 
 function detect (win) {
+
     setTimeout(() => {
         const root = document.querySelector('.ng-scope')
         let $scope = root && angular.element(root).data('$scope')
-
-        console.log(root, $scope, window)
 
         if ($scope) {
             
@@ -19,12 +18,13 @@ function detect (win) {
                 $scope = $scope.parent
             }
 
-            win.postMessage({
-                devtoolsEnabled: $scope,
-                angularDetected: true
-            }, '*')
+            // win.postMessage({
+            //     devtoolsEnabled: angular.config.devtools,
+            //     angularDetected: true
+            // }, '*')
         }
-    }, 100)
+    }, 200)
+
 }
 
 // inject the detector

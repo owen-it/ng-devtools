@@ -43,6 +43,11 @@
         },
         {
             "matches": ["<all_urls>"],
+            "js": ["build/bootstrap.js"],
+            "run_at": "document_start"
+        },
+        {
+            "matches": ["<all_urls>"],
             "js": ["build/detector.js"],
             "run_at": "document_idle"
         }

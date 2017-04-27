@@ -12,6 +12,7 @@ module.exports = {
         hook: './src/hook.js',
         //devtools: './src/devtools.js',
         background: './src/background.js',
+        bootstrap: './src/bootstrap.js',
         'devtools-background': './src/devtools-background.js',
         //backend: './src/backend.js',
         //proxy: './src/proxy.js',
