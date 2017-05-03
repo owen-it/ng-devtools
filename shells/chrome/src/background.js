@@ -48,9 +48,7 @@ chrome.runtime.onMessage.addListener((req, sender) => {
             }
         })
 
-        console.log(req)
-
-        // updatePopup
+        // update popup
         chrome.browserAction.setPopup({
             tabId: sender.tab.id,
             popup: req.devtoolsEnabled ? 'popups/enabled.html' : 'popups/disabled.html'
