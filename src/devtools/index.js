@@ -22,8 +22,7 @@ let app = null
 export function initDevTools (shell) 
 {
     initApp(shell)
-    shell.onReload(() => 
-    {
+    shell.onReload(() => {
         if(app) {
             //angular.element(document).injector().get('$rootScope')
             //angular.injector(['app'])

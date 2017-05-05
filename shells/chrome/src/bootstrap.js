@@ -19,6 +19,7 @@ function bootstrap (window) {
 
         const root = document.querySelector('.ng-scope')
         const rootScope = angular.element(root).data('$scope')
+        const devtools = window.__NG_DEVTOOLS_GLOBAL_HOOK__
         
         function wrap (method) {
             const original = rootScope.__proto__[method]
@@ -40,6 +41,10 @@ function bootstrap (window) {
            wrap('$broadcast')
        }
 
+       // init hooks
+       devtools.emit('init', angular)
+
+       // clear check wrap
        clearInterval(checkWrapInterval)
        wraped = true
     }
