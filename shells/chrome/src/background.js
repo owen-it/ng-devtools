@@ -3,9 +3,11 @@
 
 const ports = {}
 
+console.log('I am the background!')
+
 chrome.runtime.onConnect.addListener(port => {
 
-    console.log('connected'); return
+    console.log('connected!'); return
 
     let tab
     let name
@@ -32,29 +34,6 @@ chrome.runtime.onConnect.addListener(port => {
     if (ports[tab].devtools && ports[tab].backend) {
         doublePipe(tab, ports[tab].devtools, ports[tab].backend)
     }
-})
-
-chrome.runtime.onMessage.addListener((req, sender) => {
-    
-    if (sender.tab && req.angularDetected) {
-       
-        // update icon
-        chrome.browserAction.setIcon({
-            tabId: sender.tab.id,
-            path: {
-                16:  'icons/16.png',
-                48:  'icons/48.png',
-                128: 'icons/128.png'
-            }
-        })
-
-        // update popup
-        chrome.browserAction.setPopup({
-            tabId: sender.tab.id,
-            popup: req.devtoolsEnabled ? 'popups/enabled.html' : 'popups/disabled.html'
-        })
-    }
-
 })
 
 function isNumeric (str) {
@@ -111,3 +90,26 @@ function doublePipe (id, one, two) {
 
     console.log('tab '+id+' connected.')
 }
+
+chrome.runtime.onMessage.addListener((req, sender) => {
+    
+    if (sender.tab && req.angularDetected) {
+       
+        // update icon
+        chrome.browserAction.setIcon({
+            tabId: sender.tab.id,
+            path: {
+                16:  'icons/16.png',
+                48:  'icons/48.png',
+                128: 'icons/128.png'
+            }
+        })
+
+        // update popup
+        chrome.browserAction.setPopup({
+            tabId: sender.tab.id,
+            popup: req.devtoolsEnabled ? 'popups/enabled.html' : 'popups/disabled.html'
+        })
+    }
+
+})

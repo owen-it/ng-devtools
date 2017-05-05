@@ -73,6 +73,7 @@ export function installHook(window) {
         hook.Angular = Angular
     })
 
+    console.log('Defining property')
     Object.defineProperty(window, '__NG_DEVTOOLS_GLOBAL_HOOK__', {
         get () {
             return hook

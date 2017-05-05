@@ -6,12 +6,13 @@
 let created = false
 let checkCount = 0
 
-chrome.devtools.network.onNavigated.addListener(createPanel)
-const checkAngularInterval = setInterval(createPanel, 1000)
+chrome.devtools.network.onNavigated.addListener(createPanelIfHasAngular)
+const checkAngularInterval = setInterval(createPanelIfHasAngular, 1000)
 
-createPanel()
+createPanelIfHasAngular()
 
-function createPanel () {
+function createPanelIfHasAngular () {
+
     if (created || checkCount++ > 10) {
         return
     }

@@ -10,19 +10,23 @@ var bubleOptions = {
 module.exports = {
     entry: {
         hook: './src/hook.js',
-        //devtools: './src/devtools.js',
+        devtools: './src/devtools.js',
         background: './src/background.js',
         bootstrap: './src/bootstrap.js',
         'devtools-background': './src/devtools-background.js',
-        //backend: './src/backend.js',
-        //proxy: './src/proxy.js',
+        backend: './src/backend.js',
+        proxy: './src/proxy.js',
         detector: './src/detector.js'
     },
     output: {
         path: __dirname + '/build',
         filename: '[name].js'
     },
-    resolve: { alias },
+    resolve: {         
+        alias: Object.assign({}, alias, {
+            flux: 'flux-angular/release/flux-angular.js'
+        }) 
+    },
     module: {
         rules: [
             {
