@@ -69,7 +69,6 @@ function initApp(shell)
                 }
             })
 
-
         }])
 
         .filter('formatTime', function(){

@@ -3,11 +3,7 @@
 
 const ports = {}
 
-console.log('I am the background!')
-
 chrome.runtime.onConnect.addListener(port => {
-
-    console.log('connected!'); return
 
     let tab
     let name

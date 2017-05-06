@@ -12,9 +12,10 @@ initDevTools({
      */
 
     connect (cb) {
+
         // 1. inject backend code into page
-        injectScript(chrome.runtime.getUrl('build/backend.js'), () => {
-            alert('backend injected')
+        injectScript(chrome.runtime.getURL('build/backend.js'), () => {
+
             // 2. connect to background to setup proxy
             const port = chrome.runtime.connect({
                 name: '' + chrome.devtools.inspectedWindow.tabId
@@ -61,6 +62,7 @@ initDevTools({
  */
 
 function injectScript (scriptName, cb) {
+
     const src = `
         var script = document.constructor.prototype.createElement.call(document, 'script');
         script.src = "${scriptName}";
@@ -69,7 +71,7 @@ function injectScript (scriptName, cb) {
     `
 
     chrome.devtools.inspectedWindow.eval(src, function (res, err) {
-        console.log('inspect'); alert('inspect')
+        
         if (err) console.error(err)
 
         cb(res, err)
