@@ -27,6 +27,11 @@
         components: { splitPane, inspectField },
         controller: class ModuleCtrl 
         {
+            constructor () 
+            {
+                this.$inject = ['$injector']
+            }
+
             $onInit () 
             {
                 this.data = this;

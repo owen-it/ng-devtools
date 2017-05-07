@@ -31,7 +31,7 @@ export function initBackend (_bridge) {
 
     if(hook.Angular){
         isLegacy = hook.Angular.version.minor && 
-        hook.Angular.version.minor < 5
+        hook.Angular.version.minor < 6
 
         connect()
     } else {

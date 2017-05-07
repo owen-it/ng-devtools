@@ -22,11 +22,11 @@ function bootstrap (window) {
         angular.$wrapEvent = angular.noop
 
         // define rootscope
-        Object.defineProperty(angular, '$rootScope', {
+        Object.defineProperty(angular, '$rootElement', {
             get () {
                 return this.element(
                     document.querySelector('.ng-scope')
-                ).data('$scope')
+                )
             }
         })
         
