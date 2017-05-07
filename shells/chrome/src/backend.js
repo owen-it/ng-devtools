@@ -27,7 +27,7 @@ function handshake (e) {
                 window.postMessage({
                     source: 'ng-devtools-backend',
                     payload: data
-                })
+                }, '*')
             }
         })
         

@@ -6,16 +6,13 @@ import { parse } from '../util'
 window.jQuery = require('jquery')
 window.$ = jQuery
 
-angular.errorHandle = (h, e) => {
-    return h('pre', {
-        style: {
-            backgroundColor: 'red',
-            color: 'white',
-            fontSize: '12px',
-            padding: '10px'
-        }
-    })
-}
+Object.defineProperty(angular, '$rootScope', {
+    get () {
+        return this.element(
+            document.querySelector('.ng-scope')
+        ).data('$scope')
+    }
+})
 
 let app = null
 
@@ -24,10 +21,7 @@ export function initDevTools (shell)
     initApp(shell)
     shell.onReload(() => {
         if(app) {
-            //angular.element(document).injector().get('$rootScope')
-            //angular.injector(['app'])
-
-            console.log('devtools -> app.$destory ')
+            angular.$rootScope.$destory()
         }
 
         bridge.removeAllListeners()
@@ -39,6 +33,7 @@ export function initDevTools (shell)
 function initApp(shell)
 {
     shell.connect(bridge => {
+
         window.bridge = bridge
 
         var name = 'devtools'
@@ -82,3 +77,4 @@ function initApp(shell)
         )
     })
 }
+

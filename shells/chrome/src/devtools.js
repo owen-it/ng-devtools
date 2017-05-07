@@ -22,7 +22,7 @@ initDevTools({
             })
 
             let disconnected = false
-            port.onDisconnected.addListener(() => {
+            port.onDisconnect.addListener(() => {
                 disconnected = true
             })
 
@@ -40,6 +40,7 @@ initDevTools({
             // 3. send a proxy API to the panel
             cb(bridge)
         })
+
     },
 
     /**
@@ -49,7 +50,7 @@ initDevTools({
      */
     
     onReload (reloadFn) {
-        chrome.devtools.network.onNavgated.addListener(reloadFn)
+        chrome.devtools.network.onNavigated.addListener(reloadFn)
     }
 })
 

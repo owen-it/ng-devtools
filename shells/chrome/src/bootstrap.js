@@ -14,22 +14,32 @@ function bootstrap (window) {
 
         if (!window.angular || wraped) return
 
-         // add wrap event function
-        angular.$wrapEvent = angular.noop
-
         const root = document.querySelector('.ng-scope')
         const rootScope = angular.element(root).data('$scope')
         const devtools = window.__NG_DEVTOOLS_GLOBAL_HOOK__
+
+         // add wrap event function
+        angular.$wrapEvent = angular.noop
+
+        // define rootscope
+        Object.defineProperty(angular, '$rootScope', {
+            get () {
+                return this.element(
+                    document.querySelector('.ng-scope')
+                ).data('$scope')
+            }
+        })
         
         function wrap (method) {
             const original = rootScope.__proto__[method]
 
             if (original && (original.name !== 'kindnapped')) {
-                rootScope.__proto__[method] = function kindnapped () {
-                    const result = original.apply(rootScope, arguments)
+                rootScope.__proto__[method] = function kindnapped (...args) {
+                    // event result
+                    const result = original.apply(rootScope, args)
 
                     // wrap events
-                    angular.$wrapEvent.apply(rootScope, arguments)
+                    angular.$wrapEvent(rootScope, method, args[0], args.slice(1))
 
                     return result
                 }

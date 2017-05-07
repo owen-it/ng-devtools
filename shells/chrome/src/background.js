@@ -49,7 +49,7 @@ function installProxy (tabId) {
 }
 
 function doublePipe (id, one, two) {
-    on.onMessage.addListener(lOne)
+    one.onMessage.addListener(lOne)
 
     function lOne (message) {
         if (message.event === 'log') {
@@ -67,7 +67,7 @@ function doublePipe (id, one, two) {
             return console.log('tab ' + id, message.payload)
         }
         console.log('backend -> devtools', message)
-        on.postMessage(message)
+        one.postMessage(message)
     }
 
     function shutdown () {

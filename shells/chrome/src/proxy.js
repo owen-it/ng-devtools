@@ -9,7 +9,7 @@ const port = chrome.runtime.connect({
 
 port.onMessage.addListener(sendMessageToBackend)
 window.addEventListener('message', sendMessageToDevtools)
-port.onDisconnect.addLIstener(handleDisconnect)
+port.onDisconnect.addListener(handleDisconnect)
 
 sendMessageToBackend('init')
 
