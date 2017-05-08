@@ -14,6 +14,7 @@
                <i class="material-icons">extension</i>
                <span class="pane-name">Modules</span>
             </a>
+            <!--
             <a class="button components"
                ng-class="{ active: $ctrl.tab === 'components' }"
                ng-click="$ctrl.switchTab('components')"
@@ -21,6 +22,7 @@
                <i class="material-icons">device_hub</i>
                <span class="pane-name">Components</span>
             </a>
+            -->
             <a class="button events"
                ng-class="{ active: $ctrl.tab === 'events' }"
                ng-click="$ctrl.switchTab('events')"

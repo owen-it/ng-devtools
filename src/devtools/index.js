@@ -21,7 +21,9 @@ export function initDevTools (shell)
     initApp(shell)
     shell.onReload(() => {
         if(app) {
-            angular.$rootScope.$destory()
+            document.getElementById('container').injector = null
+            
+            angular.$rootScope.$destroy()
         }
 
         bridge.removeAllListeners()

@@ -1,5 +1,4 @@
 import * as angular from 'angular'
-import './bootstrap'
 
 import counter from './Counter.ng'
 import events from './Events.ng'

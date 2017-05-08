@@ -40,10 +40,10 @@ export function initBackend (_bridge) {
 }
 
 function connect() {
-    hook.currentTab = 'components'
+    hook.currentTab = 'modules'
     bridge.on('switch-tab', tab => {
         hook.currentTab = tab
-        if(tab === 'components'){
+        if(tab === 'modules'){
             flush()
         }
     })

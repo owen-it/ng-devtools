@@ -11,6 +11,7 @@ var bubleOptions = {
 module.exports = {
     entry: {
         devtools: './src/devtools.js',
+        bootstrap: './src/bootstrap.js',
         backend: './src/backend.js',
         hook: './src/hook.js',
         target: './target/index.js' 
