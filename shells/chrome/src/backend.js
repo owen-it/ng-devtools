@@ -5,8 +5,8 @@ import Bridge from 'src/bridge'
 
 window.addEventListener('message', handshake)
 
-function handshake (e) {
-    
+function handshake (e) 
+{
     if (e.data.source === 'ng-devtools-proxy' && e.data.payload === 'init') {
         window.removeEventListener('message', handshake)
 
