@@ -1,18 +1,22 @@
 import { mapState, mapHandlers , mapActions, mergeGetters } from '@/helpers'
 
-import events from 'views/events/store'
+import events  from 'views/events/store'
+import modules from 'views/modules/store'
 
 export default {
     state: {
         message: '',
         tab: 'events',
-        events: events.state
+
+        events: events.state,
+        modules: modules.state
     },
     handlers: {
         'SHOW_MESSAGE': 'showMessage',
         'SWITCH_TAB': 'swithTab',
 
-        ...mapHandlers('events', events.handlers)
+        ...mapHandlers('events', events.handlers),
+        ...mapHandlers('modules', modules.handlers)
     },
     actions: {
         showMessage (payload) 
@@ -25,7 +29,8 @@ export default {
             this.state.set(['tab'], payload)
         },
 
-        ...mapActions(events.actions)
+        ...mapActions(events.actions),
+        ...mapActions(modules.actions)
     },
     getters: mergeGetters(
         {
@@ -40,8 +45,9 @@ export default {
             get state () {
                 return this.state.get()
             }
-        }, 
-        events.getters 
+        },
+
+        events.getters
     )
         
 }

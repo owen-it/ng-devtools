@@ -16,6 +16,7 @@ function basename (filename, ext ) {
 // hook should have been injected before this executes.
 const hook = window.__NG_DEVTOOLS_GLOBAL_HOOK__
 const rootInstances = []
+const moduleInstances = []
 const propModes = ['default', 'sync', 'once']
 
 const instanceMap = window.__NG_DEVTOOLS_INSTANCE_MAP__ = new Map()
@@ -23,7 +24,7 @@ const instanceMap = window.__NG_DEVTOOLS_INSTANCE_MAP__ = new Map()
 let currentInspectedId
 let bridge
 let isLegacy = false
-let filter = ''
+let moduleFilter = ''
 let captureCount = 0
 
 export function initBackend (_bridge) {
@@ -48,6 +49,12 @@ function connect() {
         }
     })
 
+    bridge.on('filter-module-instances', _filter => {
+        moduleFilter = _filter.toLowerCase()
+
+        flush()
+    })
+
     // events
     initEventsBackend(hook.Angular, bridge)
 
@@ -61,63 +68,16 @@ function connect() {
     scan()
 }
 
-function flush () {
-    let start
-    let isProduction = process.env.NODE_ENV === 'production'
-
-    if (!isProduction) {
-        captureCount = 0
-        start = window.performance.now()
-    }
-
-    const payload = stringify({
-        inspectIntance: getInstanceDetails(currentInspectedId),
-        instances: []
-    })
-
-    if (!isProduction) {
-        console.log(`[flush] serialized ${captureCount} instances, took ${window.performance.now() - start}ms`)
-    }
-
-    bridge.send('flush', payload)
-}
-
-function walk (node, fn) 
-{
-    if (node.childNodes) {
-        for (let i = 0, l = node.childNodes.length; i < l; i++) {
-            const child = node.childNodes[i]
-            const stop = fn(child)
-
-            if (!stop) {
-                walk(child, fn)
-            }
-        }
-    }
-
-    if (node.shadowRoot) {
-        walk(node.shadowRoot, fn)
-    }
-}
 
 function scan ()
 {
     rootInstances.length = 0
+    moduleInstances.length = 0
 
-    walk(document, function (node) {
-        const $el = angular.element(node)
-        const $scope = $el.data('$scope')
+    let $injector = hook.Angular.$$rootElement.injector()
 
-        if ($scope) {
-            let baseAngular = $scope
-            while (baseAngular.$parent) {
-                baseAngular = baseAngular.$parent
-            }
-
-            rootInstances.push($scope)
-
-            return true
-        }
+    Object.keys($injector.modules).forEach(name => {
+        moduleInstances.push($injector.modules[name])
     })
 
     flush()
@@ -139,6 +99,66 @@ function getInstanceDetails (id)
             id: id,
             name: getInstanceName(instance)
         }
+    }
+}
+
+
+function flush () {
+    let start
+    let isProduction = process.env.NODE_ENV === 'production'
+
+    if (!isProduction) {
+        captureCount = 0
+        start = window.performance.now()
+    }
+
+    const payload = stringify({
+        inspectIntance: getInstanceDetails(currentInspectedId),
+        instances: []
+    })
+
+    if (!isProduction) {
+        console.log(`[flush] serialized ${captureCount} instances, took ${window.performance.now() - start}ms`)
+    }
+
+    bridge.send('flush', payload)
+
+    // get instances of modules
+    bridge.send('modules:flush', stringify({
+        instances: findQualifiedModulesFromList(moduleInstances)
+    }))
+}
+
+/**
+ * Iterate through an arrya of instaces and flatten in into
+ * array of qualified intances.
+ * 
+ * @param {Array} instances
+ * @return {Array}
+ */
+function findQualifiedModulesFromList (instances) 
+{
+    return !moduleFilter 
+        ? instances.map(capture) 
+        // TODO: apply filter after
+        : Array.prototype.concat([], instances.map(capture))
+}
+
+function walk (node, fn) 
+{
+    if (node.childNodes) {
+        for (let i = 0, l = node.childNodes.length; i < l; i++) {
+            const child = node.childNodes[i]
+            const stop = fn(child)
+
+            if (!stop) {
+                walk(child, fn)
+            }
+        }
+    }
+
+    if (node.shadowRoot) {
+        walk(node.shadowRoot, fn)
     }
 }
 
@@ -189,14 +209,27 @@ function capture (instance, _, list)
         captureCount++
     }
 
-    mark(instance)
-
     const ret = {
-        id: instance.$id,
-        name: getInstanceName(instance),
+        name: instance.name,
+        values: getInjectedValues(instance),
         children: {}
     }
 
+    return ret
+}
+
+function getInjectedValues (instance) 
+{
+    const values = instance._invokeQueue.filter(q => {
+        return q[1] === 'value' && q[2].length === 2
+    }).map(value => {
+        return {
+            name: value[2][0],
+            value: value[2][1]
+        }
+    })
+
+    return values
 }
 
 /**

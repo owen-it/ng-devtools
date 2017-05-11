@@ -24,7 +24,7 @@ export function initBootstrap (window) {
         angular.$wrapEvent = angular.noop
 
         // define $rootElement
-        Object.defineProperty(angular, '$rootElement', {
+        Object.defineProperty(angular, '$$rootElement', {
             get () {
                 return this.element(
                     document.querySelector('.ng-scope')
@@ -53,7 +53,7 @@ export function initBootstrap (window) {
            wrap('$broadcast')
        }
 
-       console.log(window.angular.$rootElement.injector())
+       console.log( window.angular.$$rootElement.injector() )
 
        // init hooks
        devtools.emit('init', angular)

@@ -6,7 +6,7 @@ import { parse } from '../util'
 window.jQuery = require('jquery')
 window.$ = jQuery
 
-Object.defineProperty(angular, '$rootScope', {
+Object.defineProperty(angular, '$$rootScope', {
     get () {
         return this.element(
             document.querySelector('.ng-scope')
@@ -23,7 +23,7 @@ export function initDevTools (shell)
         if(app) {
             document.getElementById('container').injector = null
             
-            angular.$rootScope.$destroy()
+            angular.$$rootScope.$destroy()
         }
 
         bridge.removeAllListeners()
@@ -64,6 +64,10 @@ function initApp(shell)
                 if(store.tab !== 'events') {
                     flux.dispatch('events/INCREASE_NEW_EVENT_COUNT')
                 }
+            })
+
+            bridge.on('modules:flush', payload => {
+                flux.dispatch('modules/FLUSH', parse(payload))
             })
 
         }])
