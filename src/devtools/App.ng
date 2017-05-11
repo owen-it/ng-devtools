@@ -1,7 +1,7 @@
 <style lang="stylus" src="./global.styl"></style>
 
 <template>
-    <div id="app" ng-class="{app: true}">
+    <div id="app" class="app">
         <div class="header">
             <img class="logo" src="./assets/logo.png" alt="Ng">
             <span class="message-container">
@@ -131,7 +131,7 @@
         height 100%
         user-select none
         background-color $background-color
-        display flex
+        display flex !important
         flex-direction column
         h1
             color #42b983
