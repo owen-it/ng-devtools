@@ -6,9 +6,9 @@
                     <span class="action-title">
                         {{ $ctrl.target.name || 'Anonymous' }}
                     </span>
-                    <a class="button inspect" ng-click="$ctrl.inspectConsole()" title="Open in console">
+                    <a class="button inspect" ng-click="$ctrl.inspectConsole()" title="Inspect in console">
                         <i class="material-icons">web_asset</i> 
-                        <span>Open in console</span>
+                        <span>Inspect in console</span>
                     </a>
                 </action-header>
             </scroll-header>
