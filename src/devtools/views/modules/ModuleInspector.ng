@@ -13,7 +13,12 @@
                 </action-header>
             </scroll-header>
             <scroll-content>
-                content
+                <section ng-if="!$ctrl.target" class="notice">
+                    <div>Select a module instance to inspect.</div>
+                </section>
+                <section ng-if="$ctrl.target" class="data">
+                    <state-inspector state="$ctrl.state"></state-inspector>
+                </section>
             </scroll-content>
         </scroll-pane>
     </div>
@@ -22,10 +27,26 @@
 <script>
     import scrollPane from 'components/ScrollPane.ng'
     import actionHeader from 'components/ActionHeader.ng'
+    import stateInspector from 'components/StateInspector.ng'
 
     export default {
-        components: { scrollPane, actionHeader },
-        bindings: { target: '=' }
+        components: { scrollPane, actionHeader, stateInspector },
+        bindings: { target: '=' },
+        controller: class ModuleInspectorCtrl {
+
+            constructor ($scope) 
+            {
+                this.state = {}
+                this.$inject = ['$scope']
+
+                $scope.$watch('$ctrl.target',  (target) => {
+                    this.state = {
+                        values: target.values
+                    }
+                })
+            }
+
+        }
     }
 </script>
 
