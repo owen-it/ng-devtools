@@ -44,6 +44,7 @@
 
                 $scope.$watch('$ctrl.target',  (target) => {
                     
+                    // omit properts
                     this.state = omitBy({
                         values: target.values,
                         constants: target.constants,
