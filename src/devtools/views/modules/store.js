@@ -11,7 +11,8 @@ export default {
     handlers: {
         'FLUSH': 'flush',
         'INSPECT': 'inspect',
-        'UPDATE_FILTER': 'filter'
+        'UPDATE_FILTER': 'filter',
+        'INSPECT': 'inspect'
     },
     actions: {
         flush (payload) 
@@ -51,7 +52,7 @@ export default {
 
             return filtered
         },
-        get inspectModule () {
+        get inspectedModule () {
             var index = this.state.get('modules').inspectedIndex
 
             return this.state.get('modules').instances[index]

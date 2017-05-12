@@ -20,7 +20,6 @@
                          ng-click="$ctrl.inspect(module)">
                         
                         <span class="module-name">{{ ::module.name }}</span>
-                        <span class="module-type">{{ ::module.type }}</span>
 
                     </div>
                 </div>            

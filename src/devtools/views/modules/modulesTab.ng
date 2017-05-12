@@ -5,8 +5,7 @@
                 <module-instance></module-instance>
             </split-left>
             <split-rigth>
-                
-               
+                <module-inspector target="$ctrl.inspectedInstance"></module-inspector>
             </split-rigth>
         </split-pane>
     </div>
@@ -16,9 +15,29 @@
     import splitPane from 'components/SplitPane.ng'
     import inspectField from 'components/InspectField.ng'
     import moduleInstance from './ModuleInstance.ng'
+    import moduleInspector from './ModuleInspector.ng'
 
     export default {
-        components: { splitPane, inspectField, moduleInstance }
+        components: { splitPane, inspectField, moduleInstance, moduleInspector },
+        controller: class ModulePaneCtrl {
+
+            constructor ($scope, store)
+            {
+                this.$scope = $scope
+                this.store = store
+                this.$inject = ['$scope', 'store']
+            }
+
+            $onInit ()
+            {
+                this.inspectedInstance = {}
+
+                this.$scope.$listenTo(this.store, ['modules', 'inspectedIndex'], () => {
+                    this.inspectedInstance = this.store.inspectedModule
+                })
+            }
+
+        }
     }
 </script>
 

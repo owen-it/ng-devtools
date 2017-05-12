@@ -38,10 +38,6 @@
         compoennts: { inspectField },
         controller: class StateInspectorCtrl 
         {
-            $onInit ()
-            {
-            }
-
             getKeys (state) 
             {
                 return Object.keys(state).sort((a, b) => {

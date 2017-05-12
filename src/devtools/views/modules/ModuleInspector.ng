@@ -1,0 +1,49 @@
+<template>
+    <div class="module-inspect-pane">
+        <scroll-pane>
+            <scroll-header>
+                <action-header>
+                    <span class="action-title">
+                        {{ $ctrl.target.name }}
+                    </span>
+                    <a class="button inspect" ng-click="$ctrl.inspectDOM" title="Inspect DOM">
+                        <i class="material-icons">visibility</i>
+                        <span>Inspect DOM</span>
+                    </a>
+                </action-header>
+            </scroll-header>
+            <scroll-content>
+                content
+            </scroll-content>
+        </scroll-pane>
+    </div>
+</template>
+
+<script>
+    import scrollPane from 'components/ScrollPane.ng'
+    import actionHeader from 'components/ActionHeader.ng'
+
+    export default {
+        components: { scrollPane, actionHeader },
+        bindings: { target: '=' }
+    }
+</script>
+
+<style lang="stylus" scoped>
+
+    .module-inspect-pane
+        display flex
+        flex-direction column
+        height 100%
+        width 100%
+
+    .no-event-data
+        color #ccc
+        text-align center
+        margin-top 50px
+        line-height 30px
+
+    .action-title
+        margin 0 10px
+
+</style>
