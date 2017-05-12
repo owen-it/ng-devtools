@@ -6,9 +6,9 @@
                     <span class="action-title">
                         {{ $ctrl.target.name || 'Anonymous' }}
                     </span>
-                    <a class="button inspect" ng-click="$ctrl.inspectDOM" title="Inspect DOM">
-                        <i class="material-icons">visibility</i>
-                        <span>Inspect DOM</span>
+                    <a class="button inspect" ng-click="$ctrl.inspectConsole()" title="Open in console">
+                        <i class="material-icons">web_asset</i> 
+                        <span>Open in console</span>
                     </a>
                 </action-header>
             </scroll-header>
@@ -30,6 +30,8 @@
     import scrollPane from 'components/ScrollPane.ng'
     import actionHeader from 'components/ActionHeader.ng'
     import stateInspector from 'components/StateInspector.ng'
+
+    const isChrome = typeof chrome !== 'undefined' && chrome.devtools
 
     export default {
         components: { scrollPane, actionHeader, stateInspector },
@@ -53,6 +55,13 @@
 
                     this.hasPropert = !!Object.keys(this.state).length
                 })
+            }
+
+            inspectConsole () 
+            {
+                if (!this.target) return 
+
+                console.log(this.target)
             }
 
         }
