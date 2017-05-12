@@ -4,7 +4,7 @@
             <scroll-header>
                 <action-header>
                     <span class="action-title">
-                        {{ $ctrl.target.name }}
+                        {{ $ctrl.target.name || 'Anonymous' }}
                     </span>
                     <a class="button inspect" ng-click="$ctrl.inspectDOM" title="Inspect DOM">
                         <i class="material-icons">visibility</i>
@@ -13,10 +13,10 @@
                 </action-header>
             </scroll-header>
             <scroll-content>
-                <section ng-if="!$ctrl.target" class="notice">
-                    <div>Select a module instance to inspect.</div>
+                <section ng-if="!$ctrl.hasPropert" class="notice">
+                    <div>This module has no value, info and constants defined.</div>
                 </section>
-                <section ng-if="$ctrl.target" class="data">
+                <section ng-if="$ctrl.hasPropert" class="data">
                     <state-inspector state="$ctrl.state"></state-inspector>
                 </section>
             </scroll-content>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+    import { omitBy } from 'lodash'
+
     import scrollPane from 'components/ScrollPane.ng'
     import actionHeader from 'components/ActionHeader.ng'
     import stateInspector from 'components/StateInspector.ng'
@@ -38,11 +40,17 @@
             {
                 this.state = {}
                 this.$inject = ['$scope']
+                this.hasPropert = false
 
                 $scope.$watch('$ctrl.target',  (target) => {
-                    this.state = {
-                        values: target.values
-                    }
+                    
+                    this.state = omitBy({
+                        values: target.values,
+                        constants: target.constants,
+                        info: target.info
+                    }, v => !Object.keys(v).length )
+
+                    this.hasPropert = !!Object.keys(this.state).length
                 })
             }
 

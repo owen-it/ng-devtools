@@ -1,8 +1,7 @@
 <template>
     <div class="data-field">
         <div class="self" 
-             ng-click="$ctrl.toggle()"
-             style="margin-left: {{ $ctrl.depth * 14 }}px">
+             ng-click="$ctrl.toggle()">
              <span class="arrow right"
                    ng-class="{ rotated: $ctrl.expanded }"
                    ng-show="$ctrl.isExpandableType()">

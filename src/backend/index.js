@@ -216,6 +216,8 @@ function capture (instance, _, list)
         info: instance.info()
     }
 
+    console.log(ret)
+
     return ret
 }
 
@@ -228,16 +230,15 @@ function capture (instance, _, list)
  */
 function getInjected (instance, type) 
 {
-    const values = instance._invokeQueue.filter(q => {
+    let ret = {}
+
+    instance._invokeQueue.filter(q => {
         return q[1] === type && q[2].length === 2
-    }).map(value => {
-        return {
-            name: value[2][0],
-            value: value[2][1]
-        }
+    }).forEach(value => {
+        ret[value[2][0]] = value[2][1]
     })
 
-    return values
+    return ret
 }
 
 /**

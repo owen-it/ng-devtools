@@ -16,9 +16,12 @@
     export default {
         name: 'counter',
         controller: class CounterCtrl {
-            constructor($scope)
+            constructor($scope, counter)
             {
                 this.$scope = $scope
+                this.count = counter.total
+                this.$inject = ['$scope', 'counter']
+
                 $scope.$on('count:show', () => {
                     console.log('count: ' + this.count)
                 })
@@ -26,10 +29,6 @@
                 $scope.$on('count:clear', () => {
                     this.count = 0
                 })
-            }
-
-            $onInit () {
-                this.count = 59
             }
 
             add(){
