@@ -5,8 +5,8 @@ import modules from 'views/modules/store'
 
 export default {
     state: {
-        message: '',
-        tab: 'events',
+        message: '', // top message
+        tab: 'modules', // default tab
 
         events: events.state,
         modules: modules.state
@@ -47,7 +47,9 @@ export default {
             }
         },
 
-        events.getters
+        events.getters,
+        modules.getters
+        
     )
         
 }

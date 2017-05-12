@@ -211,17 +211,25 @@ function capture (instance, _, list)
 
     const ret = {
         name: instance.name,
-        values: getInjectedValues(instance),
-        children: {}
+        values: getInjected(instance, 'value'),
+        constants: getInjected(instance, 'constant'),
+        info: instance.info()
     }
 
     return ret
 }
 
-function getInjectedValues (instance) 
+/**
+ * Get type of value injected
+ * 
+ * @param {Object} instance
+ * @param {String} type
+ * @return {Array}
+ */
+function getInjected (instance, type) 
 {
     const values = instance._invokeQueue.filter(q => {
-        return q[1] === 'value' && q[2].length === 2
+        return q[1] === type && q[2].length === 2
     }).map(value => {
         return {
             name: value[2][0],

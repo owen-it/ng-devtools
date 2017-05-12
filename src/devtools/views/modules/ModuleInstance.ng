@@ -1,0 +1,136 @@
+<template>
+    <div class="modules-pane">
+        <scroll-pane>
+            <scroll-header>
+                <action-header>
+                    <div class="search">
+                        <i class="search-icon material-icons">search</i>
+                        <input placeholder="Filter modules" ng-model="$ctrl.filter" type="text">
+                    </div>
+                </action-header>
+            </scroll-header>
+            <scroll-content>
+                <div class"instances">
+                    <div ng-if="$ctrl.filteredModules.length === 0" class="no-modules">
+                        No modules found
+                    </div>
+                    <div ng-if="$ctrl.filteredModules.length > 0" class="entry"
+                         ng-repeat="module in $ctrl.filteredModules track by module.name"
+                         ng-class="{ active: $ctrl.inspectedIndex === $ctrl.modules.indexOf(module) }"
+                         ng-click="$ctrl.inspect(module)">
+                        
+                        <span class="module-name">{{ ::module.name }}</span>
+                        <span class="module-type">{{ ::module.type }}</span>
+
+                    </div>
+                </div>            
+            </scroll-content>
+        </scroll-pane>
+    </div>
+</template>
+
+<script>
+    import scrollPane from 'components/ScrollPane.ng'
+    import actionHeader from 'components/ActionHeader.ng'
+
+    export default {
+        components: { scrollPane, actionHeader },
+        controller: class ModulesListCtrl 
+        {
+            constructor($scope, store, flux)
+            {
+                this.filteredModules = []
+                this.inspectedIndex = null
+                this.modules = []
+                this.$scope = $scope
+                this.store = store
+                this.flux = flux
+                this.$inject = ['$scope', 'store']
+            }
+
+            $onInit () 
+            {
+                this.filter = this.store.modules.filter
+                this.filteredModules = this.store.modules.filteredModules
+                this.modules = this.store.modules.instances
+                this.inspectedIndex = this.store.modules.inspectedIndex
+
+                this.$scope.$watch('$ctrl.filter', val => {
+                    this.flux.dispatch('modules/UPDATE_FILTER', val)
+                })
+
+                this.$scope.$listenTo(this.store, ['modules', 'inspectedIndex'], () => {
+                    this.inspectedIndex = this.store.modules.inspectedIndex
+                })
+
+                this.$scope.$listenTo(this.store, ['modules', 'filter'], () => {
+                   this.updateModules()
+                })
+
+                this.$scope.$listenTo(this.store, ['modules', 'instances'], () => {
+                    this.updateModules()
+                })
+            }
+
+            updateModules () {
+                this.filteredModules = this.store.filteredModules
+                this.modules = this.store.modules.instances
+            }
+
+            inspect (module) 
+            {
+                this.flux.dispatch('modules/INSPECT', this.modules.indexOf(module))
+            }
+        }
+    }
+</script>
+
+<style lang="stylus" scoped>
+    @import '../../common'
+
+    .modules-pane 
+        display flex
+        flex-direction column
+        height 100%
+        width 100%
+
+    .module-name 
+        color $component-color
+        transition color .1s ease
+
+    .no-modules
+        color #ccc
+        text-align center
+        margin-top 50px
+        line-height 30px
+
+    .entry 
+        position relative
+        font-family Menlo, Consolas, monospace
+        color #881391
+        cursor pointer
+        font-size 12px
+        padding 10px 25px 10px 15px
+        background-color $background-color
+        box-shadow 0 1px 5px rgba(0,0,0,.12)
+        .module-name
+            font-weight 600
+        .module-source
+            color #999
+        .target-name 
+            color $component-color
+        .module-type
+            color #999
+            margin-left 8px
+        &.active
+            color #fff
+            background-color $active-color
+            .time, .module-type, .target-name
+                color lighten($active-color, 75%)
+            .module-name
+                color #fff
+            .module-source
+                color #ddd
+        .app-dark &
+            background-color $dark-background-color
+</style>

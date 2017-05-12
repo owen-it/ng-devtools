@@ -2,18 +2,11 @@
     <div class="modules-pane">
         <split-pane>
             <split-left>
-                <div style="padding: 20px">
-
-                    <inspect-field
-                        ng-repeat="(key, value) in $ctrl.data track by key"
-                        field="{ key, value }"
-                        depth="0">
-                    </inspect-field>
-
-                </div>
+                <module-instance></module-instance>
             </split-left>
             <split-rigth>
-                <div>rigth</div>
+                
+               
             </split-rigth>
         </split-pane>
     </div>
@@ -22,21 +15,10 @@
 <script>
     import splitPane from 'components/SplitPane.ng'
     import inspectField from 'components/InspectField.ng'
+    import moduleInstance from './ModuleInstance.ng'
 
     export default {
-        components: { splitPane, inspectField },
-        controller: class ModuleCtrl 
-        {
-            constructor () 
-            {
-                this.$inject = ['$injector']
-            }
-
-            $onInit () 
-            {
-                this.data = this;
-            }
-        }
+        components: { splitPane, inspectField, moduleInstance }
     }
 </script>
 
