@@ -41,19 +41,24 @@
             constructor ($scope) 
             {
                 this.state = {}
+                this.$scope = $scope
                 this.$inject = ['$scope']
                 this.hasPropert = false
+            }
 
-                $scope.$watch('$ctrl.target',  (target) => {
-                    
+            $onInit () 
+            {
+                this.$scope.$watch('$ctrl.target',  (target) => {
                     // omit properts
-                    this.state = omitBy({
-                        values: target.values,
-                        constants: target.constants,
-                        info: target.info
-                    }, v => !Object.keys(v).length )
+                    if ( target ) {
+                        this.state = omitBy({
+                            values: target.values,
+                            constants: target.constants,
+                            info: target.info
+                        }, v => !Object.keys(v).length )
 
-                    this.hasPropert = !!Object.keys(this.state).length
+                        this.hasPropert = !!Object.keys(this.state).length
+                    }
                 })
             }
 

@@ -216,7 +216,7 @@ function capture (instance, _, list)
         info: instance.info()
     }
 
-    console.log(ret)
+    console.log(instance)
 
     return ret
 }
