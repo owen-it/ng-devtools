@@ -3,7 +3,7 @@
         <scroll-pane>
             <scroll-header>
                 <action-header>
-                    <span class="action-title">
+                    <span class="title">
                         {{ $ctrl.target.name || 'Anonymous' }}
                     </span>
                     <a class="button inspect" ng-click="$ctrl.inspectConsole()" title="Inspect in console">

@@ -24,9 +24,8 @@
         .app.dark &
             border-bottom 1px solid $dark-border-color
 
-    .component-name, .action-title
+    .title
         display flex
-        flex 1
         align-items center
         font-size 18px
         color $component-color
@@ -41,6 +40,9 @@
         white-space nowrap
         opacity 0.8
         overflow hidden
+
+        &:first-of-type
+            margin-left auto
 
         &:not(.disabled):hover
             opacity 1
