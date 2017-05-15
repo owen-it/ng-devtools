@@ -44,7 +44,8 @@ export const mapGetters = function(store){
 
 }
 
-export const mergeGetters = function (...args) {
+export const mergeGetters = function (...args) 
+{
     // get destination
     var dest = args[0]
 

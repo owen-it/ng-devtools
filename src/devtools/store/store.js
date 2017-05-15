@@ -44,6 +44,14 @@ export default {
 
             get state () {
                 return this.state.get()
+            },
+
+            get _modules () {
+                return modules.getters
+            },
+
+            get _events () {
+                return events.getters
             }
         },
 
