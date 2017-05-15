@@ -11,8 +11,7 @@ export default {
     handlers: {
         'FLUSH': 'modules_flush',
         'INSPECT': 'modules_inspect',
-        'UPDATE_FILTER': 'modules_filter',
-        'INSPECT': 'inspect'
+        'UPDATE_FILTER': 'modules_filter'
     },
     actions: {
         modules_flush (payload) 
