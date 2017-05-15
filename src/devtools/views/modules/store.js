@@ -9,25 +9,24 @@ export default {
         instances: []
     },
     handlers: {
-        'FLUSH': 'flush',
-        'INSPECT': 'inspect',
-        'UPDATE_FILTER': 'filter',
+        'FLUSH': 'modules_flush',
+        'INSPECT': 'modules_inspect',
+        'UPDATE_FILTER': 'modules_filter',
         'INSPECT': 'inspect'
     },
     actions: {
-        flush (payload) 
+        modules_flush (payload) 
         {
             this.state.set(['modules', 'instances'], payload.instances)
             this.state.set(['modules', 'inspectedIndex'], 0)
         },
-        inspect (payload) 
+        modules_inspect (payload) 
         {
             this.state.set(['modules', 'inspectedIndex'], payload)
         },
-        filter (payload) 
+        modules_filter (payload) 
         {
             this.state.set(['modules', 'filter'], payload)
-            
         }
     },
     getters: {

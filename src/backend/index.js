@@ -213,10 +213,9 @@ function capture (instance, _, list)
         name: instance.name,
         values: getInjected(instance, 'value'),
         constants: getInjected(instance, 'constant'),
-        info: instance.info()
+        info: instance.info(),
+        requires: instance.requires
     }
-
-    console.log(instance)
 
     return ret
 }

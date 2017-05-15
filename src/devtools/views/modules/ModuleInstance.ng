@@ -34,7 +34,7 @@
 
     export default {
         components: { scrollPane, actionHeader },
-        controller: class ModulesListCtrl 
+        controller: class ModuleInstanceCtrl 
         {
             constructor($scope, store, flux)
             {
