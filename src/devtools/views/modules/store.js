@@ -9,21 +9,21 @@ export default {
         instances: []
     },
     handlers: {
-        'FLUSH': 'modules_flush',
-        'INSPECT': 'modules_inspect',
-        'UPDATE_FILTER': 'modules_filter'
+        'FLUSH': 'flush',
+        'INSPECT': 'inspect',
+        'UPDATE_FILTER': 'filter'
     },
     actions: {
-        modules_flush (payload) 
+        flush (payload) 
         {
             this.state.set(['modules', 'instances'], payload.instances)
             this.state.set(['modules', 'inspectedIndex'], 0)
         },
-        modules_inspect (payload) 
+        inspect (payload) 
         {
             this.state.set(['modules', 'inspectedIndex'], payload)
         },
-        modules_filter (payload) 
+        filter (payload) 
         {
             this.state.set(['modules', 'filter'], payload)
         }
