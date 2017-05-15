@@ -53,8 +53,6 @@ export function initBootstrap (window) {
            wrap('$broadcast')
        }
 
-       console.log( window.angular.$$rootElement.injector() )
-
        // init hooks
        devtools.emit('init', angular)
 
