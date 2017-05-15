@@ -73,6 +73,9 @@
             color inherit
             outline 0
             transition color 0.25s
+            &::placeholder
+                opacity .7
+
             &:focus
                 color $active-color
 
