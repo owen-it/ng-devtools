@@ -41,7 +41,7 @@
             </a>
             <span class="active-bar"></span>
         </div>
-        <component is="$ctrl.tab"></component>
+        <component is="$ctrl.tab" class="component"></component>
     </div>
 </template>
 
@@ -160,6 +160,11 @@
         color $active-color
         transition all .3s ease
         position absolute
+
+    .component
+        display flex
+        flex-direction column
+        height 100%
 
     .button
         padding 10px
