@@ -202,8 +202,8 @@
             padding-bottom 20px
 
     .container 
-        overflow hidden
         flex 1
+        overflow hidden
 
     $event-count-bubble-size = 18px
 
