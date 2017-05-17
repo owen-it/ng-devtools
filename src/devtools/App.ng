@@ -41,7 +41,7 @@
             </a>
             <span class="active-bar"></span>
         </div>
-        <component is="$ctrl.tab" class="component"></component>
+        <component is="$ctrl.tab" class="container"></component>
     </div>
 </template>
 
@@ -131,7 +131,7 @@
         height 100%
         user-select none
         background-color $background-color
-        display flex !important
+        display flex
         flex-direction column
         h1
             color #42b983
@@ -160,11 +160,6 @@
         color $active-color
         transition all .3s ease
         position absolute
-
-    .component
-        display flex
-        flex-direction column
-        height 100%
 
     .button
         padding 10px
