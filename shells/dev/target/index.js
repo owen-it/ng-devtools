@@ -5,7 +5,8 @@ import events from './Events.ng'
 
 angular.module('app.count', [])
 .components({ counter, events })
-.value('counter', { total: 54 });
+.constant('counter', { total: 54 })
+.value('list', [...Array.from(new Array(100), (x, i) => `Number ${i}`)]);
 
 
 angular.module('app', ['app.count'])

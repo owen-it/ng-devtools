@@ -55,7 +55,7 @@
             $onInit () 
             {
                 this.field = this.field
-                this.limit = Array.isArray(this.field.value) ? 10 : Infinity
+                this.limit = Array.isArray(this.field.value) ? 100 : Infinity
                 this.expanded = this.depth === 0
                 
                 this._updateSubFields()
