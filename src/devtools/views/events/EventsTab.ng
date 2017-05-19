@@ -20,7 +20,5 @@
 
 <style lang="stylus" scoped>
     .events-pane
-        display flex
-        flex-direction column
         height 100%
 </style>

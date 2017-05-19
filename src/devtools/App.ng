@@ -133,6 +133,7 @@
         background-color $background-color
         display flex
         flex-direction column
+        background red
         h1
             color #42b983
         &.dark
@@ -143,6 +144,7 @@
         align-items center
         border-bottom 1px solid $border-color
         box-shadow 0 0 8px rgba(0, 0, 0, 0.15)
+        font-size 14px
         position relative
         .app.dark & 
             border-bottom 1px solid $dark-border-color
@@ -204,6 +206,7 @@
     .content 
         flex 1
         overflow hidden
+        background blue
 
     $event-count-bubble-size = 18px
 
