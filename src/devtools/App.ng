@@ -41,7 +41,7 @@
             </a>
             <span class="active-bar"></span>
         </div>
-        <component is="$ctrl.tab" class="container"></component>
+        <component is="$ctrl.tab" class="content"></component>
     </div>
 </template>
 
@@ -201,7 +201,7 @@
             padding-top 20px
             padding-bottom 20px
 
-    .container 
+    .content 
         flex 1
         overflow hidden
 
