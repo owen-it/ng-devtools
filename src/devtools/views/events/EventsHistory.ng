@@ -1,7 +1,7 @@
 <template>
     <div class="events-history-pane">
         <scroll-pane>
-            <scroll-header>
+            <div slot="header">
                 <action-header>
                     <div class="search">
                         <i class="search-icon material-icons">search</i>
@@ -16,8 +16,8 @@
                         <span>{{ $ctrl.enabled ? 'Recording' : 'Paused' }}</span>
                     </a>
                 </action-header>
-            </scroll-header>
-            <scroll-content>
+            </div>
+            <div slot="content">
                 <div class"history">
                     <div ng-if="$ctrl.filteredEvents.length === 0" class="no-events">
                         No events found <span ng-if="!$ctrl.enabled"><br>(Recording is paused)</span>
@@ -35,10 +35,9 @@
                         <span class="time">
                             {{ event.timestamp | formatTime }}
                         </span>
-
                     </div>
                 </div>            
-            </scroll-content>
+            </div>
         </scroll-pane>
     </div>
 </template>

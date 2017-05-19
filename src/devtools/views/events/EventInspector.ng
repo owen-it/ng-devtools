@@ -1,7 +1,7 @@
 <template>
     <div class="event-inspect-pane">
         <scroll-pane>
-            <scroll-content>
+            <div slot="content">
                 <div ng-if="$ctrl.activeEvent">
                     <state-inspector
                         state="{ 'event info': $ctrl.sortedEventData() }">
@@ -10,7 +10,7 @@
                 <div ng-if="!$ctrl.activeEvent" class="no-event-data">
                     No event selected
                 </div>
-            </scroll-content>
+            </div>
         </scroll-pane>
     </div>
 </template>
