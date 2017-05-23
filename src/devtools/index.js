@@ -81,17 +81,24 @@ function initApp(shell)
         .directive('ngTransclude', function(){
             return {
                 priority: 1,
-                link: function(scope, elem, attrs) {
-                    var slotName = attrs.name;
+                link: function($scope, $el, $attrs, $ctrl, $transclude) {
+                    var slotName = $attrs.name;
 
                     if (slotName) {
-                        var children = elem.children();
+
+              
+                         //console.log( $transclude() )
+
+                        var children = $el.children();
                         for (var i = 0; i < children.length; i++) {
                             var child = angular.element(children[i]);
                             var slot = child.attr('slot');
-                            if (slot !== slotName) {
-                                child.remove();
+                            if (slot === slotName) {
+                                $el.replaceWith(child)
+                            } else {
+                                child.remove()
                             }
+
                         }
                     }
 
