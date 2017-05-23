@@ -36,7 +36,7 @@
             <a class="button refresh"
                ng-click="$ctrl.refresh()"
                title="Force refresh">
-               <i class="material-icons">cached</i>
+               <i class="material-icons refresh-icon" ref="refresh">refresh</i>
                <span class="pane-name">Refresh</span>
             </a>
             <span class="active-bar"></span>
@@ -106,9 +106,17 @@
 
             refresh()
             {
+                // clear log
                 console.clear()
 
+                // get the icon
+                let refreshIcon = $(this.$el).find('i[ref="refresh"]')[0]
+                refreshIcon.style.animation = 'none'
+
                 bridge.send('refresh')
+                bridge.once('flush', () => {
+                    refreshIcon.style.animation = 'rotate 1s'
+                })
             }
 
             updateActiveBar()
@@ -240,4 +248,8 @@
         border-bottom 3px solid transparent
     .button.active 
         border-bottom 3px solid $active-color
+
+    .refresh-icon 
+        transition 1s ease
+
 </style>
