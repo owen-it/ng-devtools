@@ -36,7 +36,7 @@
             <a class="button refresh"
                ng-click="$ctrl.refresh()"
                title="Force refresh">
-               <i class="material-icons refresh-icon" ref="refresh">refresh</i>
+               <i class="material-icons" ref="refresh">refresh</i>
                <span class="pane-name">Refresh</span>
             </a>
             <span class="active-bar"></span>
@@ -248,8 +248,4 @@
         border-bottom 3px solid transparent
     .button.active 
         border-bottom 3px solid $active-color
-
-    .refresh-icon 
-        transition 1s ease
-
 </style>
