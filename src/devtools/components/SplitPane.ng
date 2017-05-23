@@ -57,7 +57,6 @@
     .split-pane 
         display flex
         height 100%
-        background green
         &.dragging
             cursor ew-resize
 

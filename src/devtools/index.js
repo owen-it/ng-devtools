@@ -84,7 +84,6 @@ function initApp(shell)
                 link: function(scope, elem, attrs) {
                     var slotName = attrs.name;
 
-                    console.info(slotName)
                     if (slotName) {
                         var children = elem.children();
                         for (var i = 0; i < children.length; i++) {

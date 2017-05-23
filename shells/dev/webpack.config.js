@@ -39,7 +39,10 @@ module.exports = {
                 loader: 'ng-loader',
                 options: {
                     preserveWhitespace: false,
-                    replace: true
+                    replace: true,
+                    loaders: {
+                        stylus: 'style-loader!css-loader!stylus-loader'
+                    }
                 }
             },
             {

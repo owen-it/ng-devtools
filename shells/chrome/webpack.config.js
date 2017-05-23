@@ -40,7 +40,13 @@ module.exports = {
                 loader: 'ng-loader',
                 options: {
                     preserveWhitespace: false,
-                    buble: bubleOptions
+                    buble: bubleOptions,
+                    // !important
+                    // use the replace mod
+                    replace: true, 
+                    loaders: {
+                        stylus: 'style-loader!css-loader!stylus-loader'
+                    }
                 }
             },
             {
