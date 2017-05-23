@@ -10,7 +10,7 @@
                 </action-header>
             </div>
             <div slot="content">
-                <div class"instances">
+                <div class="instances">
                     <div ng-if="$ctrl.filteredModules.length === 0" class="no-modules">
                         No modules found
                     </div>

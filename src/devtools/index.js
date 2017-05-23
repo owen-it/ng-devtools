@@ -93,9 +93,7 @@ function initApp(shell)
                         for (var i = 0; i < children.length; i++) {
                             var child = angular.element(children[i]);
                             var slot = child.attr('slot');
-                            if (slot === slotName) {
-                                $el.replaceWith(child)
-                            } else {
+                            if (slot !== slotName) {
                                 child.remove()
                             }
 
