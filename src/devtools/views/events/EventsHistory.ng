@@ -1,31 +1,29 @@
 <template>
-    <div class="events-history-pane">
+    <div>
         <scroll-pane>
-            <scroll-header>
-                <action-header>
-                    <div class="search">
-                        <i class="search-icon material-icons">search</i>
-                        <input placeholder="Filter events" ng-model="$ctrl.filter" type="text">
-                    </div>    
-                    <a class="button reset" ng-class="{ disabled: !$ctrl.events.length }" ng-click="$ctrl.reset()" title="Clear log">
-                        <i class="material-icons small">do_not_disturb</i>
-                        <span>Clear</span>
-                    </a>
-                    <a class="button toggle-recording" ng-click="$ctrl.toggleRecording()" title="{{ $ctrl.enabled ? 'Stop Recording' : 'Start Recording' }}">
-                        <i class="material-icons small" ng-class="{ enabled: $ctrl.enabled }">lens</i>
-                        <span>{{ $ctrl.enabled ? 'Recording' : 'Paused' }}</span>
-                    </a>
-                </action-header>
-            </scroll-header>
-            <scroll-content>
+            <action-header slot="header">
+                <div class="search">
+                    <i class="search-icon material-icons">search</i>
+                    <input placeholder="Filter events" ng-model="$ctrl.filter" type="text">
+                </div>    
+                <a class="button reset" ng-class="{ disabled: !$ctrl.events.length }" ng-click="$ctrl.reset()" title="Clear log">
+                    <i class="material-icons small">do_not_disturb</i>
+                    <span>Clear</span>
+                </a>
+                <a class="button toggle-recording" ng-click="$ctrl.toggleRecording()" title="{{ $ctrl.enabled ? 'Stop Recording' : 'Start Recording' }}">
+                    <i class="material-icons small" ng-class="{ enabled: $ctrl.enabled }">lens</i>
+                    <span>{{ $ctrl.enabled ? 'Recording' : 'Paused' }}</span>
+                </a>
+            </action-header>
+            <div slot="content">
                 <div class"history">
                     <div ng-if="$ctrl.filteredEvents.length === 0" class="no-events">
                         No events found <span ng-if="!$ctrl.enabled"><br>(Recording is paused)</span>
                     </div>
                     <div ng-if="$ctrl.filteredEvents.length > 0" class="entry"
-                         ng-repeat="event in $ctrl.filteredEvents track by event.timestamp"
-                         ng-class="{ active: $ctrl.inspectedIndex === $ctrl.events.indexOf(event) }"
-                         ng-click="$ctrl.inspect(event)">
+                            ng-repeat="event in $ctrl.filteredEvents track by event.timestamp"
+                            ng-class="{ active: $ctrl.inspectedIndex === $ctrl.events.indexOf(event) }"
+                            ng-click="$ctrl.inspect(event)">
                         
                         <span class="event-name">{{ ::event.eventName }}</span>
                         <span class="event-type">{{ ::event.type }}</span>
@@ -35,10 +33,9 @@
                         <span class="time">
                             {{ event.timestamp | formatTime }}
                         </span>
-
                     </div>
                 </div>            
-            </scroll-content>
+            </div>
         </scroll-pane>
     </div>
 </template>
@@ -115,12 +112,6 @@
 
 <style lang="stylus" scoped>
     @import '../../common'
-
-    .events-history-pane 
-        display flex
-        flex-direction column
-        height 100%
-        width 100%
 
     .no-events
         color #ccc

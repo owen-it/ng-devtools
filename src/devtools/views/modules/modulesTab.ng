@@ -1,12 +1,8 @@
 <template>
     <div class="modules-pane">
         <split-pane>
-            <split-left>
-                <module-instance></module-instance>
-            </split-left>
-            <split-rigth>
-                <module-inspector target="$ctrl.inspectedInstance"></module-inspector>
-            </split-rigth>
+            <module-instance slot="left"></module-instance>
+            <module-inspector slot="right" target="$ctrl.inspectedInstance"></module-inspector>
         </split-pane>
     </div>
 </template>
@@ -44,9 +40,6 @@
 <style lang="stylus" scoped>
 
     .modules-pane
-        display flex
         height 100%
-        width 100%
-        flex-direction column
 
 </style>

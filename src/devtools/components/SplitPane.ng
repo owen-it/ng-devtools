@@ -5,21 +5,18 @@
          ng-mouseleave="$ctrl.dragEnd($event)"
          ng-class="{ dragging: $ctrl.dragging }">
          <div class="left" style="width: {{ $ctrl.split + '%' }}">
-            <div ng-transclude="left" style="height: 100%"></div>
+            <div ng-transclude name="left" style="height: 100%"></div>
             <div class="dragger" ng-mousedown="$ctrl.dragStart($event)"></div>
          </div>
          <div class="right" style="width: {{ (100 - $ctrl.split) + '%' }}">
-            <div ng-transclude="right" style="height: 100%"></div>
+            <div ng-transclude name="right" style="height: 100%"></div>
          </div>
     </div>
 </template>
 
 <script>
     export default {
-        transclude: {
-            left:  'splitLeft',
-            right: 'splitRigth'
-        },
+        transclude: true,
         controller: class Split {
             constructor($element){
                 this.$inject = ['$element']
@@ -60,6 +57,7 @@
     .split-pane 
         display flex
         height 100%
+        background green
         &.dragging
             cursor ew-resize
 

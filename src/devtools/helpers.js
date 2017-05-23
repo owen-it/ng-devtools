@@ -9,15 +9,23 @@ export const mapHandlers = function (namespace, handlers)
     var _handlers = {}
     Object.keys(handlers).forEach(
         (handler) => {
-            _handlers[`${namespace}/${handler}`] = handlers[handler]
+            _handlers[`${namespace}/${handler}`] = `${namespace}_${handlers[handler]}`
         }
     )
 
     return _handlers
 }
 
-export const mapActions =  function (actions) {
-    return actions
+export const mapActions =  function (namespace, actions) 
+{
+    var _actions = {}
+    Object.keys(actions).forEach(
+        (action) => {
+            _actions[`${namespace}_${action}`] = actions[action]
+        }
+    )
+
+    return _actions
 }
 
 export const mapGetters = function(store){
@@ -36,7 +44,8 @@ export const mapGetters = function(store){
 
 }
 
-export const mergeGetters = function (...args) {
+export const mergeGetters = function (...args) 
+{
     // get destination
     var dest = args[0]
 

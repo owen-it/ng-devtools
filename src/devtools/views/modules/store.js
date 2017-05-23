@@ -11,8 +11,7 @@ export default {
     handlers: {
         'FLUSH': 'flush',
         'INSPECT': 'inspect',
-        'UPDATE_FILTER': 'filter',
-        'INSPECT': 'inspect'
+        'UPDATE_FILTER': 'filter'
     },
     actions: {
         flush (payload) 
@@ -27,7 +26,6 @@ export default {
         filter (payload) 
         {
             this.state.set(['modules', 'filter'], payload)
-            
         }
     },
     getters: {

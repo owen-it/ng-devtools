@@ -41,7 +41,7 @@
             </a>
             <span class="active-bar"></span>
         </div>
-        <component is="$ctrl.tab"></component>
+        <component is="$ctrl.tab" class="content"></component>
     </div>
 </template>
 
@@ -140,8 +140,9 @@
         height 100%
         user-select none
         background-color $background-color
-        display flex !important
+        display flex
         flex-direction column
+        background red
         h1
             color #42b983
         &.dark
@@ -152,6 +153,7 @@
         align-items center
         border-bottom 1px solid $border-color
         box-shadow 0 0 8px rgba(0, 0, 0, 0.15)
+        font-size 14px
         position relative
         .app.dark & 
             border-bottom 1px solid $dark-border-color
@@ -210,9 +212,10 @@
             padding-top 20px
             padding-bottom 20px
 
-    .container 
-        overflow hidden
+    .content 
         flex 1
+        overflow hidden
+        background blue
 
     $event-count-bubble-size = 18px
 

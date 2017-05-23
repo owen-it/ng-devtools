@@ -29,8 +29,8 @@ export default {
             this.state.set(['tab'], payload)
         },
 
-        ...mapActions(events.actions),
-        ...mapActions(modules.actions)
+        ...mapActions('events', events.actions),
+        ...mapActions('modules', modules.actions)
     },
     getters: mergeGetters(
         {
@@ -44,6 +44,14 @@ export default {
 
             get state () {
                 return this.state.get()
+            },
+
+            get _modules () {
+                return modules.getters
+            },
+
+            get _events () {
+                return events.getters
             }
         },
 

@@ -1,16 +1,8 @@
 <template>
     <div class="events-pane">
         <split-pane>
-            <split-left>
-                
-                <events-history></events-history>
-
-            </split-left>
-            <split-rigth>
-                
-                <event-inspector></event-inspector>
-
-            </split-rigth>
+            <events-history slot="left"></events-history>
+            <event-inspector slot="right"></event-inspector>
         </split-pane>
     </div>
 </template>
@@ -25,12 +17,8 @@
     }
 </script>
 
-<style lang="stylus" scoped>
-    
-    .events-pane
-        display flex
-        height 100%
-        width 100%
-        flex-direction column
 
+<style lang="stylus" scoped>
+    .events-pane
+        height 100%
 </style>

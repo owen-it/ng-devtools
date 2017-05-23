@@ -78,6 +78,28 @@ function initApp(shell)
             }
         })
 
+        .directive('ngTransclude', function(){
+            return {
+                priority: 1,
+                link: function(scope, elem, attrs) {
+                    var slotName = attrs.name;
+
+                    console.info(slotName)
+                    if (slotName) {
+                        var children = elem.children();
+                        for (var i = 0; i < children.length; i++) {
+                            var child = angular.element(children[i]);
+                            var slot = child.attr('slot');
+                            if (slot !== slotName) {
+                                child.remove();
+                            }
+                        }
+                    }
+
+                }
+            };
+        });
+
         angular.bootstrap(
             document.getElementById('container'), [name]
         )

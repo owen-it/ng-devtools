@@ -1,16 +1,13 @@
 <template>
     <div class="scroll-pane">
-        <div ng-transclude="header" class="header"></div>
-        <div ng-transclude="scroll" class="scroll" ref="scrollContainer"></div>
+        <div ng-transclude name="header" class="header"></div>
+        <div ng-transclude name="content" class="scroll" ref="scrollContainer"></div>
     </div>
 </template>
 
 <script>
     export default {
-        transclude: {
-            header: '?scrollHeader',
-            scroll: 'scrollContent'
-        },
+        transclude: true,
         bindings: {
             scrollEvent: '@'
         },

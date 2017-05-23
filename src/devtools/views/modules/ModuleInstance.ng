@@ -1,15 +1,15 @@
 <template>
     <div class="modules-pane">
         <scroll-pane>
-            <scroll-header>
+            <div slot="header">
                 <action-header>
                     <div class="search">
                         <i class="search-icon material-icons">search</i>
                         <input placeholder="Filter modules" ng-model="$ctrl.filter" type="text">
                     </div>
                 </action-header>
-            </scroll-header>
-            <scroll-content>
+            </div>
+            <div slot="content">
                 <div class"instances">
                     <div ng-if="$ctrl.filteredModules.length === 0" class="no-modules">
                         No modules found
@@ -20,10 +20,9 @@
                          ng-click="$ctrl.inspect(module)">
                         
                         <span class="module-name">{{ ::module.name }}</span>
-
                     </div>
                 </div>            
-            </scroll-content>
+            </div>
         </scroll-pane>
     </div>
 </template>
@@ -34,7 +33,7 @@
 
     export default {
         components: { scrollPane, actionHeader },
-        controller: class ModulesListCtrl 
+        controller: class ModuleInstanceCtrl 
         {
             constructor($scope, store, flux)
             {
@@ -111,7 +110,7 @@
         font-size 12px
         padding 10px 25px 10px 15px
         background-color $background-color
-        box-shadow 0 1px 5px rgba(0,0,0,.12)
+        border-bottom 1px solid #f1f1f1
         .module-name
             font-weight 600
         .module-source

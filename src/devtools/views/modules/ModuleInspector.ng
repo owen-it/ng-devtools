@@ -1,7 +1,7 @@
 <template>
     <div class="module-inspect-pane">
         <scroll-pane>
-            <scroll-header>
+            <div slot="header">
                 <action-header>
                     <span class="title">
                         {{ $ctrl.target.name || 'Anonymous' }}
@@ -11,15 +11,15 @@
                         <span>Inspect in console</span>
                     </a>
                 </action-header>
-            </scroll-header>
-            <scroll-content>
+            </div>
+            <div slot="content">
                 <section ng-if="!$ctrl.hasPropert" class="notice">
                     <div>This module has no value, info and constants defined.</div>
                 </section>
                 <section ng-if="$ctrl.hasPropert" class="data">
                     <state-inspector state="$ctrl.state"></state-inspector>
                 </section>
-            </scroll-content>
+            </div>
         </scroll-pane>
     </div>
 </template>
