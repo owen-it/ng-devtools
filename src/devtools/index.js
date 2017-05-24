@@ -87,7 +87,7 @@ function initApp(shell)
                     if (slotName) {
 
               
-                         //console.log( $transclude() )
+                        console.log( $el )
 
                         var children = $el.children();
                         for (var i = 0; i < children.length; i++) {
