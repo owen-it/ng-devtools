@@ -18,8 +18,8 @@
         <div class="children" ng-if="$ctrl.expanded && $ctrl.isExpandableType()">
             
             <span 
-                class="more" ng-if="$ctrl.formattedSubFields.length > $ctrl.limit"
-                ng-click="$ctrl.expand(10)" title="Expand">
+                class="more" ng-click="$ctrl.expand(10)" title="Expand"
+                ng-if="$ctrl.formattedSubFields.length > $ctrl.limit">
                 ...
                 <!-- 
                     This span should stay here for now, 

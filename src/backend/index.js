@@ -49,6 +49,10 @@ function connect() {
         }
     })
 
+    // Send to console log
+    bridge.on('console', target => console.log( target ))
+
+    // filter module instances
     bridge.on('filter-module-instances', _filter => {
         moduleFilter = _filter.toLowerCase()
 
