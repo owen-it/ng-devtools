@@ -41,7 +41,7 @@
             </a>
             <span class="active-bar"></span>
         </div>
-        <component is="$ctrl.tab" class="content"></component>
+        <component class="content" is="$ctrl.tab"></component>
     </div>
 </template>
 
