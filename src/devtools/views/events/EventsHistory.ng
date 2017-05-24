@@ -15,27 +15,25 @@
                     <span>{{ $ctrl.enabled ? 'Recording' : 'Paused' }}</span>
                 </a>
             </action-header>
-            <div slot="content">
-                <div class"history">
-                    <div ng-if="$ctrl.filteredEvents.length === 0" class="no-events">
-                        No events found <span ng-if="!$ctrl.enabled"><br>(Recording is paused)</span>
-                    </div>
-                    <div ng-if="$ctrl.filteredEvents.length > 0" class="entry"
-                            ng-repeat="event in $ctrl.filteredEvents track by event.timestamp"
-                            ng-class="{ active: $ctrl.inspectedIndex === $ctrl.events.indexOf(event) }"
-                            ng-click="$ctrl.inspect(event)">
-                        
-                        <span class="event-name">{{ ::event.eventName }}</span>
-                        <span class="event-type">{{ ::event.type }}</span>
-                        <span class="event-souce">
-                            by <span>&lt;</span><span class="target-name">{{ ::event.componentName }}</span><span>&gt;</span>
-                        </span>
-                        <span class="time">
-                            {{ event.timestamp | formatTime }}
-                        </span>
-                    </div>
-                </div>            
-            </div>
+            <div class="history" slot="content">
+                <div ng-if="$ctrl.filteredEvents.length === 0" class="no-events">
+                    No events found <span ng-if="!$ctrl.enabled"><br>(Recording is paused)</span>
+                </div>
+                <div ng-if="$ctrl.filteredEvents.length > 0" class="entry"
+                        ng-repeat="event in $ctrl.filteredEvents track by event.timestamp"
+                        ng-class="{ active: $ctrl.inspectedIndex === $ctrl.events.indexOf(event) }"
+                        ng-click="$ctrl.inspect(event)">
+                    
+                    <span class="event-name">{{ ::event.eventName }}</span>
+                    <span class="event-type">{{ ::event.type }}</span>
+                    <span class="event-souce">
+                        by <span>&lt;</span><span class="target-name">{{ ::event.componentName }}</span><span>&gt;</span>
+                    </span>
+                    <span class="time">
+                        {{ event.timestamp | formatTime }}
+                    </span>
+                </div>
+            </div>            
         </scroll-pane>
     </div>
 </template>
