@@ -5,11 +5,11 @@
          ng-mouseleave="$ctrl.dragEnd($event)"
          ng-class="{ dragging: $ctrl.dragging }">
          <div class="left" style="width: {{ $ctrl.split + '%' }}">
-            <div ng-transclude name="left" style="height: 100%"></div>
+            <ng-transclude name="left"></ng-transclude>
             <div class="dragger" ng-mousedown="$ctrl.dragStart($event)"></div>
          </div>
          <div class="right" style="width: {{ (100 - $ctrl.split) + '%' }}">
-            <div ng-transclude name="right" style="height: 100%"></div>
+            <ng-transclude name="right"></ng-transclude>
          </div>
     </div>
 </template>
