@@ -12,7 +12,7 @@
                     </a>
                 </action-header>
             </div>
-            <div slot="content">
+            <div class="content" slot="content">
                 <section ng-if="!$ctrl.hasPropert" class="notice">
                     <div>This module has no value, info and constants defined.</div>
                 </section>
@@ -80,6 +80,9 @@
         flex-direction column
         height 100%
         width 100%
+
+    .content
+        height 100%
 
     .no-event-data
         color #ccc

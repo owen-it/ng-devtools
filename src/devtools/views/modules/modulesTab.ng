@@ -1,5 +1,5 @@
 <template>
-    <div class="modules-pane">
+    <div class="modules-tab">
         <split-pane>
             <module-instance slot="left"></module-instance>
             <module-inspector slot="right" target="$ctrl.inspectedInstance"></module-inspector>
@@ -39,7 +39,7 @@
 
 <style lang="stylus" scoped>
 
-    .modules-pane
+    .modules-tab
         height 100%
 
 </style>

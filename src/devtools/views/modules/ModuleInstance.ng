@@ -9,20 +9,18 @@
                     </div>
                 </action-header>
             </div>
-            <div slot="content">
-                <div class="instances">
-                    <div ng-if="$ctrl.filteredModules.length === 0" class="no-modules">
-                        No modules found
-                    </div>
-                    <div ng-if="$ctrl.filteredModules.length > 0" class="entry"
-                         ng-repeat="module in $ctrl.filteredModules track by module.name"
-                         ng-class="{ active: $ctrl.inspectedIndex === $ctrl.modules.indexOf(module) }"
-                         ng-click="$ctrl.inspect(module)">
-                        
-                        <span class="module-name">{{ ::module.name }}</span>
-                    </div>
-                </div>            
-            </div>
+            <div class="instances" slot="content">
+                <div ng-if="$ctrl.filteredModules.length === 0" class="no-modules">
+                    No modules found
+                </div>
+                <div ng-if="$ctrl.filteredModules.length > 0" class="entry"
+                        ng-repeat="module in $ctrl.filteredModules track by module.name"
+                        ng-class="{ active: $ctrl.inspectedIndex === $ctrl.modules.indexOf(module) }"
+                        ng-click="$ctrl.inspect(module)">
+                    
+                    <span class="module-name">{{ ::module.name }}</span>
+                </div>
+            </div>            
         </scroll-pane>
     </div>
 </template>
@@ -86,7 +84,7 @@
 <style lang="stylus" scoped>
     @import '../../common'
 
-    .modules-pane 
+    .modules-pane
         display flex
         flex-direction column
         height 100%
@@ -99,8 +97,11 @@
     .no-modules
         color #ccc
         text-align center
-        margin-top 50px
-        line-height 30px
+        margin-top 105px
+        line-height 20px
+
+    .instances
+        height 100%
 
     .entry 
         position relative

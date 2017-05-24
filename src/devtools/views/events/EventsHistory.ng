@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="events-pane">
         <scroll-pane>
             <action-header slot="header">
                 <div class="search">
@@ -102,6 +102,7 @@
 
             reset () 
             {
+                console.log('defined reset')
                 this.flux.dispatch('events/RESET')
             }
         }
@@ -110,6 +111,12 @@
 
 <style lang="stylus" scoped>
     @import '../../common'
+
+    .events-pane 
+        display flex
+        flex-direction column
+        height 100%
+        width 100%
 
     .no-events
         color #ccc

@@ -82,21 +82,31 @@ function initApp(shell)
             return {
                 priority: 1,
                 link: function($scope, $el, $attrs, $ctrl, $transclude) {
-                    var slotName = $attrs.name;
+                    let slotName = $attrs.name;
+
+                    if (!$transclude) {
+                        throw minErr('ngTransclude')('orphan',
+                        'Illegal use of ngTransclude directive in the template! ' +
+                        'No parent directive that requires a transclusion found. ' +
+                        'Element: {0}',
+                        startingTag($el));
+                    }
 
                     if (slotName) {
+                        $transclude(function (clone) {
+                            $el.empty()
 
-                        var children = $el.children();
-                        for (var i = 0; i < children.length; i++) {
-                            var child = angular.element(children[i]);
-                            var slot = child.attr('slot');
-                            if (slot === slotName) {
-                               $el.replaceWith(child)
-                            } else {
-                                child.remove()
+                            for (let i = 0; i < clone.length; i++) {
+                                let child = angular.element(clone[i])
+                                let slot = child.attr('slot')
+
+                                if (slot === slotName) {
+                                    $el.replaceWith( child )
+                                    break
+                                }
                             }
-                        }
 
+                        })
                     }
 
                 }

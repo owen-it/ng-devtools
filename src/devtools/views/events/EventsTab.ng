@@ -1,5 +1,5 @@
 <template>
-    <div class="events-pane">
+    <div class="events-tab">
         <split-pane>
             <events-history slot="left"></events-history>
             <event-inspector slot="right"></event-inspector>
@@ -18,6 +18,9 @@
 </script>
 
 <style lang="stylus" scoped>
-    .events-pane
+
+    .events-tab
         height 100%
+
 </style>
+

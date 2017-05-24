@@ -41,6 +41,7 @@ export default {
 
         reset ()
         {
+            console.log('reset')
             this.state.set(['events', 'list'], [])
             this.state.set(['events', 'inspectedIndex'], -1)
         },

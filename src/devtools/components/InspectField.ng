@@ -16,17 +16,22 @@
             <span class="value" ng-class="[$ctrl.valueType()]">{{ $ctrl.formattedValue() }}</span>
         </div>
         <div class="children" ng-if="$ctrl.expanded && $ctrl.isExpandableType()">
+            
+            <span 
+                class="more" ng-if="$ctrl.formattedSubFields.length > $ctrl.limit"
+                ng-click="$ctrl.expand(10)" title="Expand">
+                ...
+                <!-- 
+                    This span should stay here for now, 
+                    they are being removed from the gift
+                     when placed below the component 
+                -->
+            </span>
             <inspect-field
                 ng-repeat="subField in $ctrl.limitedSubFields track by subField.key"
                 field="subField"
                 depth="$ctrl.depth + 1">
             <inspect-field>
-            <span 
-                class="more"
-                ng-if="$ctrl.formattedSubFields.length > 0"
-                ng-click="$ctrl.limit += 10">
-                  ...
-            </span>
         </div>
     </div>
 </template>
@@ -55,7 +60,7 @@
             $onInit () 
             {
                 this.field = this.field
-                this.limit = Array.isArray(this.field.value) ? 100 : Infinity
+                this.limit = Array.isArray(this.field.value) ? 10 : Infinity
                 this.expanded = this.depth === 0
                 
                 this._updateSubFields()
@@ -67,6 +72,13 @@
                     this.limitedSubFields = this._limitedSubFields()
                     this.formattedSubFields = this._formattedSubFields()
                 }
+            }
+
+            expand (depth) 
+            {
+                this.limit += depth
+
+                this._updateSubFields()
             }
 
             formattedValue() 
@@ -162,6 +174,7 @@
         cursor default
 
     .children
+        position relative
         margin-left 15px
 
     .self 
@@ -202,6 +215,9 @@
         display inline-block
         border-radius 4px
         padding 0 4px 4px
+        position: absolute;
+        bottom: -20px;
+        left: 30px;
         &:hover
             background-color #eee
 </style>
