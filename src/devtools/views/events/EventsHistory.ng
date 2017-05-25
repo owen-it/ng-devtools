@@ -11,8 +11,10 @@
                     <span>Clear</span>
                 </a>
                 <a class="button toggle-private" ng-click="$ctrl.togglePrivate()" title="{{ $ctrl.privateEnabled ? 'With private Events' : 'No private Events' }}">
-                    <i class="material-icons small" ng-class="{ enabled: $ctrl.privateEnabled }">lock</i>
-                    <span>{{ $ctrl.privateEnabled ? 'With private' : 'No Private' }}</span>
+                    <i class="material-icons small" ng-class="{ enabled: $ctrl.privateEnabled }">
+                        {{ $ctrl.privateEnabled ? 'blur_on' : 'blur_off' }}
+                    </i>
+                    <span>{{ $ctrl.privateEnabled ? 'With private' : 'No private' }}</span>
                 </a>
                 <a class="button toggle-recording" ng-click="$ctrl.toggleRecording()" title="{{ $ctrl.enabled ? 'Stop Recording' : 'Start Recording' }}">
                     <i class="material-icons small" ng-class="{ enabled: $ctrl.enabled }">lens</i>
