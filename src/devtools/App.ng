@@ -12,23 +12,14 @@
                ng-click="$ctrl.switchTab('modules')"
                title="Switch to Modules">
                <i class="material-icons">extension</i>
-               <span class="pane-name">Modules</span>
+               <span class="button-name">Modules</span>
             </a>
-            <!--
-            <a class="button components"
-               ng-class="{ active: $ctrl.tab === 'components' }"
-               ng-click="$ctrl.switchTab('components')"
-               title="Switch to Components">
-               <i class="material-icons">device_hub</i>
-               <span class="pane-name">Components</span>
-            </a>
-            -->
             <a class="button events"
                ng-class="{ active: $ctrl.tab === 'events' }"
                ng-click="$ctrl.switchTab('events')"
                title="Switch to Events">
                <i class="material-icons">grain</i>
-               <span class="pane-name">Events</span>
+               <span class="button-name">Events</span>
                <span class="event-count" ng-if="$ctrl.newEventCount > 0">
                     {{ $ctrl.newEventCount }}
                </span>
@@ -37,7 +28,7 @@
                ng-click="$ctrl.refresh()"
                title="Force refresh">
                <i class="material-icons" ref="refresh">refresh</i>
-               <span class="pane-name">Refresh</span>
+               <span class="button-name">Refresh</span>
             </a>
             <span class="active-bar"></span>
         </div>
@@ -48,7 +39,6 @@
 <script>
     import component from './components/Component.ng'
     import modulesTab from './views/modules/ModulesTab.ng'
-    import componentsTab from './views/components/ComponentsTab.ng'
     import eventsTab from './views/events/eventsTab.ng'
     
     export default {
@@ -57,7 +47,6 @@
         components: { 
             component,
             modules: modulesTab,
-            components: componentsTab,
             events: eventsTab
         },
         controller: class MainCtrl {
@@ -151,7 +140,7 @@
         display flex
         align-items center
         border-bottom 1px solid $border-color
-        box-shadow 0 1px 1px rgba(0,0,0,.14)
+        box-shadow 0 0 8px rgba(0, 0, 0, 0.15)
         font-size 14px
         position relative
         .app.dark & 
@@ -170,46 +159,6 @@
         color $active-color
         transition all .3s ease
         position absolute
-
-    .button
-        padding 10px
-        display flex
-        align-items center
-        cursor pointer
-        border-bottom-color transition
-        background-color $background-color
-        color #888
-        position relative
-        transition color .35s ease
-        .app.dark &
-            background-color $dark-background-color
-
-        &:hover 
-            color: #555
-
-        &.active
-            color: $active-color
-
-        &.modules
-            margin-left auto
-
-        .material-icons
-            font-size 20px
-            margin-right 5px
-            color inherit
-
-        .pane-name
-            display none
-
-        @media (min-width: $wide)
-            padding-right 20px
-            padding-left 20px
-            .pane-name
-                display block
-
-        @media (min-height: $tall)
-            padding-top 20px
-            padding-bottom 20px
 
     .content 
         flex 1
@@ -235,18 +184,5 @@
         top 12px
         .app.dark & 
             background-color $dark-background-color
-    
-    .active-bar 
-        position absolute
-        bottom 0
-        width 0
-        height 3px
-        background-color $active-color
-        transition all .32s cubic-bezier(0,.9,.6,1)
 
-    /* Remove this */
-    .button 
-        border-bottom 3px solid transparent
-    .button.active 
-        border-bottom 3px solid $active-color
 </style>

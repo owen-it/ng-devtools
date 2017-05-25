@@ -6,9 +6,41 @@
                     <span class="title">
                         {{ $ctrl.target.name || 'Anonymous' }}
                     </span>
+                    <!--
                     <a class="button inspect" ng-click="$ctrl.inspectConsole()" title="Inspect in console">
                         <i class="material-icons">web_asset</i> 
                         <span>Inspect in console</span>
+                    </a>
+                    -->
+
+                    <a class="button active"
+                        ng-class="{ active_: $ctrl.tab === 'settings' }"
+                        ng-click="$ctrl.switchTab('settings')"
+                        title="Switch to Settings">
+                        <i class="material-icons">settings</i>
+                        <span class="button-name">Settings</span>
+                    </a>
+                    <a class="button"
+                        ng-class="{ active: $ctrl.tab === 'requires' }"
+                        ng-click="$ctrl.switchTab('requires')"
+                        title="Switch to Requires">
+                        <i class="material-icons">settings_input_svideo</i>
+                        <span class="button-name">Requires</span>
+                    </a>
+                    <a class="button"
+                        ng-class="{ active: $ctrl.tab === 'scopes' }"
+                        ng-click="$ctrl.switchTab('scopes')"
+                        title="Switch to Scopes">
+                        <i class="material-icons">device_hub</i>
+                        <span class="button-name">Scopes</span>
+                    </a>
+                    
+                    <a class="button"
+                        ng-class="{ active: $ctrl.tab === 'components' }"
+                        ng-click="$ctrl.switchTab('components')"
+                        title="Switch to Components">
+                        <i class="material-icons">layers</i>
+                        <span class="button-name">Components</span>
                     </a>
                 </action-header>
             </div>

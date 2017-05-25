@@ -30,35 +30,6 @@
         font-size 18px
         color $component-color
 
-    .button
-        cursor pointer
-        display flex
-        align-items center
-        justify-content center
-        padding 0 10px
-        transition opacity 0.25s
-        white-space nowrap
-        opacity 0.8
-        overflow hidden
-
-        &:first-of-type
-            margin-left auto
-
-        &:not(.disabled):hover
-            opacity 1
-            color $active-color
-
-        &.disabled
-            opacity 0.45
-            cursor not-allowed
-
-    .material-icons
-        font-size 18px
-        margin-right 0
-        color inherit
-        @media (min-width: $wide)
-            margin-right 5px
-
     .search 
         display flex
         align-items center

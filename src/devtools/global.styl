@@ -1,8 +1,8 @@
 // Colors
 $blue = #44A1FF
 $grey = #DDDDDD
-$green = #42B983
-$darkerGreen = #1E88E5
+$blue = #00a5e9
+$darkerBlue = #2380de
 $slate = #242424
 $white = #FFFFFF
 
@@ -13,7 +13,7 @@ $wide = 820px
 $tall = 300px
 
 // Theme
-$active-color = $darkerGreen
+$active-color = $blue
 $border-color = $grey
 $background-color = $white
 $component-color = $active-color
@@ -125,6 +125,68 @@ $arrow-color = #444
     text-align center
     padding 0.5em
     margin 0 auto
+
+.button
+    padding 15px 10px
+    display flex
+    align-items center
+    cursor pointer
+    border-bottom-color transition
+    border-bottom 3px solid transparent
+    color #888
+    position relative
+    transition color .35s ease
+    .app.dark &
+        background-color $dark-background-color
+
+    &:hover 
+        color #555
+
+    &.active
+        color $active-color
+        border-bottom 3px solid $active-color
+    
+    &:first-of-type
+        margin-left auto
+
+    &:not(.disabled):hover
+        opacity 1
+        color $active-color
+
+    &.disabled
+        opacity 0.45
+        cursor not-allowed
+
+    &:first-of-type
+            margin-left auto
+            
+    .material-icons
+        font-size 18px
+        margin-right 5px
+        color inherit
+        @media (min-width: $wide)
+            margin-right 5px
+
+    .button-name
+        display none
+
+    @media (min-width: $wide)
+        padding-right 20px
+        padding-left 20px
+        .button-name
+            display block
+
+    @media (min-height: $tall)
+        padding-top 20px
+        padding-bottom 20px
+
+.active-bar 
+    position absolute
+    bottom 0
+    width 0
+    height 3px
+    background-color $active-color
+    transition all .32s cubic-bezier(0,.9,.6,1)
 
 @keyframes rotate
   0%
