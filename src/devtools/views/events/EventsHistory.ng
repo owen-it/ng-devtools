@@ -10,6 +10,10 @@
                     <i class="material-icons small">do_not_disturb</i>
                     <span>Clear</span>
                 </a>
+                <a class="button toggle-private" ng-click="$ctrl.togglePrivate()" title="{{ $ctrl.privateEnabled ? 'With private Events' : 'No private Events' }}">
+                    <i class="material-icons small" ng-class="{ enabled: $ctrl.privateEnabled }">lock</i>
+                    <span>{{ $ctrl.privateEnabled ? 'With private' : 'No Private' }}</span>
+                </a>
                 <a class="button toggle-recording" ng-click="$ctrl.toggleRecording()" title="{{ $ctrl.enabled ? 'Stop Recording' : 'Start Recording' }}">
                     <i class="material-icons small" ng-class="{ enabled: $ctrl.enabled }">lens</i>
                     <span>{{ $ctrl.enabled ? 'Recording' : 'Paused' }}</span>
@@ -49,6 +53,7 @@
             constructor($scope, store, flux)
             {
                 this.enabled = true
+                this.privateEnabled = false
                 this.filteredEvents = []
                 this.inspectedIndex = null
                 this.events = []
@@ -76,6 +81,10 @@
                     this.enabled = this.store.events.enabled
                 })
 
+                this.$scope.$listenTo(this.store, ['events', 'privateEnabled'], () => {
+                    this.privateEnabled = this.store.events.privateEnabled
+                })
+
                 this.$scope.$listenTo(this.store, ['events', 'filter'], () => {
                    this.updateEvents()
                 })
@@ -85,14 +94,22 @@
                 })
             }
 
-            updateEvents () {
+            updateEvents () 
+            {
                 this.filteredEvents = this.store.filteredEvents
                 this.events = this.store.events.list
+
+                bridge.send('console', this.events)
             }
 
             toggleRecording ()
             {
                 this.flux.dispatch('events/TOGGLE')
+            }
+
+            togglePrivate ()
+            {
+                this.flux.dispatch('events/PRIVATE')
             }
 
             inspect (event) 

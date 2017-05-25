@@ -3,10 +3,14 @@ import storage from '@/storage'
 const ENABLED_KEY = 'EVENTS_ENABLED'
 let enabled = storage.get(ENABLED_KEY)
 
+const PRIVATE_ENABLED_KEY = 'EVENTS_ENABLED'
+let privateEnabled = storage.get(PRIVATE_ENABLED_KEY)
+
 export default {
     module: 'events',
     state: {
         enabled: enabled,
+        privateEnabled: privateEnabled,
         newEventCount: 0,
         inspectedIndex: -1,
         filter: '',
@@ -14,6 +18,7 @@ export default {
     },
     handlers: {
         'TOGGLE': 'toggle',
+        'PRIVATE': 'toggle_private',
         'INSPECT': 'inspect',
         'RESET': 'reset',
         'RECEIVE_EVENT': 'receive',
@@ -32,6 +37,18 @@ export default {
             this.state.set(['events', 'enabled'], enabled)
 
             bridge.send('events:toggle-recording', enabled)
+        },
+
+        toggle_private () 
+        {
+            storage.set(
+                PRIVATE_ENABLED_KEY, 
+                privateEnabled = !privateEnabled
+            )
+
+            this.state.set(['events', 'privateEnabled'], privateEnabled)
+
+            bridge.send('events:toggle-private', privateEnabled)
         },
 
         filter (payload) 

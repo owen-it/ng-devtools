@@ -1,21 +1,27 @@
 import { stringify } from '../util'
 import { getInstanceName } from './index'
 
-const internalRE = /^(?:pre-)?hook:/
+const privateRE = /^\$(.*)/
 
 export function initEventsBackend (Angular, bridge)
 {
     let recording = true
+    let privateEnabled = false
 
     bridge.on('events:toggle-recording', enabled => {
         recording = enabled
+    })
+
+    bridge.on('events:toggle-private', privateEnabled => {
+        privateEnabled = privateEnabled
     })
     
     // wrap event
     function wrapEvent ($scope, type, eventName, payload) 
     {
-        if(typeof eventName === 'string' && !internalRE.test(eventName)) {
-            if (recording) {
+        if( typeof eventName === 'string' )
+        {
+            if (recording && ((privateRE.test(eventName) && privateEnabled) || !privateRE.test(eventName))) {
                 bridge.send('event:triggered', stringify({
                     eventName,
                     type,
