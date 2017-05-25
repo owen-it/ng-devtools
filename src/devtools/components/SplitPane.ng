@@ -8,7 +8,7 @@
             <ng-transclude name="left"></ng-transclude>
             <div class="dragger" ng-mousedown="$ctrl.dragStart($event)"></div>
          </div>
-         <div class="right" style="width: {{ (100 - $ctrl.split) + '%' }}">
+         <div class="right" ng-class="{ flat: ($ctrl.split >= 65) }" style="width: {{ (100 - $ctrl.split) + '%' }}">
             <ng-transclude name="right"></ng-transclude>
          </div>
     </div>
