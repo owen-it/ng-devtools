@@ -45,6 +45,8 @@
 </template>
 
 <script>
+    import { debounce } from 'lodash'
+
     import scrollPane from 'components/ScrollPane.ng'
     import actionHeader from 'components/ActionHeader.ng'
 
@@ -88,20 +90,22 @@
                 })
 
                 this.$scope.$listenTo(this.store, ['events', 'filter'], () => {
-                   this.updateEvents()
+                   this._updateEvents()
                 })
 
-                this.$scope.$listenTo(this.store, ['events', 'list'], () => {
-                    this.updateEvents()
-                })
+                this.$scope.$listenTo(this.store, ['events', 'list'], debounce(() => {
+                    this._updateEvents()
+
+                    this.$scope.$apply()
+                }, 100 ))
             }
 
-            updateEvents () 
+            _updateEvents () 
             {
                 this.filteredEvents = this.store.filteredEvents
                 this.events = this.store.events.list
 
-                bridge.send('console', this.events)
+                //bridge.send('console', this.events)
             }
 
             toggleRecording ()
@@ -121,7 +125,6 @@
 
             reset () 
             {
-                console.log('defined reset')
                 this.flux.dispatch('events/RESET')
             }
         }

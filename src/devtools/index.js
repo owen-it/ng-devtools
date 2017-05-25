@@ -21,9 +21,15 @@ export function initDevTools (shell)
     initApp(shell)
     shell.onReload(() => {
         if(app) {
-            document.getElementById('container').injector = null
             
-            angular.$$rootScope.$destroy()
+            bridge.send('console', {
+                type: 'Reload app',
+                payload: app
+            })
+
+            //document.getElementById('container').injector = null
+            
+            //angular.$$rootScope.$destroy()
         }
 
         bridge.removeAllListeners()
@@ -59,6 +65,8 @@ function initApp(shell)
             })
 
             bridge.on('event:triggered', payload => {
+                bridge.send('console', 'triggered')
+
                 flux.dispatch('events/RECEIVE_EVENT', parse(payload))
 
                 if(store.tab !== 'events') {
