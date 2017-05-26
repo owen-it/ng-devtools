@@ -10,9 +10,10 @@
 <script>
     import splitPane from 'components/SplitPane.ng'
     import moduleInspector from './ModuleInspector.ng'
+    import moduleInstance from './ModuleInstance.ng'
 
     export default {
-        components: { splitPane, moduleInspector }
+        components: { splitPane, moduleInspector, moduleInstance }
     }
 </script>
 
