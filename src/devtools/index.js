@@ -27,9 +27,7 @@ export function initDevTools (shell)
                 payload: app
             })
 
-            //document.getElementById('container').injector = null
-            
-            //angular.$$rootScope.$destroy()
+            //window.location.reload()
         }
 
         bridge.removeAllListeners()
