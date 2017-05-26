@@ -35,7 +35,7 @@
 
     export default {
         bindings: { state: '=' },
-        compoennts: { inspectField },
+        components: { inspectField },
         controller: class StateInspectorCtrl 
         {
             getKeys (state) 
