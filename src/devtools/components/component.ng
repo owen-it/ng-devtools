@@ -9,9 +9,8 @@
         },
         controller: ['$scope', '$element', '$compile', function($scope, $element, $compile){
             $scope.$watch('$ctrl.is', component => {
-                $element.html('').append(
-                    $compile(`<${component}></${component}>`)($scope)
-                )
+                $element.html(`<${component}></${component}>`)
+                $compile($element.contents())($scope)
             })
         }]
     }

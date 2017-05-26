@@ -1,0 +1,55 @@
+<template>  
+    <div class="settings-tab">
+        <state-inspector state="$ctrl.state"></state-inspector>
+    </div>
+</template>
+
+<script>
+
+    import { omitBy } from 'lodash'
+
+    import stateInspector from 'components/StateInspector.ng'
+
+    export default {
+        components: { stateInspector },
+        controller: class SenttingTabCtrl {
+
+            constructor ($scope, store)
+            {
+                this.$scope = $scope
+                this.store = store
+                this.$inject = ['$scope', 'store']
+                this.state = {}
+                this.hasPropert = false
+            }
+
+            $onInit ()
+            {
+                this.$scope.$listenTo(this.store, ['modules', 'inspectedIndex'], () => {
+                    this._normalizeState( this.store.inspectedModule )
+                })
+            }
+
+            _normalizeState (state) 
+            {
+                if ( state ) {
+                    this.state = omitBy({
+                        values: state.values,
+                        constants: state.constants,
+                        info: state.info
+                    }, v => !Object.keys(v).length )
+
+                    this.hasPropert = !!Object.keys(this.state).length
+                }
+            }
+
+        }
+    }
+</script>
+
+<style lang="stylus" scoped>
+
+    .settings-tab
+        height 100%
+
+</style>

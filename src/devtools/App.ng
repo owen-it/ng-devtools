@@ -39,7 +39,7 @@
 <script>
     import component from './components/Component.ng'
     import modulesTab from './views/modules/ModulesTab.ng'
-    import eventsTab from './views/events/eventsTab.ng'
+    import eventsTab from './views/events/EventsTab.ng'
     
     export default {
         name: 'app',

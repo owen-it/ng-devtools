@@ -13,8 +13,8 @@
                     </a>
                     -->
 
-                    <a class="button active"
-                        ng-class="{ active_: $ctrl.tab === 'settings' }"
+                    <a class="button"
+                        ng-class="{ active: $ctrl.tab === 'settings' }"
                         ng-click="$ctrl.switchTab('settings')"
                         title="Switch to Settings">
                         <i class="material-icons">settings</i>
@@ -45,12 +45,17 @@
                 </action-header>
             </div>
             <div class="content" slot="content">
+
+                <component class="content" is="$ctrl.tab"></component>
+
+                <!--
                 <section ng-if="!$ctrl.hasPropert" class="notice">
                     <div>This module has no value, info and constants defined.</div>
                 </section>
                 <section ng-if="$ctrl.hasPropert" class="data">
                     <state-inspector state="$ctrl.state"></state-inspector>
                 </section>
+                -->
             </div>
         </scroll-pane>
     </div>
@@ -59,19 +64,28 @@
 <script>
     import { omitBy } from 'lodash'
 
+    import component from 'components/Component.ng'
     import scrollPane from 'components/ScrollPane.ng'
     import actionHeader from 'components/ActionHeader.ng'
-    import stateInspector from 'components/StateInspector.ng'
+
+    import settings from './settings/SettingsTab.ng'
+    import requires from './requires/RequiresTab.ng'
 
     const isChrome = typeof chrome !== 'undefined' && chrome.devtools
 
     export default {
-        components: { scrollPane, actionHeader, stateInspector },
-        bindings: { target: '=' },
+        components: { 
+            component, 
+            scrollPane, 
+            actionHeader, 
+            settings,
+            requires 
+        },
         controller: class ModuleInspectorCtrl {
 
             constructor ($scope) 
             {
+                this.tab = 'settings'
                 this.state = {}
                 this.$scope = $scope
                 this.$inject = ['$scope']
@@ -80,25 +94,23 @@
 
             $onInit () 
             {
-                this.$scope.$watch('$ctrl.target',  (target) => {
-                    // omit properts
-                    if ( target ) {
-                        this.state = omitBy({
-                            values: target.values,
-                            constants: target.constants,
-                            info: target.info
-                        }, v => !Object.keys(v).length )
+                // this.$scope.$watch('$ctrl.target',  (target) => {
+                //     // omit properts
+                //     if ( target ) {
+                //         this.state = omitBy({
+                //             values: target.values,
+                //             constants: target.constants,
+                //             info: target.info
+                //         }, v => !Object.keys(v).length )
 
-                        this.hasPropert = !!Object.keys(this.state).length
-                    }
-                })
+                //         this.hasPropert = !!Object.keys(this.state).length
+                //     }
+                // })
             }
 
-            inspectConsole () 
+            switchTab (tab)
             {
-                if (!this.target) return 
-
-                bridge.send('console', this.target)
+                this.tab = tab
             }
 
         }
@@ -113,8 +125,9 @@
         height 100%
         width 100%
 
-    .content
-        height 100%
+    .content 
+        flex 1
+        overflow hidden
 
     .no-event-data
         color #ccc

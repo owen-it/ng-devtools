@@ -2,38 +2,17 @@
     <div class="modules-tab">
         <split-pane>
             <module-instance slot="left"></module-instance>
-            <module-inspector slot="right" target="$ctrl.inspectedInstance"></module-inspector>
+            <module-inspector slot="right"></module-inspector>
         </split-pane>
     </div>
 </template>
 
 <script>
     import splitPane from 'components/SplitPane.ng'
-    import inspectField from 'components/InspectField.ng'
-    import moduleInstance from './ModuleInstance.ng'
     import moduleInspector from './ModuleInspector.ng'
 
     export default {
-        components: { splitPane, inspectField, moduleInstance, moduleInspector },
-        controller: class ModulePaneCtrl {
-
-            constructor ($scope, store)
-            {
-                this.$scope = $scope
-                this.store = store
-                this.$inject = ['$scope', 'store']
-            }
-
-            $onInit ()
-            {
-                this.inspectedInstance = {}
-
-                this.$scope.$listenTo(this.store, ['modules', 'inspectedIndex'], () => {
-                    this.inspectedInstance = this.store.inspectedModule
-                })
-            }
-
-        }
+        components: { splitPane, moduleInspector }
     }
 </script>
 

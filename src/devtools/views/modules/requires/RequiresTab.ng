@@ -1,0 +1,18 @@
+<template>  
+    <div class="requires-tab">
+        Requires
+    </div>
+</template>
+
+<script>
+    export default {
+        bindings: { requires: '=' }
+    }
+</script>
+
+<style lang="stylus" scoped>
+
+    .requires-tab
+        height 100%
+
+</style>
