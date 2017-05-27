@@ -1,7 +1,9 @@
 # ng-devtools
 This plugin was inspired by [vue-devtools](https://github.com/vuejs/vue-devtools).
 
-
+<p align="center">
+    <img src="https://raw.githubusercontent.com/owen-it/ng-devtools/master/media/ng-devtools.png"/>
+</p>
 
 ### Installation
 
