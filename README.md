@@ -5,6 +5,10 @@ This plugin was inspired by [vue-devtools](https://github.com/vuejs/vue-devtools
     <img src="https://raw.githubusercontent.com/owen-it/ng-devtools/master/media/ng-devtools.png"/>
 </p>
 
+<p align="center">
+    <img src="https://raw.githubusercontent.com/owen-it/ng-devtools/master/media/ng-devtools-events.png"/>
+</p>
+
 ### Installation
 
 Available soon for chrome.
