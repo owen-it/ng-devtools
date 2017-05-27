@@ -1,12 +1,31 @@
 <template>  
     <div class="requires-tab">
-        Requires
+        <requires-list requires="$ctrl.requires"></requires-list>
     </div>
 </template>
 
 <script>
+    import requiresList from './RequiresList.ng'
+
     export default {
-        bindings: { requires: '=' }
+        components: { requiresList },
+        controller: class RequiresTabCtrl {
+            constructor ($scope, store) 
+            {
+                this.requires = []
+                this.store = store
+                this.$scope = $scope
+                this.$inject = ['$scope', 'store']
+            }
+
+            $onInit () 
+            {
+                this.$scope.$listenTo(this.store, ['modules', 'inspectedIndex'], () => {
+                    this.requires = this.store.inspectedModule.requires
+                    console.log(this.requires)
+                })
+            }
+        }
     }
 </script>
 

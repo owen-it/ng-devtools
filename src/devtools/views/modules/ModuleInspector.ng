@@ -4,20 +4,13 @@
             <div slot="header">
                 <action-header>
                     <span class="title">
-                        {{ $ctrl.target.name || 'Anonymous' }}
+                        {{ $ctrl.module.name || 'Anonymous' }}
                     </span>
-                    <!--
-                    <a class="button inspect" ng-click="$ctrl.inspectConsole()" title="Inspect in console">
-                        <i class="material-icons">web_asset</i> 
-                        <span>Inspect in console</span>
-                    </a>
-                    -->
-
                     <a class="button"
                         ng-class="{ active: $ctrl.tab === 'settings' }"
                         ng-click="$ctrl.switchTab('settings')"
                         title="Switch to Settings">
-                        <i class="material-icons">settings</i>
+                        <i class="material-icons">tune</i>
                         <span class="button-name">Settings</span>
                     </a>
                     <a class="button"
@@ -45,17 +38,7 @@
                 </action-header>
             </div>
             <div class="content" slot="content">
-
                 <component class="content" is="$ctrl.tab"></component>
-
-                <!--
-                <section ng-if="!$ctrl.hasPropert" class="notice">
-                    <div>This module has no value, info and constants defined.</div>
-                </section>
-                <section ng-if="$ctrl.hasPropert" class="data">
-                    <state-inspector state="$ctrl.state"></state-inspector>
-                </section>
-                -->
             </div>
         </scroll-pane>
     </div>
@@ -83,29 +66,20 @@
         },
         controller: class ModuleInspectorCtrl {
 
-            constructor ($scope) 
+            constructor ($scope, store) 
             {
-                this.tab = 'settings'
-                this.state = {}
+                this.module = {}
+                this.store = store
                 this.$scope = $scope
-                this.$inject = ['$scope']
-                this.hasPropert = false
+                this.tab = 'settings'
+                this.$inject = ['$scope', 'store']
             }
 
             $onInit () 
             {
-                // this.$scope.$watch('$ctrl.target',  (target) => {
-                //     // omit properts
-                //     if ( target ) {
-                //         this.state = omitBy({
-                //             values: target.values,
-                //             constants: target.constants,
-                //             info: target.info
-                //         }, v => !Object.keys(v).length )
-
-                //         this.hasPropert = !!Object.keys(this.state).length
-                //     }
-                // })
+                this.$scope.$listenTo(this.store, ['modules', 'inspectedIndex'], () => {
+                    this.module = this.store.inspectedModule
+                })
             }
 
             switchTab (tab)

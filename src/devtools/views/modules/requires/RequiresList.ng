@@ -1,0 +1,72 @@
+<template>
+    <div class="requires-list">
+        <scroll-pane>
+            <div class="requires" slot="content">
+                <div ng-if="$ctrl.requires.length === 0" class="no-requires">
+                    No requries found
+                </div>
+                <div 
+                    ng-if="$ctrl.requires.length > 0" class="entry"
+                    ng-repeat="require in $ctrl.requires track by $index">
+                    <span class="require-name">
+                        <i class="material-icons">power</i>  {{ ::require }}
+                    </span>
+                </div>
+            </div>            
+        </scroll-pane>
+    </div>
+</template>
+
+<script>
+    import scrollPane from 'components/ScrollPane.ng'
+
+    export default {
+        components: { scrollPane },
+        bindings: { requires: '=' },
+        controller: class RequriesListCtrl {}
+    }
+</script>
+
+<style lang="stylus" scoped>
+    @import '~@/common'
+
+    .requires-list
+        display flex
+        flex-direction column
+        height 100%
+        width 100%
+
+    .require-name 
+        display flex
+        align-items center
+        color $component-color
+        transition color .1s ease
+        .material-icons
+            font-size 12px
+            margin-right 5px
+
+    .no-requires
+        color #ccc
+        text-align center
+        margin-top 105px
+        line-height 20px
+
+    .requires
+        height 100%
+
+    .entry 
+        position relative
+        font-family Menlo, Consolas, monospace
+        color #881391
+        font-size 12px
+        padding 10px 25px 10px 15px
+        background-color $background-color
+        border-bottom 1px solid #f1f1f1
+        &.active
+            color #fff
+            background-color $active-color
+            .time, .module-type, .target-name
+                color lighten($active-color, 75%)
+        .app-dark &
+            background-color $dark-background-color
+</style>

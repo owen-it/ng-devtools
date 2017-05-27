@@ -1,6 +1,11 @@
 <template>  
     <div class="settings-tab">
-        <state-inspector state="$ctrl.state"></state-inspector>
+        <section ng-if="!$ctrl.hasPropert" class="notice">
+            <div>This module has no value, info and constants defined.</div>
+        </section>
+        <section ng-if="$ctrl.hasPropert" class="data">
+            <state-inspector state="$ctrl.state"></state-inspector>
+        </section>
     </div>
 </template>
 
@@ -32,7 +37,6 @@
 
             _normalizeState (state) 
             {
-                console.log(state)
                 if ( state ) {
                     this.state = omitBy({
                         values: state.values,

@@ -7,11 +7,16 @@
         bindings: {
             is: '='
         },
-        controller: ['$scope', '$element', '$compile', function($scope, $element, $compile){
-            $scope.$watch('$ctrl.is', component => {
-                $element.html(`<${component}></${component}>`)
-                $compile($element.contents())($scope)
-            })
-        }]
+        controller: class ComponentCtrl {
+            constructor ($scope, $element, $compile) 
+            {
+                this.$inject = ['$scope', '$element', '$compile']
+
+                $scope.$watch('$ctrl.is', component => {
+                    $element.html(`<${component}></${component}>`)
+                    $compile($element.contents())($scope)
+                })
+            }
+        }
     }
 </script>
