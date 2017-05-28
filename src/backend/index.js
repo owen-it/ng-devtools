@@ -218,8 +218,11 @@ function capture (instance, _, list)
         values: getInjected(instance, 'value'),
         constants: getInjected(instance, 'constant'),
         info: instance.info(),
-        requires: instance.requires
+        requires: instance.requires,
+        components: getInjected(instance, 'directive')
     }
+
+    console.log( 'inspect => ', instance, ret )
 
     return ret
 }

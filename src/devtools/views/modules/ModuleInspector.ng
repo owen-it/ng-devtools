@@ -21,14 +21,6 @@
                         <span class="button-name">Requires</span>
                     </a>
                     <a class="button"
-                        ng:class="{ active: $ctrl.tab === 'scopes' }"
-                        ng:click="$ctrl.switchTab('scopes')"
-                        title="Switch to Scopes">
-                        <i class="material-icons">device_hub</i>
-                        <span class="button-name">Scopes</span>
-                    </a>
-                    
-                    <a class="button"
                         ng:class="{ active: $ctrl.tab === 'components' }"
                         ng:click="$ctrl.switchTab('components')"
                         title="Switch to Components">
