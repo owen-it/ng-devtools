@@ -1,5 +1,5 @@
 # ng-devtools
-This plugin was inspired by [vue-devtools](https://github.com/vuejs/vue-devtools).
+This [extension](https://developer.chrome.com/extensions) was inspired by [vue-devtools](https://github.com/vuejs/vue-devtools).
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/owen-it/ng-devtools/master/media/ng-devtools.png"/>
@@ -15,4 +15,4 @@ Available soon for chrome.
 
 ### License
 
-MIT
+[MIT](LICENSE.md)
