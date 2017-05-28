@@ -86,4 +86,16 @@
 
     .scroll-wide::-webkit-scrollbar
         width 18px
+
+    .scroll::-webkit-scrollbar-corner 
+        background-color transparent;
+    
+
+    .scroll::-webkit-scrollbar-thumb:hover
+        background-color rgba(0,0,0,0.4);
+        -webkit-box-shadow inset 1px 1px 1px rgba(0,0,0,0.25);
+
+    .scroll::-webkit-scrollbar-thumb
+        background-color rgba(0,0,0,0.2);
+        -webkit-box-shadow inset 1px 1px 0 rgba(0,0,0,0.10), inset 0 -1px 0 rgba(0,0,0,0.07);
 </style>

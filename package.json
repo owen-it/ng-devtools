@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "cd shells/dev && webpack-dev-server --inline --hot --no-info",
     "dev:chrome": "cd shells/chrome && webpack --watch --hide-modules",
+    "build": "cd shells/chrome && cross-env NODE_ENV=production webpack --progress --hide-modules",
     "test": "echo \"Error: no test specified\" && exit 1",
     "zip": "rm -f chrome.zip && cd shells && zip.exe -r ../chrome.zip chrome -x *src/* -x *webpack.config.js",
     "release": "rpm run test && npm run build && npm run zip"
