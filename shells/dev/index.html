@@ -14,6 +14,7 @@
         display: flex;
         height: 400px;
         overflow: hidden;
+        position: relative;
       }
       body {
         display: flex;
@@ -26,11 +27,33 @@
         margin: 0;
         padding: 0;
       }
+
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], 
+      .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+        display: flex !important;
+      } 
+
+      [ng\:cloak]::before, 
+      [ng-cloak]::before, 
+      [data-ng-cloak]::before {
+        content: "Loading...";
+        position: absolute;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        color: #c7c7c7;
+        background: #fff;
+        align-content: center;
+        height: 100%;
+        align-items: center;
+        width: 100%;
+        display: flex;
+      }
     </style>
   </head>
   <body>
     <iframe id="target" name="target" src="target.html"></iframe>
-    <div id="container">
+    <div id="container" ng-cloak>
         <app></app>
     </div>
     <script src="build/devtools.js"></script>
