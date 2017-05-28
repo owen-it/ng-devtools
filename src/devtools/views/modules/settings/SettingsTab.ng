@@ -1,9 +1,9 @@
 <template>  
     <div class="settings-tab">
-        <section ng-if="!$ctrl.hasPropert" class="notice">
+        <section ng:if="!$ctrl.hasPropert" class="notice">
             <div>This module has no value, info and constants defined.</div>
         </section>
-        <section ng-if="$ctrl.hasPropert" class="data">
+        <section ng:if="$ctrl.hasPropert" class="data">
             <state-inspector state="$ctrl.state"></state-inspector>
         </section>
     </div>

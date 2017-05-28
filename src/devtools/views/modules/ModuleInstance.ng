@@ -5,18 +5,18 @@
                 <action-header>
                     <div class="search">
                         <i class="search-icon material-icons">search</i>
-                        <input placeholder="Filter modules" ng-model="$ctrl.filter" type="text">
+                        <input placeholder="Filter modules" ng:model="$ctrl.filter" type="text">
                     </div>
                 </action-header>
             </div>
             <div class="instances" slot="content">
-                <div ng-if="$ctrl.filteredModules.length === 0" class="no-modules">
+                <div ng:if="$ctrl.filteredModules.length === 0" class="no-modules">
                     No modules found
                 </div>
-                <div ng-if="$ctrl.filteredModules.length > 0" class="entry"
-                        ng-repeat="module in $ctrl.filteredModules track by module.name"
-                        ng-class="{ active: $ctrl.inspectedIndex === $ctrl.modules.indexOf(module) }"
-                        ng-click="$ctrl.inspect(module)">
+                <div ng:if="$ctrl.filteredModules.length > 0" class="entry"
+                        ng:repeat="module in $ctrl.filteredModules track by module.name"
+                        ng:class="{ active: $ctrl.inspectedIndex === $ctrl.modules.indexOf(module) }"
+                        ng:click="$ctrl.inspect(module)">
                     
                     <span class="module-name">{{ ::module.name }}</span>
                 </div>

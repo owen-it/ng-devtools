@@ -2,12 +2,12 @@
     <div class="event-inspect-pane">
         <scroll-pane>
             <div slot="content">
-                <div ng-if="$ctrl.activeEvent">
+                <div ng:if="$ctrl.activeEvent">
                     <state-inspector
                         state="{ 'event info': $ctrl.sortedEventData() }">
                     </state-inspector>
                 </div>
-                <div ng-if="!$ctrl.activeEvent" class="no-event-data">
+                <div ng:if="!$ctrl.activeEvent" class="no-event-data">
                     No event selected
                 </div>
             </div>

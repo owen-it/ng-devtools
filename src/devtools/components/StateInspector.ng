@@ -1,19 +1,19 @@
 <template>
     <div class="state-inspect-pane">
         <div class="data-wrapper ">
-            <div ng-repeat="type in $ctrl.getKeys($ctrl.state) track by $index" 
-                ng-class="['data-el', $ctrl.toDisplayType(type, true)]">
+            <div ng:repeat="type in $ctrl.getKeys($ctrl.state) track by $index" 
+                ng:class="['data-el', $ctrl.toDisplayType(type, true)]">
                 <div class="data-type">{{ $ctrl.toDisplayType(type) }}</div>
                 <div class="data-fields">
                     <inspect-field
-                        ng-if="!Array.isArray($ctrl.state[type])"
-                        ng-repeat="(key, value) in $ctrl.state[type] track by $index"
+                        ng:if="!Array.isArray($ctrl.state[type])"
+                        ng:repeat="(key, value) in $ctrl.state[type] track by $index"
                         field="{ key, value }"
                         depth="0">
                     </inspect-field>
                     <inspect-field
-                        ng-if="Array.isArray($ctrl.state[type])"
-                        ng-repeat="field in $ctrl.state[type] track by $index"
+                        ng:if="Array.isArray($ctrl.state[type])"
+                        ng:repeat="field in $ctrl.state[type] track by $index"
                         field="field"
                         depth="0">
                     </inspect-field>

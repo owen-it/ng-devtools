@@ -1,5 +1,5 @@
 <template>
-    <div class="action-header" ng-transclude></div>
+    <div class="action-header" ng:transclude></div>
 </template>
 
 <script>

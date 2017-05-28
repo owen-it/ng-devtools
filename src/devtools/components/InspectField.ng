@@ -1,25 +1,25 @@
 <template>
     <div class="data-field">
         <div class="self" 
-             ng-click="$ctrl.toggle()">
+             ng:click="$ctrl.toggle()">
              <span class="arrow right"
-                   ng-class="{ rotated: $ctrl.expanded }"
-                   ng-show="$ctrl.isExpandableType()">
+                   ng:class="{ rotated: $ctrl.expanded }"
+                   ng:show="$ctrl.isExpandableType()">
             </span>
             <span class="key">{{ $ctrl.field.key }}</span>
-            <span class="colon">:<div class="meta" ng-if="$ctrl.field.meta">
-                <div class="meta-field" ng-repeat="(val, key) in $ctrl.field.meta">
+            <span class="colon">:<div class="meta" ng:if="$ctrl.field.meta">
+                <div class="meta-field" ng:repeat="(val, key) in $ctrl.field.meta">
                     <span class="key">{{ key }}</span>
                     <span class="value">{{ val }}</span>
                 </div>
             </div></span>
-            <span class="value" ng-class="[$ctrl.valueType()]">{{ $ctrl.formattedValue() }}</span>
+            <span class="value" ng:class="[$ctrl.valueType()]">{{ $ctrl.formattedValue() }}</span>
         </div>
-        <div class="children" ng-if="$ctrl.expanded && $ctrl.isExpandableType()">
+        <div class="children" ng:if="$ctrl.expanded && $ctrl.isExpandableType()">
             
             <span 
-                class="more" ng-click="$ctrl.expand(10)" title="Expand"
-                ng-if="$ctrl.formattedSubFields.length > $ctrl.limit">
+                class="more" ng:click="$ctrl.expand(10)" title="Expand"
+                ng:if="$ctrl.formattedSubFields.length > $ctrl.limit">
                 ...
                 <!-- 
                     This span should stay here for now, 
@@ -28,7 +28,7 @@
                 -->
             </span>
             <inspect-field
-                ng-repeat="subField in $ctrl.limitedSubFields track by subField.key"
+                ng:repeat="subField in $ctrl.limitedSubFields track by subField.key"
                 field="subField"
                 depth="$ctrl.depth + 1">
             <inspect-field>

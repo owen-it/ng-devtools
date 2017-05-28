@@ -2,12 +2,12 @@
     <div class="requires-list">
         <scroll-pane>
             <div class="requires" slot="content">
-                <div ng-if="$ctrl.requires.length === 0" class="no-requires">
+                <div ng:if="$ctrl.requires.length === 0" class="no-requires">
                     No requries found
                 </div>
                 <div 
-                    ng-if="$ctrl.requires.length > 0" class="entry"
-                    ng-repeat="require in $ctrl.requires track by $index">
+                    ng:if="$ctrl.requires.length > 0" class="entry"
+                    ng:repeat="require in $ctrl.requires track by $index">
                     <span class="require-name">
                         <i class="material-icons">power</i>  {{ ::require }}
                     </span>

@@ -8,24 +8,24 @@
                 <span class="message">{{ $ctrl.message }}</span>
             </span>
             <a class="button modules"
-               ng-class="{ active: $ctrl.tab === 'modules' }"
-               ng-click="$ctrl.switchTab('modules')"
+               ng:class="{ active: $ctrl.tab === 'modules' }"
+               ng:click="$ctrl.switchTab('modules')"
                title="Switch to Modules">
                <i class="material-icons">extension</i>
                <span class="button-name">Modules</span>
             </a>
             <a class="button events"
-               ng-class="{ active: $ctrl.tab === 'events' }"
-               ng-click="$ctrl.switchTab('events')"
+               ng:class="{ active: $ctrl.tab === 'events' }"
+               ng:click="$ctrl.switchTab('events')"
                title="Switch to Events">
                <i class="material-icons">grain</i>
                <span class="button-name">Events</span>
-               <span class="event-count" ng-if="$ctrl.newEventCount > 0">
+               <span class="event-count" ng:if="$ctrl.newEventCount > 0">
                     {{ $ctrl.newEventCount }}
                </span>
             </a>
             <a class="button refresh"
-               ng-click="$ctrl.refresh()"
+               ng:click="$ctrl.refresh()"
                title="Force refresh">
                <i class="material-icons" ref="refresh">refresh</i>
                <span class="button-name">Refresh</span>

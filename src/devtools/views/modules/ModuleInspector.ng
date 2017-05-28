@@ -7,30 +7,30 @@
                         {{ $ctrl.module.name || 'Anonymous' }}
                     </span>
                     <a class="button"
-                        ng-class="{ active: $ctrl.tab === 'settings' }"
-                        ng-click="$ctrl.switchTab('settings')"
+                        ng:class="{ active: $ctrl.tab === 'settings' }"
+                        ng:click="$ctrl.switchTab('settings')"
                         title="Switch to Settings">
                         <i class="material-icons">tune</i>
                         <span class="button-name">Settings</span>
                     </a>
                     <a class="button"
-                        ng-class="{ active: $ctrl.tab === 'requires' }"
-                        ng-click="$ctrl.switchTab('requires')"
+                        ng:class="{ active: $ctrl.tab === 'requires' }"
+                        ng:click="$ctrl.switchTab('requires')"
                         title="Switch to Requires">
                         <i class="material-icons">settings_input_svideo</i>
                         <span class="button-name">Requires</span>
                     </a>
                     <a class="button"
-                        ng-class="{ active: $ctrl.tab === 'scopes' }"
-                        ng-click="$ctrl.switchTab('scopes')"
+                        ng:class="{ active: $ctrl.tab === 'scopes' }"
+                        ng:click="$ctrl.switchTab('scopes')"
                         title="Switch to Scopes">
                         <i class="material-icons">device_hub</i>
                         <span class="button-name">Scopes</span>
                     </a>
                     
                     <a class="button"
-                        ng-class="{ active: $ctrl.tab === 'components' }"
-                        ng-click="$ctrl.switchTab('components')"
+                        ng:class="{ active: $ctrl.tab === 'components' }"
+                        ng:click="$ctrl.switchTab('components')"
                         title="Switch to Components">
                         <i class="material-icons">layers</i>
                         <span class="button-name">Components</span>

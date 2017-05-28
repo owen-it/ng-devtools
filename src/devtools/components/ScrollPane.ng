@@ -1,10 +1,10 @@
 <template>
     <div class="scroll-pane">
         <div class="header">
-            <ng-transclude name="header"></ng-transclude>
+            <div ng:transclude name="header"></div>
         </div>
         <div class="scroll" ref="scrollContainer">
-            <ng-transclude name="content"></ng-transclude>
+            <div ng:transclude name="content"></div>
         </div>
     </div>
 </template>
