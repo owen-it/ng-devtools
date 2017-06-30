@@ -262,3 +262,55 @@ function mark (instance)
         })
     }
 }
+
+  /**
+   * Counts all the direct and indirect child scopes of the current scope.
+   *
+   * The current scope is excluded from the count. The count includes all isolate child scopes.
+   *
+   * @returns {number} Total number of child scopes.
+   */
+  function countChildScopes() {
+    var count = 0; // exclude the current scope
+    var pendingChildHeads = [this.$$childHead];
+    var currentScope;
+
+    while (pendingChildHeads.length) {
+      currentScope = pendingChildHeads.shift();
+
+      while (currentScope) {
+        count += 1;
+        pendingChildHeads.push(currentScope.$$childHead);
+        currentScope = currentScope.$$nextSibling;
+      }
+    }
+
+    return count;
+  }
+
+
+  /**
+   * Counts all the watchers of direct and indirect child scopes of the current scope.
+   *
+   * The watchers of the current scope are included in the count and so are all the watchers of
+   * isolate child scopes.
+   *
+   * @returns {number} Total number of watchers.
+   */
+  function countWatchers() {
+    var count = this.$$watchers ? this.$$watchers.length : 0; // include the current scope
+    var pendingChildHeads = [this.$$childHead];
+    var currentScope;
+
+    while (pendingChildHeads.length) {
+      currentScope = pendingChildHeads.shift();
+
+      while (currentScope) {
+        count += currentScope.$$watchers ? currentScope.$$watchers.length : 0;
+        pendingChildHeads.push(currentScope.$$childHead);
+        currentScope = currentScope.$$nextSibling;
+      }
+    }
+
+    return count;
+  }
