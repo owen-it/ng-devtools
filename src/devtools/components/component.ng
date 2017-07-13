@@ -3,20 +3,30 @@
 </template>
 
 <script>
-    export default {
-        bindings: {
-            is: '='
-        },
-        controller: class ComponentCtrl {
-            constructor ($scope, $element, $compile) 
-            {
-                this.$inject = ['$scope', '$element', '$compile']
+  import {kebabCase} from 'lodash';
 
-                $scope.$watch('$ctrl.is', component => {
-                    $element.html(`<${component}></${component}>`)
-                    $compile($element.contents())($scope)
-                })
-            }
-        }
-    }
+  export default {
+    bindings: {type: '<'},
+    controller: class ComponentCtrl {
+
+      constructor($scope, $element, $compile, $attrs) {
+        this.$inject = ['$scope', '$element', '$compile', '$attrs'];
+        $scope.$watch('$ctrl.type', component => {
+          component = kebabCase(component);
+          $element.html(`<${component} ${this.normalizeAttrs($attrs)}></${component}>`);
+          $compile($element.contents())($scope.$parent);
+        });
+      }
+
+      normalizeAttrs(attrs) {
+        let attributes = [];
+        Object.keys(attrs).forEach(name => {
+          if (name.charAt(0) !== '$') {
+            attributes.push(`${name}='${attrs[name]}'`);
+          }
+        });
+        return attributes.join(' ');
+      }
+    },
+  };
 </script>
