@@ -11,7 +11,7 @@ This [extension](https://developer.chrome.com/extensions) was inspired by [vue-d
 
 ### Installation
 
-Available soon for chrome.
+Available soon for chrome
 
 ### License
 
